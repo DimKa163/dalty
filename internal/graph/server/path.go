@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+
 	"github.com/DimKa163/dalty/internal/graph/core"
 	"github.com/DimKa163/dalty/internal/graph/proto"
 	"github.com/DimKa163/dalty/internal/graph/usecase"
@@ -64,14 +65,56 @@ func mapNodeToProto(node *core.PathNode) *proto.Node {
 
 func mapTypeToProto(n *core.PathNode) proto.NodeType {
 	switch n.Type {
-	case core.WarehouseMAIN:
-		return proto.NodeType_MAIN
-	case core.WarehouseCENTER:
-		return proto.NodeType_CENTRAL
-	case core.WarehouseFREE:
+	case core.NodeFree:
 		return proto.NodeType_FREE
-	case core.WarehouseMALL:
+	case core.NodeMain:
+		return proto.NodeType_MAIN
+	case core.NodeCenter:
+		return proto.NodeType_CENTRAL
+	case core.NodeMall:
 		return proto.NodeType_MALL
+	case core.NodeTransit:
+		return proto.NodeType_TRANSIT
+	case core.NodeReservation:
+		return proto.NodeType_RESERVATION
+	case core.NodeLoses:
+		return proto.NodeType_LOSES
+	case core.NodeMarketing:
+		return proto.NodeType_MARKETING
+	case core.NodeExposition:
+		return proto.NodeType_EXPOSITION
+	case core.NodePartner:
+		return proto.NodeType_PARTNER
+	case core.NodePartner2:
+		return proto.NodeType_PARTNER2
+	case core.NodeFree2:
+		return proto.NodeType_FREE2
+	case core.NodeProblem:
+		return proto.NodeType_PROBLEM
+	case core.NodeRefund:
+		return proto.NodeType_REFUND
+	case core.NodeProduction:
+		return proto.NodeType_PRODUCTION
+	case core.NodeRecycling:
+		return proto.NodeType_RECYCLING
+	case core.NodeService:
+		return proto.NodeType_SERVICE
+	case core.NodeMaterial:
+		return proto.NodeType_MATERIAL
+	case core.NodeMarkdown:
+		return proto.NodeType_MARKDOWN
+	case core.NodeBuffer:
+		return proto.NodeType_BUFFER
+	case core.NodeDiscount:
+		return proto.NodeType_DISCOUNT
+	case core.NodeCentralMainIntermediate:
+		return proto.NodeType_CENTRAL_MAIN_INTERMEDIATE
+	case core.NodeMainCentralIntermediate:
+		return proto.NodeType_MAIN_CENTRAL_INTERMEDIATE
+	case core.NodeCentralFreeIntermediate:
+		return proto.NodeType_CENTRAL_FREE_INTERMEDIATE
+	case core.NodeFreeCentralIntermediate:
+		return proto.NodeType_FREE_CENTRAL_INTERMEDIATE
 	default:
 		return proto.NodeType_UNRECOGNIZED
 	}

@@ -7,11 +7,12 @@
 package proto
 
 import (
+	reflect "reflect"
+	unsafe "unsafe"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	_ "google.golang.org/protobuf/types/gofeaturespb"
-	reflect "reflect"
-	unsafe "unsafe"
 )
 
 const (
@@ -24,28 +25,91 @@ const (
 type NodeType int32
 
 const (
-	NodeType_UNRECOGNIZED NodeType = 0
-	NodeType_FREE         NodeType = 1
-	NodeType_MAIN         NodeType = 2
-	NodeType_CENTRAL      NodeType = 3
-	NodeType_MALL         NodeType = 4
+	NodeType_UNRECOGNIZED              NodeType = 0
+	NodeType_FREE                      NodeType = 1
+	NodeType_MAIN                      NodeType = 2
+	NodeType_CENTRAL                   NodeType = 3
+	NodeType_MALL                      NodeType = 4
+	NodeType_TRANSIT                   NodeType = 5
+	NodeType_RESERVATION               NodeType = 6
+	NodeType_LOSES                     NodeType = 7
+	NodeType_MARKETING                 NodeType = 8
+	NodeType_EXPOSITION                NodeType = 9
+	NodeType_PARTNER                   NodeType = 10
+	NodeType_PARTNER2                  NodeType = 11
+	NodeType_FREE2                     NodeType = 12
+	NodeType_PROBLEM                   NodeType = 13
+	NodeType_REFUND                    NodeType = 14
+	NodeType_PRODUCTION                NodeType = 15
+	NodeType_RECYCLING                 NodeType = 16
+	NodeType_SERVICE                   NodeType = 17
+	NodeType_MATERIAL                  NodeType = 18
+	NodeType_MARKDOWN                  NodeType = 19
+	NodeType_BUFFER                    NodeType = 20
+	NodeType_DISCOUNT                  NodeType = 21
+	NodeType_CENTRAL_MAIN_INTERMEDIATE NodeType = 22
+	NodeType_MAIN_CENTRAL_INTERMEDIATE NodeType = 23
+	NodeType_CENTRAL_FREE_INTERMEDIATE NodeType = 24
+	NodeType_FREE_CENTRAL_INTERMEDIATE NodeType = 25
 )
 
 // Enum value maps for NodeType.
 var (
 	NodeType_name = map[int32]string{
-		0: "UNRECOGNIZED",
-		1: "FREE",
-		2: "MAIN",
-		3: "CENTRAL",
-		4: "MALL",
+		0:  "UNRECOGNIZED",
+		1:  "FREE",
+		2:  "MAIN",
+		3:  "CENTRAL",
+		4:  "MALL",
+		5:  "TRANSIT",
+		6:  "RESERVATION",
+		7:  "LOSES",
+		8:  "MARKETING",
+		9:  "EXPOSITION",
+		10: "PARTNER",
+		11: "PARTNER2",
+		12: "FREE2",
+		13: "PROBLEM",
+		14: "REFUND",
+		15: "PRODUCTION",
+		16: "RECYCLING",
+		17: "SERVICE",
+		18: "MATERIAL",
+		19: "MARKDOWN",
+		20: "BUFFER",
+		21: "DISCOUNT",
+		22: "CENTRAL_MAIN_INTERMEDIATE",
+		23: "MAIN_CENTRAL_INTERMEDIATE",
+		24: "CENTRAL_FREE_INTERMEDIATE",
+		25: "FREE_CENTRAL_INTERMEDIATE",
 	}
 	NodeType_value = map[string]int32{
-		"UNRECOGNIZED": 0,
-		"FREE":         1,
-		"MAIN":         2,
-		"CENTRAL":      3,
-		"MALL":         4,
+		"UNRECOGNIZED":              0,
+		"FREE":                      1,
+		"MAIN":                      2,
+		"CENTRAL":                   3,
+		"MALL":                      4,
+		"TRANSIT":                   5,
+		"RESERVATION":               6,
+		"LOSES":                     7,
+		"MARKETING":                 8,
+		"EXPOSITION":                9,
+		"PARTNER":                   10,
+		"PARTNER2":                  11,
+		"FREE2":                     12,
+		"PROBLEM":                   13,
+		"REFUND":                    14,
+		"PRODUCTION":                15,
+		"RECYCLING":                 16,
+		"SERVICE":                   17,
+		"MATERIAL":                  18,
+		"MARKDOWN":                  19,
+		"BUFFER":                    20,
+		"DISCOUNT":                  21,
+		"CENTRAL_MAIN_INTERMEDIATE": 22,
+		"MAIN_CENTRAL_INTERMEDIATE": 23,
+		"CENTRAL_FREE_INTERMEDIATE": 24,
+		"FREE_CENTRAL_INTERMEDIATE": 25,
 	}
 )
 
@@ -930,13 +994,39 @@ const file_api_graph_proto_rawDesc = "" +
 	"\x04path\x18\x03 \x01(\v2\v.graph.PathR\x04path\"h\n" +
 	"\x12DeliveryPathResult\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x128\n" +
-	"\rdelivery_path\x18\x02 \x01(\v2\x13.graph.DeliveryPathR\fdeliveryPath*G\n" +
+	"\rdelivery_path\x18\x02 \x01(\v2\x13.graph.DeliveryPathR\fdeliveryPath*\xac\x03\n" +
 	"\bNodeType\x12\x10\n" +
 	"\fUNRECOGNIZED\x10\x00\x12\b\n" +
 	"\x04FREE\x10\x01\x12\b\n" +
 	"\x04MAIN\x10\x02\x12\v\n" +
 	"\aCENTRAL\x10\x03\x12\b\n" +
-	"\x04MALL\x10\x042{\n" +
+	"\x04MALL\x10\x04\x12\v\n" +
+	"\aTRANSIT\x10\x05\x12\x0f\n" +
+	"\vRESERVATION\x10\x06\x12\t\n" +
+	"\x05LOSES\x10\a\x12\r\n" +
+	"\tMARKETING\x10\b\x12\x0e\n" +
+	"\n" +
+	"EXPOSITION\x10\t\x12\v\n" +
+	"\aPARTNER\x10\n" +
+	"\x12\f\n" +
+	"\bPARTNER2\x10\v\x12\t\n" +
+	"\x05FREE2\x10\f\x12\v\n" +
+	"\aPROBLEM\x10\r\x12\n" +
+	"\n" +
+	"\x06REFUND\x10\x0e\x12\x0e\n" +
+	"\n" +
+	"PRODUCTION\x10\x0f\x12\r\n" +
+	"\tRECYCLING\x10\x10\x12\v\n" +
+	"\aSERVICE\x10\x11\x12\f\n" +
+	"\bMATERIAL\x10\x12\x12\f\n" +
+	"\bMARKDOWN\x10\x13\x12\n" +
+	"\n" +
+	"\x06BUFFER\x10\x14\x12\f\n" +
+	"\bDISCOUNT\x10\x15\x12\x1d\n" +
+	"\x19CENTRAL_MAIN_INTERMEDIATE\x10\x16\x12\x1d\n" +
+	"\x19MAIN_CENTRAL_INTERMEDIATE\x10\x17\x12\x1d\n" +
+	"\x19CENTRAL_FREE_INTERMEDIATE\x10\x18\x12\x1d\n" +
+	"\x19FREE_CENTRAL_INTERMEDIATE\x10\x192{\n" +
 	"\vPathService\x12\"\n" +
 	"\x03Get\x12\x0e.graph.GetPath\x1a\v.graph.Path\x12H\n" +
 	"\x0fGetDeliveryPath\x12\x1a.graph.DeliveryPathRequest\x1a\x19.graph.DeliveryPathResultB\x10Z\x06/proto\x92\x03\x05\xd2>\x02\x10\x03b\beditionsp\xe8\a"

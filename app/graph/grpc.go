@@ -2,9 +2,10 @@ package graph
 
 import (
 	"context"
+	"net"
+
 	"github.com/DimKa163/dalty/internal/logging"
 	"google.golang.org/grpc"
-	"net"
 )
 
 type GRPCServer struct {

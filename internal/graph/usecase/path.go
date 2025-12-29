@@ -3,11 +3,12 @@ package usecase
 import (
 	"context"
 	"errors"
+	"time"
+
 	"github.com/DimKa163/dalty/internal/graph/core"
 	"github.com/DimKa163/dalty/internal/logging"
 	"github.com/beevik/guid"
 	"go.uber.org/zap"
-	"time"
 )
 
 type PathService struct {

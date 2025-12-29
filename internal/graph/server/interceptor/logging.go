@@ -2,11 +2,12 @@ package interceptor
 
 import (
 	"context"
+	"time"
+
 	"github.com/DimKa163/dalty/internal/logging"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
-	"time"
 )
 
 func UnaryServerLoggingInterceptor() grpc.UnaryServerInterceptor {

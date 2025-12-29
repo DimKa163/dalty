@@ -2,6 +2,11 @@ package graph
 
 import (
 	"context"
+	"net"
+	"os/signal"
+	"syscall"
+	"time"
+
 	"github.com/DimKa163/dalty/internal/graph/core"
 	"github.com/DimKa163/dalty/internal/graph/persistence"
 	"github.com/DimKa163/dalty/internal/graph/server"
@@ -12,10 +17,6 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"google.golang.org/grpc"
-	"net"
-	"os/signal"
-	"syscall"
-	"time"
 )
 
 type ServerImpl interface {

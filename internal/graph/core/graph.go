@@ -3,9 +3,10 @@ package core
 import (
 	"container/list"
 	"context"
+	"sync"
+
 	"github.com/DimKa163/dalty/internal/shared"
 	"github.com/beevik/guid"
-	"sync"
 )
 
 type Graph struct {
@@ -85,31 +86,124 @@ func (g *Graph) Path(destination *Node) *Path {
 type NodeType int
 
 const (
-	WarehouseUNRECOGNIZED NodeType = iota
-	WarehouseFREE
-	WarehouseMAIN
-	WarehouseCENTER
-	WarehouseMALL
+	NodeUnrecognized NodeType = iota
+	NodeFree
+	NodeMain
+	NodeCenter
+	NodeMall
+	NodeTransit
+	NodeReservation
+	NodeLoses
+	NodeMarketing
+	NodeExposition
+	NodePartner
+	NodePartner2
+	NodeFree2
+	NodeProblem
+	NodeRefund
+	NodeProduction
+	NodeRecycling
+	NodeService
+	NodeMaterial
+	NodeMarkdown
+	NodeBuffer
+	NodeDiscount
+	NodeCentralMainIntermediate
+	NodeMainCentralIntermediate
+	NodeCentralFreeIntermediate
+	NodeFreeCentralIntermediate
 )
 
 func (w NodeType) String() string {
-	return []string{"UNRECOGNIZED", "FREE", "MAIN", "CENTER", "MALL"}[w]
+	names := []string{
+		"UNRECOGNIZED",
+		"FREE",
+		"MAIN",
+		"CENTER",
+		"MALL",
+		"TRANSIT",
+		"RESERVATION",
+		"LOSES",
+		"MARKETING",
+		"EXPOSITION",
+		"PARTNER",
+		"PARTNER2",
+		"FREE2",
+		"PROBLEM",
+		"REFUND",
+		"PRODUCTION",
+		"RECYCLING",
+		"SERVICE",
+		"MATERIAL",
+		"MARKDOWN",
+		"BUFFER",
+		"DISCOUNT",
+		"CENTRAL_MAIN_INTERMEDIATE",
+		"MAIN_CENTRAL_INTERMEDIATE",
+		"CENTRAL_FREE_INTERMEDIATE",
+		"FREE_CENTRAL_INTERMEDIATE",
+	}
+
+	if int(w) < 0 || int(w) >= len(names) {
+		return "UNRECOGNIZED"
+	}
+	return names[w]
 }
 
 func MapWarehouseType(code string) NodeType {
 	switch code {
-	case shared.WarehouseCategoryFREE:
-
-		return WarehouseFREE
-	case shared.WarehouseCategoryMAIN:
-
-		return WarehouseMAIN
-	case shared.WarehouseCategoryCENTRAL:
-		return WarehouseCENTER
-	case shared.WarehouseCategoryMALL:
-		return WarehouseMALL
+	case shared.WarehouseCategoryFree:
+		return NodeFree
+	case shared.WarehouseCategoryMain:
+		return NodeMain
+	case shared.WarehouseCategoryCentral:
+		return NodeCenter
+	case shared.WarehouseCategoryMall:
+		return NodeMall
+	case shared.WarehouseCategoryTransit:
+		return NodeTransit
+	case shared.WarehouseCategoryReservation:
+		return NodeReservation
+	case shared.WarehouseCategoryLoses:
+		return NodeLoses
+	case shared.WarehouseCategoryMarketing:
+		return NodeMarketing
+	case shared.WarehouseCategoryExposition:
+		return NodeExposition
+	case shared.WarehouseCategoryPartner:
+		return NodePartner
+	case shared.WarehouseCategoryPartner2:
+		return NodePartner2
+	case shared.WarehouseCategoryFree2:
+		return NodeFree2
+	case shared.WarehouseCategoryProduction:
+		return NodeProduction
+	case shared.WarehouseCategoryRecycling:
+		return NodeRecycling
+	case shared.WarehouseCategoryService:
+		return NodeService
+	case shared.WarehouseCategoryProblem:
+		return NodeProblem
+	case shared.WarehouseCategoryRefund:
+		return NodeRefund
+	case shared.WarehouseCategoryMaterial:
+		return NodeMaterial
+	case shared.WarehouseCategoryMarkdown:
+		return NodeMarkdown
+	case shared.WarehouseCategoryBuffer:
+		return NodeBuffer
+	case shared.WarehouseCategoryDiscount:
+		return NodeDiscount
+	case shared.WarehouseCategoryCentralMainIntermediate:
+		return NodeCentralMainIntermediate
+	case shared.WarehouseCategoryMainCentraIntermediate:
+		return NodeMainCentralIntermediate
+	case shared.WarehouseCategoryCentraFreeIntermediate:
+		return NodeCentralFreeIntermediate
+	case shared.WarehouseCategoryFreeCentraIntermediate:
+		return NodeFreeCentralIntermediate
 	default:
-		return WarehouseUNRECOGNIZED
+		return NodeUnrecognized
 	}
 }
 

@@ -2,6 +2,7 @@ package core
 
 import (
 	"container/list"
+
 	"github.com/beevik/guid"
 )
 
