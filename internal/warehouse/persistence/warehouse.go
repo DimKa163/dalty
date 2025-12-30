@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/DimKa163/dalty/internal/db"
-	"github.com/DimKa163/dalty/internal/graph/core"
+	"github.com/DimKa163/dalty/internal/warehouse/core"
 )
 
 const (
