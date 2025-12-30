@@ -3,9 +3,9 @@ package server
 import (
 	"context"
 
-	"github.com/DimKa163/dalty/internal/graph/core"
-	"github.com/DimKa163/dalty/internal/graph/proto"
-	"github.com/DimKa163/dalty/internal/graph/usecase"
+	"github.com/DimKa163/dalty/internal/warehouse/core"
+	"github.com/DimKa163/dalty/internal/warehouse/proto"
+	"github.com/DimKa163/dalty/internal/warehouse/usecase"
 	"github.com/beevik/guid"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -41,7 +41,7 @@ func (ps *PathServer) Get(ctx context.Context, in *proto.GetPath) (*proto.Path, 
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	list := path.GetList()
-	nodes := make([]*proto.Node, len(list))
+	nodes := make([]*proto.Warehouse, len(list))
 	for i, node := range list {
 		nodes[i] = mapNodeToProto(node)
 	}
@@ -49,73 +49,80 @@ func (ps *PathServer) Get(ctx context.Context, in *proto.GetPath) (*proto.Path, 
 	return &protoPath, nil
 }
 
-func mapNodeToProto(node *core.PathNode) *proto.Node {
-	var nodeProto proto.Node
-	nodeProto.SetId(node.ID.String())
-	nodeProto.SetName(node.Name)
-	nodeProto.SetType(mapTypeToProto(node))
-	nodeProto.SetTimeZone(node.Code)
+func mapNodeToProto(node *core.PathNode) *proto.Warehouse {
+	var nodeProto proto.Warehouse
+	nodeProto.SetId(node.ID)
+	it := node.Value.(*core.Warehouse)
+	nodeProto.SetName(it.Name)
+	nodeProto.SetType(mapTypeToProto(it))
+	if it.Info != nil {
+		if it.Info.TimeZone != nil {
+			nodeProto.SetTimeZone(it.Info.TimeZone.Code)
+		}
+		nodeProto.SetDescriptorGroup(it.Info.DescriptorGroup)
+	}
+
 	nodeProto.SetLevel(int32(node.Level))
-	nodeProto.SetAvailableRest(node.AvailableRest)
-	nodeProto.SetAddress(node.Address)
-	nodeProto.SetOnlyStockPickupAllowed(node.OnlyStockPickupAllowed)
-	nodeProto.SetDescriptorGroup(node.DescriptorGroup)
+	nodeProto.SetAvailableRest(it.AvailableForBalance)
+	nodeProto.SetAddress(it.Info.Address)
+	nodeProto.SetOnlyStockPickupAllowed(it.OnlyStockPickupAllowed)
+
 	return &nodeProto
 }
 
-func mapTypeToProto(n *core.PathNode) proto.NodeType {
+func mapTypeToProto(n *core.Warehouse) proto.WarehouseType {
 	switch n.Type {
 	case core.NodeFree:
-		return proto.NodeType_FREE
+		return proto.WarehouseType_FREE
 	case core.NodeMain:
-		return proto.NodeType_MAIN
+		return proto.WarehouseType_MAIN
 	case core.NodeCenter:
-		return proto.NodeType_CENTRAL
+		return proto.WarehouseType_CENTRAL
 	case core.NodeMall:
-		return proto.NodeType_MALL
+		return proto.WarehouseType_MALL
 	case core.NodeTransit:
-		return proto.NodeType_TRANSIT
+		return proto.WarehouseType_TRANSIT
 	case core.NodeReservation:
-		return proto.NodeType_RESERVATION
+		return proto.WarehouseType_RESERVATION
 	case core.NodeLoses:
-		return proto.NodeType_LOSES
+		return proto.WarehouseType_LOSES
 	case core.NodeMarketing:
-		return proto.NodeType_MARKETING
+		return proto.WarehouseType_MARKETING
 	case core.NodeExposition:
-		return proto.NodeType_EXPOSITION
+		return proto.WarehouseType_EXPOSITION
 	case core.NodePartner:
-		return proto.NodeType_PARTNER
+		return proto.WarehouseType_PARTNER
 	case core.NodePartner2:
-		return proto.NodeType_PARTNER2
+		return proto.WarehouseType_PARTNER2
 	case core.NodeFree2:
-		return proto.NodeType_FREE2
+		return proto.WarehouseType_FREE2
 	case core.NodeProblem:
-		return proto.NodeType_PROBLEM
+		return proto.WarehouseType_PROBLEM
 	case core.NodeRefund:
-		return proto.NodeType_REFUND
+		return proto.WarehouseType_REFUND
 	case core.NodeProduction:
-		return proto.NodeType_PRODUCTION
+		return proto.WarehouseType_PRODUCTION
 	case core.NodeRecycling:
-		return proto.NodeType_RECYCLING
+		return proto.WarehouseType_RECYCLING
 	case core.NodeService:
-		return proto.NodeType_SERVICE
+		return proto.WarehouseType_SERVICE
 	case core.NodeMaterial:
-		return proto.NodeType_MATERIAL
+		return proto.WarehouseType_MATERIAL
 	case core.NodeMarkdown:
-		return proto.NodeType_MARKDOWN
+		return proto.WarehouseType_MARKDOWN
 	case core.NodeBuffer:
-		return proto.NodeType_BUFFER
+		return proto.WarehouseType_BUFFER
 	case core.NodeDiscount:
-		return proto.NodeType_DISCOUNT
+		return proto.WarehouseType_DISCOUNT
 	case core.NodeCentralMainIntermediate:
-		return proto.NodeType_CENTRAL_MAIN_INTERMEDIATE
+		return proto.WarehouseType_CENTRAL_MAIN_INTERMEDIATE
 	case core.NodeMainCentralIntermediate:
-		return proto.NodeType_MAIN_CENTRAL_INTERMEDIATE
+		return proto.WarehouseType_MAIN_CENTRAL_INTERMEDIATE
 	case core.NodeCentralFreeIntermediate:
-		return proto.NodeType_CENTRAL_FREE_INTERMEDIATE
+		return proto.WarehouseType_CENTRAL_FREE_INTERMEDIATE
 	case core.NodeFreeCentralIntermediate:
-		return proto.NodeType_FREE_CENTRAL_INTERMEDIATE
+		return proto.WarehouseType_FREE_CENTRAL_INTERMEDIATE
 	default:
-		return proto.NodeType_UNRECOGNIZED
+		return proto.WarehouseType_UNRECOGNIZED
 	}
 }

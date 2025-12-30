@@ -6,7 +6,7 @@ option go_package = "/proto";
 import "google/protobuf/go_features.proto";
 option features.(pb.go).api_level = API_OPAQUE;
 
-enum NodeType {
+enum WarehouseType {
   UNRECOGNIZED  = 0;
   FREE = 1;
   MAIN = 2;
@@ -35,10 +35,10 @@ enum NodeType {
   FREE_CENTRAL_INTERMEDIATE = 25;
 }
 
-message Node {
+message Warehouse {
   string id = 1;
   string name = 2;
-  NodeType type = 3;
+  WarehouseType type = 3;
   string time_zone = 4;
   bool available_rest = 5;
   int32 level = 6;
@@ -47,7 +47,7 @@ message Node {
   string DescriptorGroup = 9;
 }
 message Path {
-  repeated Node nodes = 1;
+  repeated Warehouse nodes = 1;
 }
 
 message GetPath {
@@ -56,14 +56,14 @@ message GetPath {
 }
 
 message DeliveryPathRequest {
-  repeated Node node = 1;
-  Node from = 2;
-  Node to = 3;
+  repeated Warehouse node = 1;
+  Warehouse from = 2;
+  Warehouse to = 3;
 }
 
 message DeliveryPath {
-  Node first = 1;
-  Node last = 2;
+  Warehouse first = 1;
+  Warehouse last = 2;
   Path path = 3;
 }
 

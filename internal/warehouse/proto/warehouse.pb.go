@@ -2,17 +2,16 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        v6.33.0
-// source: api/graph.proto
+// source: api/warehouse.proto
 
 package proto
 
 import (
-	reflect "reflect"
-	unsafe "unsafe"
-
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	_ "google.golang.org/protobuf/types/gofeaturespb"
+	reflect "reflect"
+	unsafe "unsafe"
 )
 
 const (
@@ -22,40 +21,40 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type NodeType int32
+type WarehouseType int32
 
 const (
-	NodeType_UNRECOGNIZED              NodeType = 0
-	NodeType_FREE                      NodeType = 1
-	NodeType_MAIN                      NodeType = 2
-	NodeType_CENTRAL                   NodeType = 3
-	NodeType_MALL                      NodeType = 4
-	NodeType_TRANSIT                   NodeType = 5
-	NodeType_RESERVATION               NodeType = 6
-	NodeType_LOSES                     NodeType = 7
-	NodeType_MARKETING                 NodeType = 8
-	NodeType_EXPOSITION                NodeType = 9
-	NodeType_PARTNER                   NodeType = 10
-	NodeType_PARTNER2                  NodeType = 11
-	NodeType_FREE2                     NodeType = 12
-	NodeType_PROBLEM                   NodeType = 13
-	NodeType_REFUND                    NodeType = 14
-	NodeType_PRODUCTION                NodeType = 15
-	NodeType_RECYCLING                 NodeType = 16
-	NodeType_SERVICE                   NodeType = 17
-	NodeType_MATERIAL                  NodeType = 18
-	NodeType_MARKDOWN                  NodeType = 19
-	NodeType_BUFFER                    NodeType = 20
-	NodeType_DISCOUNT                  NodeType = 21
-	NodeType_CENTRAL_MAIN_INTERMEDIATE NodeType = 22
-	NodeType_MAIN_CENTRAL_INTERMEDIATE NodeType = 23
-	NodeType_CENTRAL_FREE_INTERMEDIATE NodeType = 24
-	NodeType_FREE_CENTRAL_INTERMEDIATE NodeType = 25
+	WarehouseType_UNRECOGNIZED              WarehouseType = 0
+	WarehouseType_FREE                      WarehouseType = 1
+	WarehouseType_MAIN                      WarehouseType = 2
+	WarehouseType_CENTRAL                   WarehouseType = 3
+	WarehouseType_MALL                      WarehouseType = 4
+	WarehouseType_TRANSIT                   WarehouseType = 5
+	WarehouseType_RESERVATION               WarehouseType = 6
+	WarehouseType_LOSES                     WarehouseType = 7
+	WarehouseType_MARKETING                 WarehouseType = 8
+	WarehouseType_EXPOSITION                WarehouseType = 9
+	WarehouseType_PARTNER                   WarehouseType = 10
+	WarehouseType_PARTNER2                  WarehouseType = 11
+	WarehouseType_FREE2                     WarehouseType = 12
+	WarehouseType_PROBLEM                   WarehouseType = 13
+	WarehouseType_REFUND                    WarehouseType = 14
+	WarehouseType_PRODUCTION                WarehouseType = 15
+	WarehouseType_RECYCLING                 WarehouseType = 16
+	WarehouseType_SERVICE                   WarehouseType = 17
+	WarehouseType_MATERIAL                  WarehouseType = 18
+	WarehouseType_MARKDOWN                  WarehouseType = 19
+	WarehouseType_BUFFER                    WarehouseType = 20
+	WarehouseType_DISCOUNT                  WarehouseType = 21
+	WarehouseType_CENTRAL_MAIN_INTERMEDIATE WarehouseType = 22
+	WarehouseType_MAIN_CENTRAL_INTERMEDIATE WarehouseType = 23
+	WarehouseType_CENTRAL_FREE_INTERMEDIATE WarehouseType = 24
+	WarehouseType_FREE_CENTRAL_INTERMEDIATE WarehouseType = 25
 )
 
-// Enum value maps for NodeType.
+// Enum value maps for WarehouseType.
 var (
-	NodeType_name = map[int32]string{
+	WarehouseType_name = map[int32]string{
 		0:  "UNRECOGNIZED",
 		1:  "FREE",
 		2:  "MAIN",
@@ -83,7 +82,7 @@ var (
 		24: "CENTRAL_FREE_INTERMEDIATE",
 		25: "FREE_CENTRAL_INTERMEDIATE",
 	}
-	NodeType_value = map[string]int32{
+	WarehouseType_value = map[string]int32{
 		"UNRECOGNIZED":              0,
 		"FREE":                      1,
 		"MAIN":                      2,
@@ -113,33 +112,33 @@ var (
 	}
 )
 
-func (x NodeType) Enum() *NodeType {
-	p := new(NodeType)
+func (x WarehouseType) Enum() *WarehouseType {
+	p := new(WarehouseType)
 	*p = x
 	return p
 }
 
-func (x NodeType) String() string {
+func (x WarehouseType) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (NodeType) Descriptor() protoreflect.EnumDescriptor {
-	return file_api_graph_proto_enumTypes[0].Descriptor()
+func (WarehouseType) Descriptor() protoreflect.EnumDescriptor {
+	return file_api_warehouse_proto_enumTypes[0].Descriptor()
 }
 
-func (NodeType) Type() protoreflect.EnumType {
-	return &file_api_graph_proto_enumTypes[0]
+func (WarehouseType) Type() protoreflect.EnumType {
+	return &file_api_warehouse_proto_enumTypes[0]
 }
 
-func (x NodeType) Number() protoreflect.EnumNumber {
+func (x WarehouseType) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-type Node struct {
+type Warehouse struct {
 	state                             protoimpl.MessageState `protogen:"opaque.v1"`
 	xxx_hidden_Id                     *string                `protobuf:"bytes,1,opt,name=id"`
 	xxx_hidden_Name                   *string                `protobuf:"bytes,2,opt,name=name"`
-	xxx_hidden_Type                   NodeType               `protobuf:"varint,3,opt,name=type,enum=graph.NodeType"`
+	xxx_hidden_Type                   WarehouseType          `protobuf:"varint,3,opt,name=type,enum=graph.WarehouseType"`
 	xxx_hidden_TimeZone               *string                `protobuf:"bytes,4,opt,name=time_zone,json=timeZone"`
 	xxx_hidden_AvailableRest          bool                   `protobuf:"varint,5,opt,name=available_rest,json=availableRest"`
 	xxx_hidden_Level                  int32                  `protobuf:"varint,6,opt,name=level"`
@@ -152,21 +151,21 @@ type Node struct {
 	sizeCache                         protoimpl.SizeCache
 }
 
-func (x *Node) Reset() {
-	*x = Node{}
-	mi := &file_api_graph_proto_msgTypes[0]
+func (x *Warehouse) Reset() {
+	*x = Warehouse{}
+	mi := &file_api_warehouse_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Node) String() string {
+func (x *Warehouse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Node) ProtoMessage() {}
+func (*Warehouse) ProtoMessage() {}
 
-func (x *Node) ProtoReflect() protoreflect.Message {
-	mi := &file_api_graph_proto_msgTypes[0]
+func (x *Warehouse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_warehouse_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -177,7 +176,7 @@ func (x *Node) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-func (x *Node) GetId() string {
+func (x *Warehouse) GetId() string {
 	if x != nil {
 		if x.xxx_hidden_Id != nil {
 			return *x.xxx_hidden_Id
@@ -187,7 +186,7 @@ func (x *Node) GetId() string {
 	return ""
 }
 
-func (x *Node) GetName() string {
+func (x *Warehouse) GetName() string {
 	if x != nil {
 		if x.xxx_hidden_Name != nil {
 			return *x.xxx_hidden_Name
@@ -197,16 +196,16 @@ func (x *Node) GetName() string {
 	return ""
 }
 
-func (x *Node) GetType() NodeType {
+func (x *Warehouse) GetType() WarehouseType {
 	if x != nil {
 		if protoimpl.X.Present(&(x.XXX_presence[0]), 2) {
 			return x.xxx_hidden_Type
 		}
 	}
-	return NodeType_UNRECOGNIZED
+	return WarehouseType_UNRECOGNIZED
 }
 
-func (x *Node) GetTimeZone() string {
+func (x *Warehouse) GetTimeZone() string {
 	if x != nil {
 		if x.xxx_hidden_TimeZone != nil {
 			return *x.xxx_hidden_TimeZone
@@ -216,21 +215,21 @@ func (x *Node) GetTimeZone() string {
 	return ""
 }
 
-func (x *Node) GetAvailableRest() bool {
+func (x *Warehouse) GetAvailableRest() bool {
 	if x != nil {
 		return x.xxx_hidden_AvailableRest
 	}
 	return false
 }
 
-func (x *Node) GetLevel() int32 {
+func (x *Warehouse) GetLevel() int32 {
 	if x != nil {
 		return x.xxx_hidden_Level
 	}
 	return 0
 }
 
-func (x *Node) GetAddress() string {
+func (x *Warehouse) GetAddress() string {
 	if x != nil {
 		if x.xxx_hidden_Address != nil {
 			return *x.xxx_hidden_Address
@@ -240,14 +239,14 @@ func (x *Node) GetAddress() string {
 	return ""
 }
 
-func (x *Node) GetOnlyStockPickupAllowed() bool {
+func (x *Warehouse) GetOnlyStockPickupAllowed() bool {
 	if x != nil {
 		return x.xxx_hidden_OnlyStockPickupAllowed
 	}
 	return false
 }
 
-func (x *Node) GetDescriptorGroup() string {
+func (x *Warehouse) GetDescriptorGroup() string {
 	if x != nil {
 		if x.xxx_hidden_DescriptorGroup != nil {
 			return *x.xxx_hidden_DescriptorGroup
@@ -257,165 +256,165 @@ func (x *Node) GetDescriptorGroup() string {
 	return ""
 }
 
-func (x *Node) SetId(v string) {
+func (x *Warehouse) SetId(v string) {
 	x.xxx_hidden_Id = &v
 	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 9)
 }
 
-func (x *Node) SetName(v string) {
+func (x *Warehouse) SetName(v string) {
 	x.xxx_hidden_Name = &v
 	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 9)
 }
 
-func (x *Node) SetType(v NodeType) {
+func (x *Warehouse) SetType(v WarehouseType) {
 	x.xxx_hidden_Type = v
 	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 9)
 }
 
-func (x *Node) SetTimeZone(v string) {
+func (x *Warehouse) SetTimeZone(v string) {
 	x.xxx_hidden_TimeZone = &v
 	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 9)
 }
 
-func (x *Node) SetAvailableRest(v bool) {
+func (x *Warehouse) SetAvailableRest(v bool) {
 	x.xxx_hidden_AvailableRest = v
 	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 9)
 }
 
-func (x *Node) SetLevel(v int32) {
+func (x *Warehouse) SetLevel(v int32) {
 	x.xxx_hidden_Level = v
 	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 9)
 }
 
-func (x *Node) SetAddress(v string) {
+func (x *Warehouse) SetAddress(v string) {
 	x.xxx_hidden_Address = &v
 	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 9)
 }
 
-func (x *Node) SetOnlyStockPickupAllowed(v bool) {
+func (x *Warehouse) SetOnlyStockPickupAllowed(v bool) {
 	x.xxx_hidden_OnlyStockPickupAllowed = v
 	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 7, 9)
 }
 
-func (x *Node) SetDescriptorGroup(v string) {
+func (x *Warehouse) SetDescriptorGroup(v string) {
 	x.xxx_hidden_DescriptorGroup = &v
 	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 8, 9)
 }
 
-func (x *Node) HasId() bool {
+func (x *Warehouse) HasId() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
 }
 
-func (x *Node) HasName() bool {
+func (x *Warehouse) HasName() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
 }
 
-func (x *Node) HasType() bool {
+func (x *Warehouse) HasType() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
 }
 
-func (x *Node) HasTimeZone() bool {
+func (x *Warehouse) HasTimeZone() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
 }
 
-func (x *Node) HasAvailableRest() bool {
+func (x *Warehouse) HasAvailableRest() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
 }
 
-func (x *Node) HasLevel() bool {
+func (x *Warehouse) HasLevel() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
 }
 
-func (x *Node) HasAddress() bool {
+func (x *Warehouse) HasAddress() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 6)
 }
 
-func (x *Node) HasOnlyStockPickupAllowed() bool {
+func (x *Warehouse) HasOnlyStockPickupAllowed() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 7)
 }
 
-func (x *Node) HasDescriptorGroup() bool {
+func (x *Warehouse) HasDescriptorGroup() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 8)
 }
 
-func (x *Node) ClearId() {
+func (x *Warehouse) ClearId() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
 	x.xxx_hidden_Id = nil
 }
 
-func (x *Node) ClearName() {
+func (x *Warehouse) ClearName() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
 	x.xxx_hidden_Name = nil
 }
 
-func (x *Node) ClearType() {
+func (x *Warehouse) ClearType() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
-	x.xxx_hidden_Type = NodeType_UNRECOGNIZED
+	x.xxx_hidden_Type = WarehouseType_UNRECOGNIZED
 }
 
-func (x *Node) ClearTimeZone() {
+func (x *Warehouse) ClearTimeZone() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
 	x.xxx_hidden_TimeZone = nil
 }
 
-func (x *Node) ClearAvailableRest() {
+func (x *Warehouse) ClearAvailableRest() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
 	x.xxx_hidden_AvailableRest = false
 }
 
-func (x *Node) ClearLevel() {
+func (x *Warehouse) ClearLevel() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
 	x.xxx_hidden_Level = 0
 }
 
-func (x *Node) ClearAddress() {
+func (x *Warehouse) ClearAddress() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 6)
 	x.xxx_hidden_Address = nil
 }
 
-func (x *Node) ClearOnlyStockPickupAllowed() {
+func (x *Warehouse) ClearOnlyStockPickupAllowed() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 7)
 	x.xxx_hidden_OnlyStockPickupAllowed = false
 }
 
-func (x *Node) ClearDescriptorGroup() {
+func (x *Warehouse) ClearDescriptorGroup() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 8)
 	x.xxx_hidden_DescriptorGroup = nil
 }
 
-type Node_builder struct {
+type Warehouse_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
 	Id                     *string
 	Name                   *string
-	Type                   *NodeType
+	Type                   *WarehouseType
 	TimeZone               *string
 	AvailableRest          *bool
 	Level                  *int32
@@ -424,8 +423,8 @@ type Node_builder struct {
 	DescriptorGroup        *string
 }
 
-func (b0 Node_builder) Build() *Node {
-	m0 := &Node{}
+func (b0 Warehouse_builder) Build() *Warehouse {
+	m0 := &Warehouse{}
 	b, x := &b0, m0
 	_, _ = b, x
 	if b.Id != nil {
@@ -469,14 +468,14 @@ func (b0 Node_builder) Build() *Node {
 
 type Path struct {
 	state            protoimpl.MessageState `protogen:"opaque.v1"`
-	xxx_hidden_Nodes *[]*Node               `protobuf:"bytes,1,rep,name=nodes"`
+	xxx_hidden_Nodes *[]*Warehouse          `protobuf:"bytes,1,rep,name=nodes"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
 
 func (x *Path) Reset() {
 	*x = Path{}
-	mi := &file_api_graph_proto_msgTypes[1]
+	mi := &file_api_warehouse_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -488,7 +487,7 @@ func (x *Path) String() string {
 func (*Path) ProtoMessage() {}
 
 func (x *Path) ProtoReflect() protoreflect.Message {
-	mi := &file_api_graph_proto_msgTypes[1]
+	mi := &file_api_warehouse_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -499,7 +498,7 @@ func (x *Path) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-func (x *Path) GetNodes() []*Node {
+func (x *Path) GetNodes() []*Warehouse {
 	if x != nil {
 		if x.xxx_hidden_Nodes != nil {
 			return *x.xxx_hidden_Nodes
@@ -508,14 +507,14 @@ func (x *Path) GetNodes() []*Node {
 	return nil
 }
 
-func (x *Path) SetNodes(v []*Node) {
+func (x *Path) SetNodes(v []*Warehouse) {
 	x.xxx_hidden_Nodes = &v
 }
 
 type Path_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
-	Nodes []*Node
+	Nodes []*Warehouse
 }
 
 func (b0 Path_builder) Build() *Path {
@@ -538,7 +537,7 @@ type GetPath struct {
 
 func (x *GetPath) Reset() {
 	*x = GetPath{}
-	mi := &file_api_graph_proto_msgTypes[2]
+	mi := &file_api_warehouse_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -550,7 +549,7 @@ func (x *GetPath) String() string {
 func (*GetPath) ProtoMessage() {}
 
 func (x *GetPath) ProtoReflect() protoreflect.Message {
-	mi := &file_api_graph_proto_msgTypes[2]
+	mi := &file_api_warehouse_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -639,16 +638,16 @@ func (b0 GetPath_builder) Build() *GetPath {
 
 type DeliveryPathRequest struct {
 	state           protoimpl.MessageState `protogen:"opaque.v1"`
-	xxx_hidden_Node *[]*Node               `protobuf:"bytes,1,rep,name=node"`
-	xxx_hidden_From *Node                  `protobuf:"bytes,2,opt,name=from"`
-	xxx_hidden_To   *Node                  `protobuf:"bytes,3,opt,name=to"`
+	xxx_hidden_Node *[]*Warehouse          `protobuf:"bytes,1,rep,name=node"`
+	xxx_hidden_From *Warehouse             `protobuf:"bytes,2,opt,name=from"`
+	xxx_hidden_To   *Warehouse             `protobuf:"bytes,3,opt,name=to"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
 
 func (x *DeliveryPathRequest) Reset() {
 	*x = DeliveryPathRequest{}
-	mi := &file_api_graph_proto_msgTypes[3]
+	mi := &file_api_warehouse_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -660,7 +659,7 @@ func (x *DeliveryPathRequest) String() string {
 func (*DeliveryPathRequest) ProtoMessage() {}
 
 func (x *DeliveryPathRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_graph_proto_msgTypes[3]
+	mi := &file_api_warehouse_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -671,7 +670,7 @@ func (x *DeliveryPathRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-func (x *DeliveryPathRequest) GetNode() []*Node {
+func (x *DeliveryPathRequest) GetNode() []*Warehouse {
 	if x != nil {
 		if x.xxx_hidden_Node != nil {
 			return *x.xxx_hidden_Node
@@ -680,29 +679,29 @@ func (x *DeliveryPathRequest) GetNode() []*Node {
 	return nil
 }
 
-func (x *DeliveryPathRequest) GetFrom() *Node {
+func (x *DeliveryPathRequest) GetFrom() *Warehouse {
 	if x != nil {
 		return x.xxx_hidden_From
 	}
 	return nil
 }
 
-func (x *DeliveryPathRequest) GetTo() *Node {
+func (x *DeliveryPathRequest) GetTo() *Warehouse {
 	if x != nil {
 		return x.xxx_hidden_To
 	}
 	return nil
 }
 
-func (x *DeliveryPathRequest) SetNode(v []*Node) {
+func (x *DeliveryPathRequest) SetNode(v []*Warehouse) {
 	x.xxx_hidden_Node = &v
 }
 
-func (x *DeliveryPathRequest) SetFrom(v *Node) {
+func (x *DeliveryPathRequest) SetFrom(v *Warehouse) {
 	x.xxx_hidden_From = v
 }
 
-func (x *DeliveryPathRequest) SetTo(v *Node) {
+func (x *DeliveryPathRequest) SetTo(v *Warehouse) {
 	x.xxx_hidden_To = v
 }
 
@@ -731,9 +730,9 @@ func (x *DeliveryPathRequest) ClearTo() {
 type DeliveryPathRequest_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
-	Node []*Node
-	From *Node
-	To   *Node
+	Node []*Warehouse
+	From *Warehouse
+	To   *Warehouse
 }
 
 func (b0 DeliveryPathRequest_builder) Build() *DeliveryPathRequest {
@@ -748,8 +747,8 @@ func (b0 DeliveryPathRequest_builder) Build() *DeliveryPathRequest {
 
 type DeliveryPath struct {
 	state            protoimpl.MessageState `protogen:"opaque.v1"`
-	xxx_hidden_First *Node                  `protobuf:"bytes,1,opt,name=first"`
-	xxx_hidden_Last  *Node                  `protobuf:"bytes,2,opt,name=last"`
+	xxx_hidden_First *Warehouse             `protobuf:"bytes,1,opt,name=first"`
+	xxx_hidden_Last  *Warehouse             `protobuf:"bytes,2,opt,name=last"`
 	xxx_hidden_Path  *Path                  `protobuf:"bytes,3,opt,name=path"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
@@ -757,7 +756,7 @@ type DeliveryPath struct {
 
 func (x *DeliveryPath) Reset() {
 	*x = DeliveryPath{}
-	mi := &file_api_graph_proto_msgTypes[4]
+	mi := &file_api_warehouse_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -769,7 +768,7 @@ func (x *DeliveryPath) String() string {
 func (*DeliveryPath) ProtoMessage() {}
 
 func (x *DeliveryPath) ProtoReflect() protoreflect.Message {
-	mi := &file_api_graph_proto_msgTypes[4]
+	mi := &file_api_warehouse_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -780,14 +779,14 @@ func (x *DeliveryPath) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-func (x *DeliveryPath) GetFirst() *Node {
+func (x *DeliveryPath) GetFirst() *Warehouse {
 	if x != nil {
 		return x.xxx_hidden_First
 	}
 	return nil
 }
 
-func (x *DeliveryPath) GetLast() *Node {
+func (x *DeliveryPath) GetLast() *Warehouse {
 	if x != nil {
 		return x.xxx_hidden_Last
 	}
@@ -801,11 +800,11 @@ func (x *DeliveryPath) GetPath() *Path {
 	return nil
 }
 
-func (x *DeliveryPath) SetFirst(v *Node) {
+func (x *DeliveryPath) SetFirst(v *Warehouse) {
 	x.xxx_hidden_First = v
 }
 
-func (x *DeliveryPath) SetLast(v *Node) {
+func (x *DeliveryPath) SetLast(v *Warehouse) {
 	x.xxx_hidden_Last = v
 }
 
@@ -849,8 +848,8 @@ func (x *DeliveryPath) ClearPath() {
 type DeliveryPath_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
-	First *Node
-	Last  *Node
+	First *Warehouse
+	Last  *Warehouse
 	Path  *Path
 }
 
@@ -876,7 +875,7 @@ type DeliveryPathResult struct {
 
 func (x *DeliveryPathResult) Reset() {
 	*x = DeliveryPathResult{}
-	mi := &file_api_graph_proto_msgTypes[5]
+	mi := &file_api_warehouse_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -888,7 +887,7 @@ func (x *DeliveryPathResult) String() string {
 func (*DeliveryPathResult) ProtoMessage() {}
 
 func (x *DeliveryPathResult) ProtoReflect() protoreflect.Message {
-	mi := &file_api_graph_proto_msgTypes[5]
+	mi := &file_api_warehouse_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -964,38 +963,38 @@ func (b0 DeliveryPathResult_builder) Build() *DeliveryPathResult {
 	return m0
 }
 
-var File_api_graph_proto protoreflect.FileDescriptor
+var File_api_warehouse_proto protoreflect.FileDescriptor
 
-const file_api_graph_proto_rawDesc = "" +
+const file_api_warehouse_proto_rawDesc = "" +
 	"\n" +
-	"\x0fapi/graph.proto\x12\x05graph\x1a!google/protobuf/go_features.proto\"\xa8\x02\n" +
-	"\x04Node\x12\x0e\n" +
+	"\x13api/warehouse.proto\x12\x05graph\x1a!google/protobuf/go_features.proto\"\xb2\x02\n" +
+	"\tWarehouse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\x12#\n" +
-	"\x04type\x18\x03 \x01(\x0e2\x0f.graph.NodeTypeR\x04type\x12\x1b\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12(\n" +
+	"\x04type\x18\x03 \x01(\x0e2\x14.graph.WarehouseTypeR\x04type\x12\x1b\n" +
 	"\ttime_zone\x18\x04 \x01(\tR\btimeZone\x12%\n" +
 	"\x0eavailable_rest\x18\x05 \x01(\bR\ravailableRest\x12\x14\n" +
 	"\x05level\x18\x06 \x01(\x05R\x05level\x12\x18\n" +
 	"\aaddress\x18\a \x01(\tR\aaddress\x129\n" +
 	"\x19only_stock_pickup_allowed\x18\b \x01(\bR\x16onlyStockPickupAllowed\x12(\n" +
-	"\x0fDescriptorGroup\x18\t \x01(\tR\x0fDescriptorGroup\")\n" +
-	"\x04Path\x12!\n" +
-	"\x05nodes\x18\x01 \x03(\v2\v.graph.NodeR\x05nodes\"K\n" +
+	"\x0fDescriptorGroup\x18\t \x01(\tR\x0fDescriptorGroup\".\n" +
+	"\x04Path\x12&\n" +
+	"\x05nodes\x18\x01 \x03(\v2\x10.graph.WarehouseR\x05nodes\"K\n" +
 	"\aGetPath\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x120\n" +
-	"\x14default_warehouse_id\x18\x02 \x01(\tR\x12defaultWarehouseId\"t\n" +
-	"\x13DeliveryPathRequest\x12\x1f\n" +
-	"\x04node\x18\x01 \x03(\v2\v.graph.NodeR\x04node\x12\x1f\n" +
-	"\x04from\x18\x02 \x01(\v2\v.graph.NodeR\x04from\x12\x1b\n" +
-	"\x02to\x18\x03 \x01(\v2\v.graph.NodeR\x02to\"s\n" +
-	"\fDeliveryPath\x12!\n" +
-	"\x05first\x18\x01 \x01(\v2\v.graph.NodeR\x05first\x12\x1f\n" +
-	"\x04last\x18\x02 \x01(\v2\v.graph.NodeR\x04last\x12\x1f\n" +
+	"\x14default_warehouse_id\x18\x02 \x01(\tR\x12defaultWarehouseId\"\x83\x01\n" +
+	"\x13DeliveryPathRequest\x12$\n" +
+	"\x04node\x18\x01 \x03(\v2\x10.graph.WarehouseR\x04node\x12$\n" +
+	"\x04from\x18\x02 \x01(\v2\x10.graph.WarehouseR\x04from\x12 \n" +
+	"\x02to\x18\x03 \x01(\v2\x10.graph.WarehouseR\x02to\"}\n" +
+	"\fDeliveryPath\x12&\n" +
+	"\x05first\x18\x01 \x01(\v2\x10.graph.WarehouseR\x05first\x12$\n" +
+	"\x04last\x18\x02 \x01(\v2\x10.graph.WarehouseR\x04last\x12\x1f\n" +
 	"\x04path\x18\x03 \x01(\v2\v.graph.PathR\x04path\"h\n" +
 	"\x12DeliveryPathResult\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x128\n" +
-	"\rdelivery_path\x18\x02 \x01(\v2\x13.graph.DeliveryPathR\fdeliveryPath*\xac\x03\n" +
-	"\bNodeType\x12\x10\n" +
+	"\rdelivery_path\x18\x02 \x01(\v2\x13.graph.DeliveryPathR\fdeliveryPath*\xb1\x03\n" +
+	"\rWarehouseType\x12\x10\n" +
 	"\fUNRECOGNIZED\x10\x00\x12\b\n" +
 	"\x04FREE\x10\x01\x12\b\n" +
 	"\x04MAIN\x10\x02\x12\v\n" +
@@ -1031,25 +1030,25 @@ const file_api_graph_proto_rawDesc = "" +
 	"\x03Get\x12\x0e.graph.GetPath\x1a\v.graph.Path\x12H\n" +
 	"\x0fGetDeliveryPath\x12\x1a.graph.DeliveryPathRequest\x1a\x19.graph.DeliveryPathResultB\x10Z\x06/proto\x92\x03\x05\xd2>\x02\x10\x03b\beditionsp\xe8\a"
 
-var file_api_graph_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_api_graph_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_api_graph_proto_goTypes = []any{
-	(NodeType)(0),               // 0: graph.NodeType
-	(*Node)(nil),                // 1: graph.Node
+var file_api_warehouse_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_api_warehouse_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_api_warehouse_proto_goTypes = []any{
+	(WarehouseType)(0),          // 0: graph.WarehouseType
+	(*Warehouse)(nil),           // 1: graph.Warehouse
 	(*Path)(nil),                // 2: graph.Path
 	(*GetPath)(nil),             // 3: graph.GetPath
 	(*DeliveryPathRequest)(nil), // 4: graph.DeliveryPathRequest
 	(*DeliveryPath)(nil),        // 5: graph.DeliveryPath
 	(*DeliveryPathResult)(nil),  // 6: graph.DeliveryPathResult
 }
-var file_api_graph_proto_depIdxs = []int32{
-	0,  // 0: graph.Node.type:type_name -> graph.NodeType
-	1,  // 1: graph.Path.nodes:type_name -> graph.Node
-	1,  // 2: graph.DeliveryPathRequest.node:type_name -> graph.Node
-	1,  // 3: graph.DeliveryPathRequest.from:type_name -> graph.Node
-	1,  // 4: graph.DeliveryPathRequest.to:type_name -> graph.Node
-	1,  // 5: graph.DeliveryPath.first:type_name -> graph.Node
-	1,  // 6: graph.DeliveryPath.last:type_name -> graph.Node
+var file_api_warehouse_proto_depIdxs = []int32{
+	0,  // 0: graph.Warehouse.type:type_name -> graph.WarehouseType
+	1,  // 1: graph.Path.nodes:type_name -> graph.Warehouse
+	1,  // 2: graph.DeliveryPathRequest.node:type_name -> graph.Warehouse
+	1,  // 3: graph.DeliveryPathRequest.from:type_name -> graph.Warehouse
+	1,  // 4: graph.DeliveryPathRequest.to:type_name -> graph.Warehouse
+	1,  // 5: graph.DeliveryPath.first:type_name -> graph.Warehouse
+	1,  // 6: graph.DeliveryPath.last:type_name -> graph.Warehouse
 	2,  // 7: graph.DeliveryPath.path:type_name -> graph.Path
 	5,  // 8: graph.DeliveryPathResult.delivery_path:type_name -> graph.DeliveryPath
 	3,  // 9: graph.PathService.Get:input_type -> graph.GetPath
@@ -1063,27 +1062,27 @@ var file_api_graph_proto_depIdxs = []int32{
 	0,  // [0:9] is the sub-list for field type_name
 }
 
-func init() { file_api_graph_proto_init() }
-func file_api_graph_proto_init() {
-	if File_api_graph_proto != nil {
+func init() { file_api_warehouse_proto_init() }
+func file_api_warehouse_proto_init() {
+	if File_api_warehouse_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_graph_proto_rawDesc), len(file_api_graph_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_warehouse_proto_rawDesc), len(file_api_warehouse_proto_rawDesc)),
 			NumEnums:      1,
 			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_api_graph_proto_goTypes,
-		DependencyIndexes: file_api_graph_proto_depIdxs,
-		EnumInfos:         file_api_graph_proto_enumTypes,
-		MessageInfos:      file_api_graph_proto_msgTypes,
+		GoTypes:           file_api_warehouse_proto_goTypes,
+		DependencyIndexes: file_api_warehouse_proto_depIdxs,
+		EnumInfos:         file_api_warehouse_proto_enumTypes,
+		MessageInfos:      file_api_warehouse_proto_msgTypes,
 	}.Build()
-	File_api_graph_proto = out.File
-	file_api_graph_proto_goTypes = nil
-	file_api_graph_proto_depIdxs = nil
+	File_api_warehouse_proto = out.File
+	file_api_warehouse_proto_goTypes = nil
+	file_api_warehouse_proto_depIdxs = nil
 }

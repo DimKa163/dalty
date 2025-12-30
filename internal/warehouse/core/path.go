@@ -2,19 +2,18 @@ package core
 
 import (
 	"container/list"
-
-	"github.com/beevik/guid"
+	"github.com/DimKa163/dalty/internal/graph"
 )
 
 type Path struct {
 	list  *list.List
-	nodes map[guid.Guid]*list.Element
+	nodes map[string]*list.Element
 }
 
 func NewPath() *Path {
 	return &Path{
 		list:  list.New(),
-		nodes: make(map[guid.Guid]*list.Element),
+		nodes: make(map[string]*list.Element),
 	}
 }
 
@@ -46,8 +45,8 @@ func (path *Path) AddAfter(n *PathNode, mark *PathNode) {
 	path.list.InsertAfter(n, elMark)
 }
 
-func (path *Path) Contains(nodeId *guid.Guid) bool {
-	_, ok := path.nodes[*nodeId]
+func (path *Path) Contains(nodeId string) bool {
+	_, ok := path.nodes[nodeId]
 	return ok
 }
 
@@ -68,7 +67,7 @@ func (path *Path) LastNode() *PathNode {
 type PathNode struct {
 	Level int
 	Next  *PathNode
-	*Node
+	*graph.Node
 }
 
 type DeliveryPath struct {

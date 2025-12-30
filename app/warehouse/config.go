@@ -1,4 +1,4 @@
-package graph
+package warehouse
 
 type Config struct {
 	Addr     string `env:"ADDR" envDefault:":8080"`

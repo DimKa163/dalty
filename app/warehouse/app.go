@@ -1,18 +1,19 @@
-package graph
+package warehouse
 
 import (
 	"context"
+	"github.com/DimKa163/dalty/internal/graph"
 	"net"
 	"os/signal"
 	"syscall"
 	"time"
 
-	"github.com/DimKa163/dalty/internal/graph/core"
-	"github.com/DimKa163/dalty/internal/graph/persistence"
-	"github.com/DimKa163/dalty/internal/graph/server"
-	"github.com/DimKa163/dalty/internal/graph/server/interceptor"
-	"github.com/DimKa163/dalty/internal/graph/usecase"
 	"github.com/DimKa163/dalty/internal/logging"
+	"github.com/DimKa163/dalty/internal/warehouse/core"
+	"github.com/DimKa163/dalty/internal/warehouse/persistence"
+	"github.com/DimKa163/dalty/internal/warehouse/server"
+	"github.com/DimKa163/dalty/internal/warehouse/server/interceptor"
+	"github.com/DimKa163/dalty/internal/warehouse/usecase"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -30,7 +31,7 @@ type ServiceContainer struct {
 	GrpcServer          *grpc.Server
 	GrpcPathServer      *server.PathServer
 	WarehouseRepository core.WarehouseRepository
-	GraphContext        *core.GraphContext
+	GraphContext        *graph.GraphContext
 }
 type Server struct {
 	Config *Config
@@ -67,7 +68,7 @@ func (s *Server) AddServices() error {
 func (s *Server) AddLogging() error {
 	return logging.InitializeLogging(&logging.LogConfiguration{
 		Builders: map[string]logging.CoreBuilder{
-			"file":    logging.NewFileBuilder("D:\\logs\\graph.log", zap.NewProductionEncoderConfig(), zapcore.InfoLevel),
+			"file":    logging.NewFileBuilder("D:\\logs\\warehouse.log", zap.NewProductionEncoderConfig(), zapcore.InfoLevel),
 			"console": logging.NewConsoleBuilder(zap.NewDevelopmentEncoderConfig(), zapcore.DebugLevel),
 		},
 	})
@@ -115,13 +116,13 @@ func addWarehouseRepository(pool *pgxpool.Pool) core.WarehouseRepository {
 	return persistence.NewWarehouseRepository(pool)
 }
 
-func addGraphContext() *core.GraphContext {
-	return core.NewGraphContext()
+func addGraphContext() *graph.GraphContext {
+	return graph.NewGraphContext()
 }
 
 func addPathService(repository core.WarehouseRepository,
-	graphContext *core.GraphContext) *usecase.PathService {
-	return usecase.NewPathService(repository, graphContext)
+	graphContext *graph.GraphContext) *usecase.PathService {
+	return usecase.NewPathService(repository, core.NewPathFinder(graphContext), graphContext)
 }
 
 func addGrpcPathServer(appService *usecase.PathService) *server.PathServer {
