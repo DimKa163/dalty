@@ -2,11 +2,13 @@ package warehouse
 
 import (
 	"context"
-	"github.com/DimKa163/dalty/internal/graph"
 	"net"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/DimKa163/dalty/pkg/graph"
+	"github.com/DimKa163/dalty/pkg/proto"
 
 	"github.com/DimKa163/dalty/internal/logging"
 	"github.com/DimKa163/dalty/internal/warehouse/core"
@@ -20,27 +22,30 @@ import (
 	"google.golang.org/grpc"
 )
 
-type ServerImpl interface {
-	ListenAndServe() error
-	Map()
-	Shutdown(ctx context.Context) error
-}
 type ServiceContainer struct {
 	PathService         *usecase.PathService
 	PgPool              *pgxpool.Pool
 	GrpcServer          *grpc.Server
-	GrpcPathServer      *server.PathServer
+	GrpcPathServer      proto.Binder
 	WarehouseRepository core.WarehouseRepository
 	GraphContext        *graph.GraphContext
+	binders             []proto.Binder
 }
+
+func (s *ServiceContainer) GetBinders() []proto.Binder {
+	return s.binders
+}
+
 type Server struct {
 	Config *Config
 	*ServiceContainer
-	ServerImpl
+	proto.ServerImpl
 }
 
 func NewServer(config *Config) *Server {
-	container := &ServiceContainer{}
+	container := &ServiceContainer{
+		binders: make([]proto.Binder, 0),
+	}
 	return &Server{
 		Config:           config,
 		ServiceContainer: container,
@@ -53,7 +58,7 @@ func (s *Server) AddServices() error {
 	if err != nil {
 		return err
 	}
-	s.ServerImpl = NewGRPCServer(listener, addGrpcServer(), s.ServiceContainer)
+	s.ServerImpl = proto.NewGRPCServer[*ServiceContainer](listener, addGrpcServer(), s.ServiceContainer)
 	s.GraphContext = addGraphContext()
 	s.PgPool, err = addPgPool(s.Config.Database)
 	if err != nil {
@@ -61,7 +66,7 @@ func (s *Server) AddServices() error {
 	}
 	s.WarehouseRepository = addWarehouseRepository(s.PgPool)
 	s.PathService = addPathService(s.WarehouseRepository, s.GraphContext)
-	s.GrpcPathServer = addGrpcPathServer(s.PathService)
+	s.binders = append(s.binders, addGrpcPathServer(s.PathService))
 	return nil
 }
 

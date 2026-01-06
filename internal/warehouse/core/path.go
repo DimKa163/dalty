@@ -2,7 +2,8 @@ package core
 
 import (
 	"container/list"
-	"github.com/DimKa163/dalty/internal/graph"
+
+	"github.com/DimKa163/dalty/pkg/graph"
 )
 
 type Path struct {

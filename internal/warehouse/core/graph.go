@@ -3,20 +3,21 @@ package core
 import (
 	"container/list"
 	"context"
-	"github.com/DimKa163/dalty/internal/graph"
+
+	graph2 "github.com/DimKa163/dalty/pkg/graph"
 )
 
 type PathFinder struct {
-	Context *graph.GraphContext
+	Context *graph2.GraphContext
 }
 
-func NewPathFinder(graphContext *graph.GraphContext) *PathFinder {
+func NewPathFinder(graphContext *graph2.GraphContext) *PathFinder {
 	return &PathFinder{
 		Context: graphContext,
 	}
 }
 
-func (ws *PathFinder) Path(ctx context.Context, destination *graph.Node) (*Path, error) {
+func (ws *PathFinder) Path(ctx context.Context, destination *graph2.Node) (*Path, error) {
 	path := NewPath()
 	queue := list.New()
 	visited := make(map[string]bool)
