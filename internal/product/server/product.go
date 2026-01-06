@@ -2,11 +2,10 @@ package server
 
 import (
 	"context"
-	"github.com/DimKa163/dalty/pkg/protoerr"
-
 	"github.com/DimKa163/dalty/internal/product/core"
 	"github.com/DimKa163/dalty/internal/product/proto"
 	"github.com/DimKa163/dalty/internal/product/usecase"
+	"github.com/DimKa163/dalty/pkg/proto/protoerr"
 	"google.golang.org/grpc"
 )
 
