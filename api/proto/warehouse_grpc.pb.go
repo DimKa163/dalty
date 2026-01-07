@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	PathService_Get_FullMethodName             = "/graph.PathService/Get"
-	PathService_GetDeliveryPath_FullMethodName = "/graph.PathService/GetDeliveryPath"
+	PathService_Get_FullMethodName             = "/warehouses.PathService/Get"
+	PathService_GetDeliveryPath_FullMethodName = "/warehouses.PathService/GetDeliveryPath"
 )
 
 // PathServiceClient is the client API for PathService service.
@@ -142,7 +142,7 @@ func _PathService_GetDeliveryPath_Handler(srv interface{}, ctx context.Context, 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var PathService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "graph.PathService",
+	ServiceName: "warehouses.PathService",
 	HandlerType: (*PathServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

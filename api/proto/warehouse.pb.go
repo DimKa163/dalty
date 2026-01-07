@@ -138,7 +138,7 @@ type Warehouse struct {
 	state                             protoimpl.MessageState `protogen:"opaque.v1"`
 	xxx_hidden_Id                     *string                `protobuf:"bytes,1,opt,name=id"`
 	xxx_hidden_Name                   *string                `protobuf:"bytes,2,opt,name=name"`
-	xxx_hidden_Type                   WarehouseType          `protobuf:"varint,3,opt,name=type,enum=graph.WarehouseType"`
+	xxx_hidden_Type                   WarehouseType          `protobuf:"varint,3,opt,name=type,enum=warehouses.WarehouseType"`
 	xxx_hidden_TimeZone               *string                `protobuf:"bytes,4,opt,name=time_zone,json=timeZone"`
 	xxx_hidden_AvailableRest          bool                   `protobuf:"varint,5,opt,name=available_rest,json=availableRest"`
 	xxx_hidden_Level                  int32                  `protobuf:"varint,6,opt,name=level"`
@@ -967,33 +967,34 @@ var File_api_warehouse_proto protoreflect.FileDescriptor
 
 const file_api_warehouse_proto_rawDesc = "" +
 	"\n" +
-	"\x13api/warehouse.proto\x12\x05graph\x1a!google/protobuf/go_features.proto\"\xb2\x02\n" +
+	"\x13api/warehouse.proto\x12\n" +
+	"warehouses\x1a!google/protobuf/go_features.proto\"\xb7\x02\n" +
 	"\tWarehouse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\x12(\n" +
-	"\x04type\x18\x03 \x01(\x0e2\x14.graph.WarehouseTypeR\x04type\x12\x1b\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12-\n" +
+	"\x04type\x18\x03 \x01(\x0e2\x19.warehouses.WarehouseTypeR\x04type\x12\x1b\n" +
 	"\ttime_zone\x18\x04 \x01(\tR\btimeZone\x12%\n" +
 	"\x0eavailable_rest\x18\x05 \x01(\bR\ravailableRest\x12\x14\n" +
 	"\x05level\x18\x06 \x01(\x05R\x05level\x12\x18\n" +
 	"\aaddress\x18\a \x01(\tR\aaddress\x129\n" +
 	"\x19only_stock_pickup_allowed\x18\b \x01(\bR\x16onlyStockPickupAllowed\x12(\n" +
-	"\x0fDescriptorGroup\x18\t \x01(\tR\x0fDescriptorGroup\".\n" +
-	"\x04Path\x12&\n" +
-	"\x05nodes\x18\x01 \x03(\v2\x10.graph.WarehouseR\x05nodes\"K\n" +
+	"\x0fDescriptorGroup\x18\t \x01(\tR\x0fDescriptorGroup\"3\n" +
+	"\x04Path\x12+\n" +
+	"\x05nodes\x18\x01 \x03(\v2\x15.warehouses.WarehouseR\x05nodes\"K\n" +
 	"\aGetPath\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x120\n" +
-	"\x14default_warehouse_id\x18\x02 \x01(\tR\x12defaultWarehouseId\"\x83\x01\n" +
-	"\x13DeliveryPathRequest\x12$\n" +
-	"\x04node\x18\x01 \x03(\v2\x10.graph.WarehouseR\x04node\x12$\n" +
-	"\x04from\x18\x02 \x01(\v2\x10.graph.WarehouseR\x04from\x12 \n" +
-	"\x02to\x18\x03 \x01(\v2\x10.graph.WarehouseR\x02to\"}\n" +
-	"\fDeliveryPath\x12&\n" +
-	"\x05first\x18\x01 \x01(\v2\x10.graph.WarehouseR\x05first\x12$\n" +
-	"\x04last\x18\x02 \x01(\v2\x10.graph.WarehouseR\x04last\x12\x1f\n" +
-	"\x04path\x18\x03 \x01(\v2\v.graph.PathR\x04path\"h\n" +
+	"\x14default_warehouse_id\x18\x02 \x01(\tR\x12defaultWarehouseId\"\x92\x01\n" +
+	"\x13DeliveryPathRequest\x12)\n" +
+	"\x04node\x18\x01 \x03(\v2\x15.warehouses.WarehouseR\x04node\x12)\n" +
+	"\x04from\x18\x02 \x01(\v2\x15.warehouses.WarehouseR\x04from\x12%\n" +
+	"\x02to\x18\x03 \x01(\v2\x15.warehouses.WarehouseR\x02to\"\x8c\x01\n" +
+	"\fDeliveryPath\x12+\n" +
+	"\x05first\x18\x01 \x01(\v2\x15.warehouses.WarehouseR\x05first\x12)\n" +
+	"\x04last\x18\x02 \x01(\v2\x15.warehouses.WarehouseR\x04last\x12$\n" +
+	"\x04path\x18\x03 \x01(\v2\x10.warehouses.PathR\x04path\"m\n" +
 	"\x12DeliveryPathResult\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess\x128\n" +
-	"\rdelivery_path\x18\x02 \x01(\v2\x13.graph.DeliveryPathR\fdeliveryPath*\xb1\x03\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12=\n" +
+	"\rdelivery_path\x18\x02 \x01(\v2\x18.warehouses.DeliveryPathR\fdeliveryPath*\xb1\x03\n" +
 	"\rWarehouseType\x12\x10\n" +
 	"\fUNRECOGNIZED\x10\x00\x12\b\n" +
 	"\x04FREE\x10\x01\x12\b\n" +
@@ -1025,36 +1026,36 @@ const file_api_warehouse_proto_rawDesc = "" +
 	"\x19CENTRAL_MAIN_INTERMEDIATE\x10\x16\x12\x1d\n" +
 	"\x19MAIN_CENTRAL_INTERMEDIATE\x10\x17\x12\x1d\n" +
 	"\x19CENTRAL_FREE_INTERMEDIATE\x10\x18\x12\x1d\n" +
-	"\x19FREE_CENTRAL_INTERMEDIATE\x10\x192{\n" +
-	"\vPathService\x12\"\n" +
-	"\x03Get\x12\x0e.graph.GetPath\x1a\v.graph.Path\x12H\n" +
-	"\x0fGetDeliveryPath\x12\x1a.graph.DeliveryPathRequest\x1a\x19.graph.DeliveryPathResultB\x10Z\x06/proto\x92\x03\x05\xd2>\x02\x10\x03b\beditionsp\xe8\a"
+	"\x19FREE_CENTRAL_INTERMEDIATE\x10\x192\x8f\x01\n" +
+	"\vPathService\x12,\n" +
+	"\x03Get\x12\x13.warehouses.GetPath\x1a\x10.warehouses.Path\x12R\n" +
+	"\x0fGetDeliveryPath\x12\x1f.warehouses.DeliveryPathRequest\x1a\x1e.warehouses.DeliveryPathResultB\x10Z\x06/proto\x92\x03\x05\xd2>\x02\x10\x03b\beditionsp\xe8\a"
 
 var file_api_warehouse_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_api_warehouse_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_api_warehouse_proto_goTypes = []any{
-	(WarehouseType)(0),          // 0: graph.WarehouseType
-	(*Warehouse)(nil),           // 1: graph.Warehouse
-	(*Path)(nil),                // 2: graph.Path
-	(*GetPath)(nil),             // 3: graph.GetPath
-	(*DeliveryPathRequest)(nil), // 4: graph.DeliveryPathRequest
-	(*DeliveryPath)(nil),        // 5: graph.DeliveryPath
-	(*DeliveryPathResult)(nil),  // 6: graph.DeliveryPathResult
+	(WarehouseType)(0),          // 0: warehouses.WarehouseType
+	(*Warehouse)(nil),           // 1: warehouses.Warehouse
+	(*Path)(nil),                // 2: warehouses.Path
+	(*GetPath)(nil),             // 3: warehouses.GetPath
+	(*DeliveryPathRequest)(nil), // 4: warehouses.DeliveryPathRequest
+	(*DeliveryPath)(nil),        // 5: warehouses.DeliveryPath
+	(*DeliveryPathResult)(nil),  // 6: warehouses.DeliveryPathResult
 }
 var file_api_warehouse_proto_depIdxs = []int32{
-	0,  // 0: graph.Warehouse.type:type_name -> graph.WarehouseType
-	1,  // 1: graph.Path.nodes:type_name -> graph.Warehouse
-	1,  // 2: graph.DeliveryPathRequest.node:type_name -> graph.Warehouse
-	1,  // 3: graph.DeliveryPathRequest.from:type_name -> graph.Warehouse
-	1,  // 4: graph.DeliveryPathRequest.to:type_name -> graph.Warehouse
-	1,  // 5: graph.DeliveryPath.first:type_name -> graph.Warehouse
-	1,  // 6: graph.DeliveryPath.last:type_name -> graph.Warehouse
-	2,  // 7: graph.DeliveryPath.path:type_name -> graph.Path
-	5,  // 8: graph.DeliveryPathResult.delivery_path:type_name -> graph.DeliveryPath
-	3,  // 9: graph.PathService.Get:input_type -> graph.GetPath
-	4,  // 10: graph.PathService.GetDeliveryPath:input_type -> graph.DeliveryPathRequest
-	2,  // 11: graph.PathService.Get:output_type -> graph.Path
-	6,  // 12: graph.PathService.GetDeliveryPath:output_type -> graph.DeliveryPathResult
+	0,  // 0: warehouses.Warehouse.type:type_name -> warehouses.WarehouseType
+	1,  // 1: warehouses.Path.nodes:type_name -> warehouses.Warehouse
+	1,  // 2: warehouses.DeliveryPathRequest.node:type_name -> warehouses.Warehouse
+	1,  // 3: warehouses.DeliveryPathRequest.from:type_name -> warehouses.Warehouse
+	1,  // 4: warehouses.DeliveryPathRequest.to:type_name -> warehouses.Warehouse
+	1,  // 5: warehouses.DeliveryPath.first:type_name -> warehouses.Warehouse
+	1,  // 6: warehouses.DeliveryPath.last:type_name -> warehouses.Warehouse
+	2,  // 7: warehouses.DeliveryPath.path:type_name -> warehouses.Path
+	5,  // 8: warehouses.DeliveryPathResult.delivery_path:type_name -> warehouses.DeliveryPath
+	3,  // 9: warehouses.PathService.Get:input_type -> warehouses.GetPath
+	4,  // 10: warehouses.PathService.GetDeliveryPath:input_type -> warehouses.DeliveryPathRequest
+	2,  // 11: warehouses.PathService.Get:output_type -> warehouses.Path
+	6,  // 12: warehouses.PathService.GetDeliveryPath:output_type -> warehouses.DeliveryPathResult
 	11, // [11:13] is the sub-list for method output_type
 	9,  // [9:11] is the sub-list for method input_type
 	9,  // [9:9] is the sub-list for extension type_name

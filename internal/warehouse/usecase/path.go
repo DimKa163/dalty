@@ -3,8 +3,9 @@ package usecase
 import (
 	"context"
 	"errors"
-	"github.com/DimKa163/dalty/internal/graph"
 	"time"
+
+	graph2 "github.com/DimKa163/dalty/pkg/graph"
 
 	"github.com/DimKa163/dalty/internal/logging"
 	"github.com/DimKa163/dalty/internal/warehouse/core"
@@ -15,10 +16,10 @@ import (
 type PathService struct {
 	warehouseRepository core.WarehouseRepository
 	pathFinder          *core.PathFinder
-	graphContext        *graph.GraphContext
+	graphContext        *graph2.GraphContext
 }
 
-func NewPathService(warehouseRepository core.WarehouseRepository, pathFinder *core.PathFinder, graphContext *graph.GraphContext) *PathService {
+func NewPathService(warehouseRepository core.WarehouseRepository, pathFinder *core.PathFinder, graphContext *graph2.GraphContext) *PathService {
 	return &PathService{warehouseRepository: warehouseRepository, pathFinder: pathFinder, graphContext: graphContext}
 }
 
@@ -47,8 +48,8 @@ func (ps *PathService) GetPath(ctx context.Context, dest, defaultWh *guid.Guid) 
 
 func (ps *PathService) UpdateGraph(ctx context.Context) error {
 	logger := logging.Logger(ctx)
-	logger.Info("start to update warehouse")
-	gr := graph.NewGraph()
+	logger.Info("start to update warehouse graph")
+	gr := graph2.NewGraph()
 	startTime := time.Now()
 	warehouses, err := ps.warehouseRepository.GetAll(ctx)
 	if err != nil {
@@ -89,12 +90,12 @@ func (ps *PathService) UpdateGraph(ctx context.Context) error {
 	}
 	ps.graphContext.Update(gr)
 	elapsed := time.Since(startTime)
-	logger.Info("warehouse updated successfully", zap.Duration("elapsed", elapsed))
+	logger.Info("warehouse graph updated successfully", zap.Duration("elapsed", elapsed))
 	return nil
 }
 
-func createNode(w *core.Warehouse) *graph.Node {
-	var node graph.Node
+func createNode(w *core.Warehouse) *graph2.Node {
+	var node graph2.Node
 	node.ID = w.ID.String()
 	node.Value = w
 	return &node

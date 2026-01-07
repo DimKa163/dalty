@@ -1,5 +1,5 @@
 ﻿edition = "2023";
-package graph;
+package warehouses;
 
 option go_package = "/proto";
 
