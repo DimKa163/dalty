@@ -2,11 +2,15 @@ package server
 
 import (
 	"context"
+	"errors"
+	"github.com/DimKa163/dalty/api/proto"
 	"github.com/DimKa163/dalty/internal/product/core"
-	"github.com/DimKa163/dalty/internal/product/proto"
 	"github.com/DimKa163/dalty/internal/product/usecase"
-	"github.com/DimKa163/dalty/pkg/proto/protoerr"
+	"github.com/DimKa163/dalty/pkg/daltyerrors"
+	"github.com/DimKa163/dalty/pkg/daltyerrors/protoerr"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type ProductServer struct {
@@ -37,7 +41,11 @@ func (ps *ProductServer) BatchRequest(ctx context.Context, in *proto.BatchProduc
 	}
 	appResponse, err := ps.app.BatchRequest(ctx, batch)
 	if err != nil {
-		return nil, protoerr.InternalError(err)
+		var daltyErr *daltyerrors.DaltyError
+		if errors.As(err, &daltyErr) {
+			return nil, protoerr.Handle(daltyErr)
+		}
+		return nil, status.Error(codes.Internal, err.Error())
 	}
 	batchResponse := make([]*proto.Product, len(appResponse))
 	for i, product := range appResponse {
@@ -49,7 +57,11 @@ func (ps *ProductServer) BatchRequest(ctx context.Context, in *proto.BatchProduc
 
 func toProductRequest(in *proto.ProductRequest) (*usecase.ProductRequest, error) {
 	if !in.HasFnrec() && !in.HasIntegrationId() {
-		return nil, protoerr.InvalidArgument("request does not have any identifier", "fnrec", "integration_id")
+		return nil, protoerr.InvalidArgument("request does not have any identifier",
+			&protoerr.ValidationError{
+				Message: "one of the following fields must be set",
+				Members: []string{"fnrec", "integration_id"},
+			})
 	}
 	var req usecase.ProductRequest
 	if in.HasIntegrationId() {
@@ -223,4 +235,11 @@ func toProtoProductGroup(pg core.ProductGroup) proto.ProductGroup {
 	default:
 		return proto.ProductGroup_PRODUCT_GROUP_UNSPECIFIED
 	}
+}
+
+func toError(err error) error {
+	if errors.Is(err, daltyerrors.ErrNotFound) {
+
+	}
+	return protoerr.InternalError(err)
 }

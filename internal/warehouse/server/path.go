@@ -3,8 +3,8 @@ package server
 import (
 	"context"
 
+	"github.com/DimKa163/dalty/api/proto"
 	"github.com/DimKa163/dalty/internal/warehouse/core"
-	"github.com/DimKa163/dalty/internal/warehouse/proto"
 	"github.com/DimKa163/dalty/internal/warehouse/usecase"
 	"github.com/beevik/guid"
 	"google.golang.org/grpc"

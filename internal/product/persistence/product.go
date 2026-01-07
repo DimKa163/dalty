@@ -3,6 +3,8 @@ package persistence
 import (
 	"context"
 	"database/sql"
+	"errors"
+	"github.com/DimKa163/dalty/pkg/daltyerrors"
 
 	"github.com/DimKa163/dalty/internal/db"
 	"github.com/DimKa163/dalty/internal/product/core"
@@ -89,17 +91,38 @@ func NewProductRepository(db db.QueryExecutor) *ProductRepository {
 
 func (r *ProductRepository) GetByID(ctx context.Context, id guid.Guid) (*core.Product, error) {
 	row := r.db.QueryRow(ctx, GetByIDStmt, id)
-	return mapProduct(row)
+	prd, err := mapProduct(row)
+	if err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return nil, daltyerrors.NewNotFoundError(daltyerrors.ErrNotFound, "product not found by id", id)
+		}
+		return nil, err
+	}
+	return prd, nil
 }
 
 func (r *ProductRepository) GetByFnrec(ctx context.Context, fnrec string) (*core.Product, error) {
 	row := r.db.QueryRow(ctx, GetByFnrecStmt, fnrec)
-	return mapProduct(row)
+	prd, err := mapProduct(row)
+	if err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return nil, daltyerrors.NewNotFoundError(daltyerrors.ErrNotFound, "product not found by fnrec", fnrec)
+		}
+		return nil, err
+	}
+	return prd, nil
 }
 
 func (r *ProductRepository) GetByIntegrationID(ctx context.Context, integrationID string) (*core.Product, error) {
 	row := r.db.QueryRow(ctx, GetByIntegrationIDStmt, integrationID)
-	return mapProduct(row)
+	prd, err := mapProduct(row)
+	if err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return nil, daltyerrors.NewNotFoundError(daltyerrors.ErrNotFound, "product not found by integrationID", integrationID)
+		}
+		return nil, err
+	}
+	return prd, nil
 }
 
 func mapProduct(row pgx.Row) (*core.Product, error) {

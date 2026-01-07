@@ -2,6 +2,7 @@ package product
 
 import (
 	"context"
+	"github.com/DimKa163/dalty/internal/product/server/interceptor"
 	"net"
 	"os/signal"
 	"syscall"
@@ -97,7 +98,7 @@ func (s *Server) addSyscallObserver(ctx context.Context) {
 }
 
 func addGrpcServer() *grpc.Server {
-	return grpc.NewServer(grpc.ChainUnaryInterceptor())
+	return grpc.NewServer(grpc.ChainUnaryInterceptor(interceptor.UnaryServerLoggingInterceptor()))
 }
 func addPgPool(database string) (*pgxpool.Pool, error) {
 	pg, err := pgxpool.New(context.Background(), database)

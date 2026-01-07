@@ -1150,7 +1150,7 @@ var File_api_product_proto protoreflect.FileDescriptor
 
 const file_api_product_proto_rawDesc = "" +
 	"\n" +
-	"\x11api/product.proto\x12\bproducts\x1a!google/protobuf/go_features.proto\"M\n" +
+	"\x11api/product.proto\x12\bproducts\x1a!google/protobuf/go_features.proto\x1a\x10api/errors.proto\"M\n" +
 	"\x0eProductRequest\x12%\n" +
 	"\x0eintegration_id\x18\x01 \x01(\tR\rintegrationId\x12\x14\n" +
 	"\x05fnrec\x18\x02 \x01(\tR\x05fnrec\"K\n" +
@@ -1285,6 +1285,7 @@ func file_api_product_proto_init() {
 	if File_api_product_proto != nil {
 		return
 	}
+	file_api_errors_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
