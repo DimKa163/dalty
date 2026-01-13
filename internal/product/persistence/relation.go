@@ -3,201 +3,130 @@ package persistence
 import (
 	"context"
 	"database/sql"
-
+	"errors"
 	"github.com/DimKa163/dalty/internal/db"
 	"github.com/DimKa163/dalty/internal/product/core"
+	"github.com/DimKa163/dalty/pkg/daltyerrors"
+	"github.com/DimKa163/dalty/pkg/daltymodel"
 	"github.com/beevik/guid"
 	"github.com/jackc/pgx/v5"
 )
 
 const (
-	GetCountStmt       = `SELECT COUNT(*) FROM public.nrb_related_product`
-	GetAllRelationStmt = `SELECT 
-    	id,
-    	nrb_amount_mv, 
-    	nrb_product_sku_id, 
-    	nrb_product_mv_id
-		FROM public.nrb_related_product`
-	GetByLeftByIDStmt = `SELECT
-		 rel.id,
-    rel.nrb_amount_mv,
-    l.id,
-    l.name,
-    l.type_id,
-    l.nrb_type_production_id,
-    l.smr_fnrec,
-    l.is_archive,
-    l.nrb_integration_id,
-    l.smr_is_service,
-    l.smr_product_group_flag_id,
-    l.category_id,
-    l.smr_series_id,
-    l.nrb_account_product_id,
-    l.ask_non_standart_category_id,
-    l.nrb_count_mv,
-    l.ask_pack_volume,
-    l.ask_pack_length,
-    l.ask_pack_width,
-    l.ask_pack_height,
-    l.ask_weight,
-    r.id,
-    r.name,
-    r.type_id,
-    r.nrb_type_production_id,
-    r.smr_fnrec,
-    r.is_archive,
-    r.nrb_integration_id,
-    r.smr_is_service,
-    r.smr_product_group_flag_id,
-    r.category_id,
-    r.smr_series_id,
-    r.nrb_account_product_id,
-    r.ask_non_standart_category_id,
-    r.nrb_count_mv,
-    r.ask_pack_volume,
-    r.ask_pack_length,
-    r.ask_pack_width,
-    r.ask_pack_height,
-    r.ask_weight
-	FROM public.nrb_related_product rel
-	JOIN public.product l ON l.id = rel.nrb_product_sku_id
-	JOIN public.product r ON r.id = rel.nrb_product_mv_id
-	WHERE l.id = $1`
+	GetByLeftIDStmt = `SELECT
+		nrb_related_product.id,
+		nrb_product_sku_id,
+		nrb_amount_mv,
+		p1.id,
+    	p1.name,
+    	p1.type_id,
+    	p1.nrb_type_production_id,
+    	p1.smr_fnrec,
+    	p1.is_archive,
+    	p1.nrb_integration_id,
+    	p1.smr_is_service,
+    	p1.smr_product_group_flag_id,
+    	p1.category_id,
+    	p1.smr_series_id,
+    	p1.nrb_account_product_id,
+    	p1.ask_non_standart_category_id,
+    	p1.nrb_count_mv,
+    	p1.ask_pack_volume,
+    	p1.ask_pack_length,
+    	p1.ask_pack_width,
+    	p1.ask_pack_height,
+    	p1.ask_weight
+	FROM public.nrb_related_product
+	JOIN public.product p on nrb_related_product.nrb_product_sku_id = p.id
+	JOIN public.product p1 on nrb_related_product.nrb_product_mv_id = p1.id
+	WHERE p.id=$1`
 	GetByLeftFnrecStmt = `SELECT
-		 rel.id,
-    rel.nrb_amount_mv,
-    l.id,
-    l.name,
-    l.type_id,
-    l.nrb_type_production_id,
-    l.smr_fnrec,
-    l.is_archive,
-    l.nrb_integration_id,
-    l.smr_is_service,
-    l.smr_product_group_flag_id,
-    l.category_id,
-    l.smr_series_id,
-    l.nrb_account_product_id,
-    l.ask_non_standart_category_id,
-    l.nrb_count_mv,
-    l.ask_pack_volume,
-    l.ask_pack_length,
-    l.ask_pack_width,
-    l.ask_pack_height,
-    l.ask_weight,
-    r.id,
-    r.name,
-    r.type_id,
-    r.nrb_type_production_id,
-    r.smr_fnrec,
-    r.is_archive,
-    r.nrb_integration_id,
-    r.smr_is_service,
-    r.smr_product_group_flag_id,
-    r.category_id,
-    r.smr_series_id,
-    r.nrb_account_product_id,
-    r.ask_non_standart_category_id,
-    r.nrb_count_mv,
-    r.ask_pack_volume,
-    r.ask_pack_length,
-    r.ask_pack_width,
-    r.ask_pack_height,
-    r.ask_weight
-	FROM public.nrb_related_product rel
-	JOIN public.product l ON l.id = rel.nrb_product_sku_id
-	JOIN public.product r ON r.id = rel.nrb_product_mv_id
-	WHERE l.smr_fnrec = $1`
+		nrb_related_product.id,
+		nrb_product_sku_id,
+		p1.id,
+    	p1.name,
+    	p1.type_id,
+    	p1.nrb_type_production_id,
+    	p1.smr_fnrec,
+    	p1.is_archive,
+    	p1.nrb_integration_id,
+    	p1.smr_is_service,
+    	p1.smr_product_group_flag_id,
+    	p1.category_id,
+    	p1.smr_series_id,
+    	p1.nrb_account_product_id,
+    	p1.ask_non_standart_category_id,
+    	p1.nrb_count_mv,
+    	p1.ask_pack_volume,
+    	p1.ask_pack_length,
+    	p1.ask_pack_width,
+    	p1.ask_pack_height,
+    	p1.ask_weight,
+		nrb_amount_mv
+	FROM public.nrb_related_product
+	JOIN public.product p on nrb_related_product.nrb_product_sku_id = p.id
+	JOIN public.product p1 on nrb_related_product.nrb_product_mv_id = p1.id
+	WHERE p.smr_fnrec=$1`
 	GetByLeftIntegrationIDStmt = `SELECT
-    	    rel.id,
-    rel.nrb_amount_mv,
-    l.id,
-    l.name,
-    l.type_id,
-    l.nrb_type_production_id,
-    l.smr_fnrec,
-    l.is_archive,
-    l.nrb_integration_id,
-    l.smr_is_service,
-    l.smr_product_group_flag_id,
-    l.category_id,
-    l.smr_series_id,
-    l.nrb_account_product_id,
-    l.ask_non_standart_category_id,
-    l.nrb_count_mv,
-    l.ask_pack_volume,
-    l.ask_pack_length,
-    l.ask_pack_width,
-    l.ask_pack_height,
-    l.ask_weight,
-    r.id,
-    r.name,
-    r.type_id,
-    r.nrb_type_production_id,
-    r.smr_fnrec,
-    r.is_archive,
-    r.nrb_integration_id,
-    r.smr_is_service,
-    r.smr_product_group_flag_id,
-    r.category_id,
-    r.smr_series_id,
-    r.nrb_account_product_id,
-    r.ask_non_standart_category_id,
-    r.nrb_count_mv,
-    r.ask_pack_volume,
-    r.ask_pack_length,
-    r.ask_pack_width,
-    r.ask_pack_height,
-    r.ask_weight
-	FROM public.nrb_related_product rel
-	JOIN public.product l ON l.id = rel.nrb_product_sku_id
-	JOIN public.product r ON r.id = rel.nrb_product_mv_id
-	WHERE l.nrb_integration_id = $1`
-	GetByRightIDStmt = `SELECT
-    	    rel.id,
-    rel.nrb_amount_mv,
-    l.id,
-    l.name,
-    l.type_id,
-    l.nrb_type_production_id,
-    l.smr_fnrec,
-    l.is_archive,
-    l.nrb_integration_id,
-    l.smr_is_service,
-    l.smr_product_group_flag_id,
-    l.category_id,
-    l.smr_series_id,
-    l.nrb_account_product_id,
-    l.ask_non_standart_category_id,
-    l.nrb_count_mv,
-    l.ask_pack_volume,
-    l.ask_pack_length,
-    l.ask_pack_width,
-    l.ask_pack_height,
-    l.ask_weight,
-    r.id,
-    r.name,
-    r.type_id,
-    r.nrb_type_production_id,
-    r.smr_fnrec,
-    r.is_archive,
-    r.nrb_integration_id,
-    r.smr_is_service,
-    r.smr_product_group_flag_id,
-    r.category_id,
-    r.smr_series_id,
-    r.nrb_account_product_id,
-    r.ask_non_standart_category_id,
-    r.nrb_count_mv,
-    r.ask_pack_volume,
-    r.ask_pack_length,
-    r.ask_pack_width,
-    r.ask_pack_height,
-    r.ask_weight
-	FROM public.nrb_related_product rel
-	JOIN public.product l ON l.id = rel.nrb_product_sku_id
-	JOIN public.product r ON r.id = rel.nrb_product_mv_id
-	WHERE r.id = $1 AND rel.nrb_amount_mv=$2`
+		nrb_related_product.id,
+		nrb_product_sku_id,
+		p1.id,
+    	p1.name,
+    	p1.type_id,
+    	p1.nrb_type_production_id,
+    	p1.smr_fnrec,
+    	p1.is_archive,
+    	p1.nrb_integration_id,
+    	p1.smr_is_service,
+    	p1.smr_product_group_flag_id,
+    	p1.category_id,
+    	p1.smr_series_id,
+    	p1.nrb_account_product_id,
+    	p1.ask_non_standart_category_id,
+    	p1.nrb_count_mv,
+    	p1.ask_pack_volume,
+    	p1.ask_pack_length,
+    	p1.ask_pack_width,
+    	p1.ask_pack_height,
+    	p1.ask_weight,
+		nrb_amount_mv
+	FROM public.nrb_related_product
+	JOIN public.product p on nrb_related_product.nrb_product_sku_id = p.id
+	JOIN public.product p1 on nrb_related_product.nrb_product_mv_id = p1.id
+	WHERE p.nrb_integration_id=$1`
+	GetByRightIDStmt = `SELECT 
+    	l.id, 
+    	l.nrb_product_sku_id, 
+    	l.nrb_product_mv_id, 
+    	l.nrb_amount_mv, 
+    	r.id, 
+    	r.nrb_product_sku_id, 
+    	r.nrb_product_mv_id, 
+    	r.nrb_amount_mv,
+    	p.id,
+    	p.name,
+    	p.type_id,
+    	p.nrb_type_production_id,
+    	p.smr_fnrec,
+    	p.is_archive,
+    	p.nrb_integration_id,
+    	p.smr_is_service,
+    	p.smr_product_group_flag_id,
+    	p.category_id,
+    	p.smr_series_id,
+    	p.nrb_account_product_id,
+    	p.ask_non_standart_category_id,
+    	p.nrb_count_mv,
+    	p.ask_pack_volume,
+    	p.ask_pack_length,
+    	p.ask_pack_width,
+    	p.ask_pack_height,
+    	p.ask_weight
+	FROM nrb_related_product AS l
+ 	JOIN nrb_related_product AS r ON r.nrb_product_sku_id = l.nrb_product_sku_id
+	JOIN product p ON l.nrb_product_sku_id = p.id
+	WHERE l.nrb_product_mv_id = $1
+  	AND r.nrb_product_mv_id=$2`
 )
 
 type RelationRepository struct {
@@ -208,44 +137,13 @@ func NewRelationRepository(db db.QueryExecutor) *RelationRepository {
 	return &RelationRepository{db: db}
 }
 
-func (r *RelationRepository) GetAll(ctx context.Context) ([]*core.Relation, error) {
-	var count int
-	if err := r.db.QueryRow(ctx, GetCountStmt).Scan(&count); err != nil {
-		return nil, err
-	}
-	rows, err := r.db.Query(ctx, GetAllRelationStmt)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var index int
-	relations := make([]*core.Relation, count)
-	for rows.Next() {
-		var id guid.Guid
-		var amount int
-		var left guid.Guid
-		var right guid.Guid
-		if err := rows.Scan(&id, &amount, &left, &right); err != nil {
-			return nil, err
-		}
-		relations[index] = &core.Relation{
-			ID:      id,
-			Amount:  amount,
-			LeftID:  left,
-			RightID: right,
-		}
-		index++
-	}
-	return relations, nil
-}
-
 func (r *RelationRepository) GetByLeftID(ctx context.Context, id guid.Guid) ([]*core.Relation, error) {
-	rows, err := r.db.Query(ctx, GetByLeftByIDStmt, id)
+	rows, err := r.db.Query(ctx, GetByLeftIDStmt, id)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	return readRelation(rows)
+	return readDirectRelation(rows)
 }
 func (r *RelationRepository) GetByLeftFnrec(ctx context.Context, fnrec string) ([]*core.Relation, error) {
 	rows, err := r.db.Query(ctx, GetByLeftFnrecStmt, fnrec)
@@ -253,7 +151,7 @@ func (r *RelationRepository) GetByLeftFnrec(ctx context.Context, fnrec string) (
 		return nil, err
 	}
 	defer rows.Close()
-	return readRelation(rows)
+	return readDirectRelation(rows)
 }
 
 func (r *RelationRepository) GetByLeftIntegrationID(ctx context.Context, integrationID string) ([]*core.Relation, error) {
@@ -262,153 +160,200 @@ func (r *RelationRepository) GetByLeftIntegrationID(ctx context.Context, integra
 		return nil, err
 	}
 	defer rows.Close()
-	return readRelation(rows)
+	return readDirectRelation(rows)
 }
 
-func (r *RelationRepository) GetByRightID(ctx context.Context, id guid.Guid, amount int) ([]*core.Relation, error) {
-	rows, err := r.db.Query(ctx, GetByRightIDStmt, id, amount)
-	if err != nil {
-		return nil, err
+func (r *RelationRepository) GetByRightID(ctx context.Context, lid, rid guid.Guid) (*core.Relation, *core.Relation, error) {
+	var lrelationID guid.Guid
+	var lParentProductID guid.Guid
+	var lSubProductID guid.Guid
+	var lAmount int32
+	var rrelationID guid.Guid
+	var rParentProductID guid.Guid
+	var rSubProductID guid.Guid
+	var rAmount int32
+	var product core.Product
+	var productID guid.Guid
+	var name string
+	var typeID string
+	var typeProductionID string
+	var fnrec string
+	var isArchive bool
+	var integrationID string
+	var isService bool
+	var productGroupFlagID sql.NullString
+	var categoryID sql.NullString
+	var seriesID sql.NullString
+	var accountProviderID sql.NullString
+	var standardCategory sql.NullString
+	var countMa int32
+	var volume float64
+	var length float64
+	var width float64
+	var height float64
+	var weight float64
+	if err := r.db.QueryRow(ctx, GetByRightIDStmt, lid, rid).Scan(
+		&lrelationID,
+		&lParentProductID,
+		&lSubProductID,
+		&lAmount,
+		&rrelationID,
+		&rParentProductID,
+		&rSubProductID,
+		&rAmount,
+		&productID,
+		&name,
+		&typeID,
+		&typeProductionID,
+		&fnrec,
+		&isArchive,
+		&integrationID,
+		&isService,
+		&productGroupFlagID,
+		&categoryID,
+		&seriesID,
+		&accountProviderID,
+		&standardCategory,
+		&countMa,
+		&volume,
+		&length,
+		&width,
+		&height,
+		&weight); err != nil {
+
+		if errors.Is(err, pgx.ErrNoRows) {
+			return nil, nil, daltyerrors.NewNotFoundError(daltyerrors.ErrNotFound, "product net not found", lid, rid)
+		}
+		return nil, nil, err
+
 	}
-	defer rows.Close()
-	return readRelation(rows)
+	var lr core.Relation
+	var rr core.Relation
+	lr.ID = lrelationID
+	lr.LeftID = lParentProductID
+	lr.RightID = lSubProductID
+	lr.Amount = lAmount
+	lr.Left = &product
+	rr.ID = rrelationID
+	rr.LeftID = rParentProductID
+	rr.RightID = rSubProductID
+	rr.Amount = rAmount
+	rr.Left = &product
+	product.ID = productID
+	product.Name = name
+	product.Fnrec = fnrec
+	product.IsArchive = isArchive
+	product.IsService = isService
+	product.IntegrationID = integrationID
+	product.CountMa = countMa
+	product.Volume = volume
+	product.Length = length
+	product.Width = width
+	product.Height = height
+	product.Weight = weight
+	product.Type = daltymodel.ProductType(typeID)
+	product.ProductionType = daltymodel.ProductionType(typeProductionID)
+	if productGroupFlagID.Valid {
+		product.Group = daltymodel.ProductGroup(productGroupFlagID.String)
+	}
+	if categoryID.Valid {
+		product.CategoryID = categoryID.String
+	}
+	if seriesID.Valid {
+		product.SeriesID = seriesID.String
+	}
+	if accountProviderID.Valid {
+		product.AccountProviderId = accountProviderID.String
+	}
+	if standardCategory.Valid {
+		product.NonStandardCategory = standardCategory.String
+	}
+	return &lr, &rr, nil
 }
 
-func readRelation(rows pgx.Rows) ([]*core.Relation, error) {
+func readDirectRelation(rows pgx.Rows) ([]*core.Relation, error) {
 	relations := make([]*core.Relation, 0)
 	for rows.Next() {
 		var id guid.Guid
-		var amount int
 		var left guid.Guid
-		var right guid.Guid
-		var leftName string
-		var leftTypeID string
-		var leftTypeProductionID string
-		var leftFnrec string
-		var leftIsArchive bool
-		var leftIntegrationID string
-		var leftIsService bool
-		var leftProductGroupFlagID sql.NullString
-		var leftCategoryID sql.NullString
-		var leftSeriesID sql.NullString
-		var leftAccountProviderID sql.NullString
-		var leftStandardCategory sql.NullString
-		var leftCountMa int
-		var leftPack core.ProductPack
-		var rightName string
-		var rightTypeID string
-		var rightTypeProductionID string
-		var rightFnrec string
-		var rightIsArchive bool
-		var rightIntegrationID string
-		var rightIsService bool
-		var rightProductGroupFlagID sql.NullString
-		var rightCategoryID sql.NullString
-		var rightSeriesID sql.NullString
-		var rightAccountProviderID sql.NullString
-		var rightStandardCategory sql.NullString
-		var rightCountMa int
-		var rightPack core.ProductPack
+		var amount int32
+		var productID guid.Guid
+		var name string
+		var typeID string
+		var typeProductionID string
+		var fnrec string
+		var isArchive bool
+		var integrationID string
+		var isService bool
+		var productGroupFlagID sql.NullString
+		var categoryID sql.NullString
+		var seriesID sql.NullString
+		var accountProviderID sql.NullString
+		var standardCategory sql.NullString
+		var countMa int32
+		var volume float64
+		var length float64
+		var width float64
+		var height float64
+		var weight float64
 		if err := rows.Scan(&id,
-			&amount,
 			&left,
-			&leftName,
-			&leftTypeID,
-			&leftTypeProductionID,
-			&leftFnrec,
-			&leftIsArchive,
-			&leftIntegrationID,
-			&leftIsService,
-			&leftProductGroupFlagID,
-			&leftCategoryID,
-			&leftSeriesID,
-			&leftAccountProviderID,
-			&leftStandardCategory,
-			&leftCountMa,
-			&leftPack.Volume,
-			&leftPack.Length,
-			&leftPack.Width,
-			&leftPack.Height,
-			&leftPack.Weight,
-			&right,
-			&rightName,
-			&rightTypeID,
-			&rightTypeProductionID,
-			&rightFnrec,
-			&rightIsArchive,
-			&rightIntegrationID,
-			&rightIsService,
-			&rightProductGroupFlagID,
-			&rightCategoryID,
-			&rightSeriesID,
-			&rightAccountProviderID,
-			&rightStandardCategory,
-			&rightCountMa,
-			&rightPack.Volume,
-			&rightPack.Length,
-			&rightPack.Width,
-			&rightPack.Height,
-			&rightPack.Weight); err != nil {
+			&amount,
+			&productID,
+			&name,
+			&typeID,
+			&typeProductionID,
+			&fnrec,
+			&isArchive,
+			&integrationID,
+			&isService,
+			&productGroupFlagID,
+			&categoryID,
+			&seriesID,
+			&accountProviderID,
+			&standardCategory,
+			&countMa,
+			&volume,
+			&length,
+			&width,
+			&height,
+			&weight); err != nil {
 			return nil, err
 		}
 		var relation core.Relation
 		relation.ID = id
 		relation.Amount = amount
 		relation.LeftID = left
-		relation.RightID = right
-		relation.Left = core.Product{
-			ID:            left,
-			Name:          leftName,
-			Fnrec:         leftFnrec,
-			IsArchive:     leftIsArchive,
-			IsService:     leftIsService,
-			IntegrationID: leftIntegrationID,
-			CountMa:       leftCountMa,
-			ProductPack:   leftPack,
+		relation.RightID = productID
+		relation.Right = &core.Product{}
+		relation.Right.ID = productID
+		relation.Right.Name = name
+		relation.Right.Fnrec = fnrec
+		relation.Right.IsArchive = isArchive
+		relation.Right.IsService = isService
+		relation.Right.IntegrationID = integrationID
+		relation.Right.CountMa = countMa
+		relation.Right.Volume = volume
+		relation.Right.Length = length
+		relation.Right.Width = width
+		relation.Right.Height = height
+		relation.Right.Weight = weight
+		relation.Right.Type = daltymodel.ProductType(typeID)
+		relation.Right.ProductionType = daltymodel.ProductionType(typeProductionID)
+		if productGroupFlagID.Valid {
+			relation.Right.Group = daltymodel.ProductGroup(productGroupFlagID.String)
 		}
-		relation.Left.Type = core.ProductType(leftTypeID)
-		relation.Left.ProductionType = core.ProductionType(leftTypeProductionID)
-		if leftProductGroupFlagID.Valid {
-			relation.Left.Group = core.ProductGroup(leftProductGroupFlagID.String)
+		if categoryID.Valid {
+			relation.Right.CategoryID = categoryID.String
 		}
-		if leftCategoryID.Valid {
-			relation.Left.CategoryID = leftCategoryID.String
+		if seriesID.Valid {
+			relation.Right.SeriesID = seriesID.String
 		}
-		if leftSeriesID.Valid {
-			relation.Left.SeriesID = leftSeriesID.String
+		if accountProviderID.Valid {
+			relation.Right.AccountProviderId = accountProviderID.String
 		}
-		if leftAccountProviderID.Valid {
-			relation.Left.AccountProviderId = leftAccountProviderID.String
-		}
-		if leftStandardCategory.Valid {
-			relation.Left.NonStandardCategory = leftStandardCategory.String
-		}
-		relation.Right = core.Product{
-			ID:            right,
-			Name:          rightName,
-			Fnrec:         rightFnrec,
-			IsArchive:     rightIsArchive,
-			IsService:     rightIsService,
-			IntegrationID: rightIntegrationID,
-			CountMa:       rightCountMa,
-			ProductPack:   rightPack,
-		}
-		relation.Right.Type = core.ProductType(rightTypeID)
-		relation.Right.ProductionType = core.ProductionType(rightTypeProductionID)
-		if rightProductGroupFlagID.Valid {
-			relation.Right.Group = core.ProductGroup(rightProductGroupFlagID.String)
-		}
-		if rightCategoryID.Valid {
-			relation.Right.CategoryID = rightCategoryID.String
-		}
-		if rightSeriesID.Valid {
-			relation.Right.SeriesID = rightSeriesID.String
-		}
-		if rightAccountProviderID.Valid {
-			relation.Right.AccountProviderId = rightAccountProviderID.String
-		}
-		if rightStandardCategory.Valid {
-			relation.Right.NonStandardCategory = rightStandardCategory.String
+		if standardCategory.Valid {
+			relation.Right.NonStandardCategory = standardCategory.String
 		}
 		relations = append(relations, &relation)
 

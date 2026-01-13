@@ -1,0 +1,51 @@
+﻿edition = "2023";
+package products;
+
+option go_package = "/proto";
+
+import "google/protobuf/go_features.proto";
+import "api/product.proto";
+option features.(pb.go).api_level = API_OPAQUE;
+
+message SpecificationLine {
+  string fnrec = 1;
+  string integration = 2;
+  int32 quantity = 3;
+}
+
+message SpecificationRequest {
+  repeated SpecificationLine specification_lines = 1;
+}
+
+enum SpecificationType {
+  DEFAULT = 0;
+  DIRECT_SPECIFICATION = 1;
+  REVERSE_SPECIFICATION = 2;
+}
+
+enum PickupStrategy {
+  NEAREST = 0;
+  FARTHEST = 1;
+}
+
+message Line {
+  Product product = 1;
+  int32 quantity = 2;
+  PickupStrategy strategy = 3;
+}
+
+
+message Specification {
+  Line product = 1;
+  SpecificationType type = 2;
+  repeated Line child_product = 3;
+  PickupStrategy strategy = 4;
+}
+
+message SpecificationResponse {
+  repeated Specification specifications = 1;
+}
+
+service SpecificationService{
+  rpc Execute(SpecificationRequest) returns(SpecificationResponse);
+}
