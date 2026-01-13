@@ -12,6 +12,7 @@ var ErrArchiveProduct = errors.New("product is archived")
 var ErrProductsNotFound = errors.New("products not found")
 
 type ProductRequest struct {
+	ID            string
 	IntegrationID string
 	Fnrec         string
 }
@@ -43,7 +44,7 @@ func (ps *ProductService) BatchRequest(ctx context.Context, requests []*ProductR
 		daltyErrs := make([]*daltyerrors.EntityError, len(errs))
 		for i, err := range errs {
 			daltyErrs[i] = &daltyerrors.EntityError{
-				ID:         err.Value.(string),
+				ID:         err.Value[0].(string),
 				EntityName: "product",
 			}
 		}
@@ -65,7 +66,7 @@ func (ps *ProductService) Find(ctx context.Context, request *ProductRequest) (*c
 		if errors.As(err, &storageErr) {
 			return nil, daltyerrors.New(
 				6,
-				&daltyerrors.EntityError{ID: storageErr.Value.(string), EntityName: "product"},
+				&daltyerrors.EntityError{ID: storageErr.Value[0].(string), EntityName: "product"},
 			)
 		}
 	}
@@ -78,7 +79,10 @@ func (ps *ProductService) Find(ctx context.Context, request *ProductRequest) (*c
 func (ps *ProductService) find(ctx context.Context, request *ProductRequest) (*core.Product, error) {
 	var productFunc func(context.Context, string) (*core.Product, error)
 	var filter string
-	if request.IntegrationID != "" {
+	if request.ID != "" {
+		productFunc = ps.productRepository.GetByID
+		filter = request.ID
+	} else if request.IntegrationID != "" {
 		productFunc = ps.productRepository.GetByIntegrationID
 		filter = request.IntegrationID
 	} else {

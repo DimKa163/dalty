@@ -8,6 +8,7 @@ import (
 	"github.com/DimKa163/dalty/internal/product/usecase"
 	"github.com/DimKa163/dalty/pkg/daltyerrors"
 	"github.com/DimKa163/dalty/pkg/daltyerrors/protoerr"
+	"github.com/DimKa163/dalty/pkg/daltymodel"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -94,7 +95,7 @@ func toProtoProduct(in *core.Product) *proto.Product {
 	return &out
 }
 
-func toProtoProductionType(in core.ProductionType) proto.ProductionType {
+func toProtoProductionType(in daltymodel.ProductionType) proto.ProductionType {
 	switch in {
 	case core.ProductionTypeProducing:
 		return proto.ProductionType_PRODUCTION_TYPE_PRODUCING
@@ -104,142 +105,135 @@ func toProtoProductionType(in core.ProductionType) proto.ProductionType {
 		return proto.ProductionType_PRODUCTION_TYPE_UNKNOWN
 	}
 }
-func toProtoProductGroup(pg core.ProductGroup) proto.ProductGroup {
+func toProtoProductGroup(pg daltymodel.ProductGroup) proto.ProductGroup {
 	switch pg {
-	case core.ProductGroupKitchens:
+	case daltymodel.ProductGroupKitchens:
 		return proto.ProductGroup_PRODUCT_GROUP_KITCHENS
-	case core.ProductGroupCaseFurniture:
+	case daltymodel.ProductGroupCaseFurniture:
 		return proto.ProductGroup_PRODUCT_GROUP_CASE_FURNITURE
-	case core.ProductGroupBeddingSets:
+	case daltymodel.ProductGroupBeddingSets:
 		return proto.ProductGroup_PRODUCT_GROUP_BEDDING_SETS
-	case core.ProductGroupSofas:
+	case daltymodel.ProductGroupSofas:
 		return proto.ProductGroup_PRODUCT_GROUP_SOFAS
-	case core.ProductGroupCovers:
+	case daltymodel.ProductGroupCovers:
 		return proto.ProductGroup_PRODUCT_GROUP_COVERS
-	case core.ProductGroupBlankets:
+	case daltymodel.ProductGroupBlankets:
 		return proto.ProductGroup_PRODUCT_GROUP_BLANKETS
-	case core.ProductGroupBedBasesWithStorage:
+	case daltymodel.ProductGroupBedBasesWithStorage:
 		return proto.ProductGroup_PRODUCT_GROUP_BED_BASES_WITH_STORAGE
-	case core.ProductGroupSofaComponents:
+	case daltymodel.ProductGroupSofaComponents:
 		return proto.ProductGroup_PRODUCT_GROUP_SOFA_COMPONENTS
-	case core.ProductGroupErgomotion:
+	case daltymodel.ProductGroupErgomotion:
 		return proto.ProductGroup_PRODUCT_GROUP_ERGOMOTION
-	case core.ProductGroupNonProducts:
+	case daltymodel.ProductGroupNonProducts:
 		return proto.ProductGroup_PRODUCT_GROUP_NON_PRODUCTS
-	case core.ProductGroupSmallFurniture:
+	case daltymodel.ProductGroupSmallFurniture:
 		return proto.ProductGroup_PRODUCT_GROUP_SMALL_FURNITURE
-	case core.ProductGroupMattresses:
+	case daltymodel.ProductGroupMattresses:
 		return proto.ProductGroup_PRODUCT_GROUP_MATTRESSES
-	case core.ProductGroupSlattedBases:
+	case daltymodel.ProductGroupSlattedBases:
 		return proto.ProductGroup_PRODUCT_GROUP_SLATTED_BASES
-	case core.ProductGroupMattressToppers:
+	case daltymodel.ProductGroupMattressToppers:
 		return proto.ProductGroup_PRODUCT_GROUP_MATTRESS_TOPPERS
-	case core.ProductGroupPillows:
+	case daltymodel.ProductGroupPillows:
 		return proto.ProductGroup_PRODUCT_GROUP_PILLOWS
-	case core.ProductGroupBeds:
+	case daltymodel.ProductGroupBeds:
 		return proto.ProductGroup_PRODUCT_GROUP_BEDS
-	case core.ProductGroupBedBases:
+	case daltymodel.ProductGroupBedBases:
 		return proto.ProductGroup_PRODUCT_GROUP_BED_BASES
-	case core.ProductGroupMiscellaneous:
+	case daltymodel.ProductGroupMiscellaneous:
 		return proto.ProductGroup_PRODUCT_GROUP_MISCELLANEOUS
-	case core.ProductGroupWardrobes:
+	case daltymodel.ProductGroupWardrobes:
 		return proto.ProductGroup_PRODUCT_GROUP_WARDROBES
-	case core.ProductGroupTextiles:
+	case daltymodel.ProductGroupTextiles:
 		return proto.ProductGroup_PRODUCT_GROUP_TEXTILES
-	case core.ProductGroupElectronics:
+	case daltymodel.ProductGroupElectronics:
 		return proto.ProductGroup_PRODUCT_GROUP_ELECTRONICS
-	case core.ProductGroupClothing:
+	case daltymodel.ProductGroupClothing:
 		return proto.ProductGroup_PRODUCT_GROUP_CLOTHING
-	case core.ProductGroupOrthopedics:
+	case daltymodel.ProductGroupOrthopedics:
 		return proto.ProductGroup_PRODUCT_GROUP_ORTHOPEDICS
-	case core.ProductGroupCoffeeTables:
+	case daltymodel.ProductGroupCoffeeTables:
 		return proto.ProductGroup_PRODUCT_GROUP_COFFEE_TABLES
-	case core.ProductGroupHomeOffice:
+	case daltymodel.ProductGroupHomeOffice:
 		return proto.ProductGroup_PRODUCT_GROUP_HOME_OFFICE
-	case core.ProductGroupLivingRooms:
+	case daltymodel.ProductGroupLivingRooms:
 		return proto.ProductGroup_PRODUCT_GROUP_LIVING_ROOMS
-	case core.ProductGroupLighting:
+	case daltymodel.ProductGroupLighting:
 		return proto.ProductGroup_PRODUCT_GROUP_LIGHTING
-	case core.ProductGroupDecor:
+	case daltymodel.ProductGroupDecor:
 		return proto.ProductGroup_PRODUCT_GROUP_DECOR
-	case core.ProductGroupSpaceOrganizationUpper:
+	case daltymodel.ProductGroupSpaceOrganizationUpper:
 		return proto.ProductGroup_PRODUCT_GROUP_HOME_CARE
-	case core.ProductGroupHomeCareUpper:
+	case daltymodel.ProductGroupHomeCareUpper:
 		return proto.ProductGroup_PRODUCT_GROUP_HOME_CARE_UPPER
-	case core.ProductGroupSpaceOrganization:
+	case daltymodel.ProductGroupSpaceOrganization:
 		return proto.ProductGroup_PRODUCT_GROUP_SPACE_ORGANIZATION
-	case core.ProductGroupHomeCare:
+	case daltymodel.ProductGroupHomeCare:
 		return proto.ProductGroup_PRODUCT_GROUP_HOME_CARE
-	case core.ProductGroupHallways:
+	case daltymodel.ProductGroupHallways:
 		return proto.ProductGroup_PRODUCT_GROUP_HALLWAYS
-	case core.ProductGroupFurnitureProtectionAndCare:
+	case daltymodel.ProductGroupFurnitureProtectionAndCare:
 		return proto.ProductGroup_PRODUCT_GROUP_FURNITURE_PROTECTION_AND_CARE
-	case core.ProductGroupOutdoorFurniture:
+	case daltymodel.ProductGroupOutdoorFurniture:
 		return proto.ProductGroup_PRODUCT_GROUP_OUTDOOR_FURNITURE
-	case core.ProductGroupStorage:
+	case daltymodel.ProductGroupStorage:
 		return proto.ProductGroup_PRODUCT_GROUP_STORAGE
-	case core.ProductGroupInterior:
+	case daltymodel.ProductGroupInterior:
 		return proto.ProductGroup_PRODUCT_GROUP_INTERIOR
-	case core.ProductGroupSeasonalProducts:
+	case daltymodel.ProductGroupSeasonalProducts:
 		return proto.ProductGroup_PRODUCT_GROUP_SEASONAL_PRODUCTS
-	case core.ProductGroupFragrances:
+	case daltymodel.ProductGroupFragrances:
 		return proto.ProductGroup_PRODUCT_GROUP_FRAGRANCES
 
 	// accessories & additional groups
-	case core.ProductGroupMurphyBeds:
+	case daltymodel.ProductGroupMurphyBeds:
 		return proto.ProductGroup_PRODUCT_GROUP_MURPHY_BEDS
-	case core.ProductGroupBedAccessories:
+	case daltymodel.ProductGroupBedAccessories:
 		return proto.ProductGroup_PRODUCT_GROUP_BED_ACCESSORIES
-	case core.ProductGroupMurphyBedAccessories:
+	case daltymodel.ProductGroupMurphyBedAccessories:
 		return proto.ProductGroup_PRODUCT_GROUP_MURPHY_BED_ACCESSORIES
-	case core.ProductGroupSmallFurnitureAccessories:
+	case daltymodel.ProductGroupSmallFurnitureAccessories:
 		return proto.ProductGroup_PRODUCT_GROUP_SMALL_FURNITURE_ACCESSORIES
-	case core.ProductGroupWardrobeAccessories:
+	case daltymodel.ProductGroupWardrobeAccessories:
 		return proto.ProductGroup_PRODUCT_GROUP_WARDROBE_ACCESSORIES
-	case core.ProductGroupInteriorDecoration:
+	case daltymodel.ProductGroupInteriorDecoration:
 		return proto.ProductGroup_PRODUCT_GROUP_INTERIOR_DECORATION
-	case core.ProductGroupSleepTherapy:
+	case daltymodel.ProductGroupSleepTherapy:
 		return proto.ProductGroup_PRODUCT_GROUP_SLEEP_THERAPY
-	case core.ProductGroupKingKoil:
+	case daltymodel.ProductGroupKingKoil:
 		return proto.ProductGroup_PRODUCT_GROUP_KING_KOIL
-	case core.ProductGroupErgomotionAccessories:
+	case daltymodel.ProductGroupErgomotionAccessories:
 		return proto.ProductGroup_PRODUCT_GROUP_ERGOMOTION_ACCESSORIES
-	case core.ProductGroupChildrenBedBases:
+	case daltymodel.ProductGroupChildrenBedBases:
 		return proto.ProductGroup_PRODUCT_GROUP_CHILDREN_BED_BASES
-	case core.ProductGroupPillowCovers:
+	case daltymodel.ProductGroupPillowCovers:
 		return proto.ProductGroup_PRODUCT_GROUP_PILLOW_COVERS
-	case core.ProductGroupTableware:
+	case daltymodel.ProductGroupTableware:
 		return proto.ProductGroup_PRODUCT_GROUP_TABLEWARE
-	case core.ProductGroupSets:
+	case daltymodel.ProductGroupSets:
 		return proto.ProductGroup_PRODUCT_GROUP_SETS
-	case core.ProductGroupChildrenBedrooms:
+	case daltymodel.ProductGroupChildrenBedrooms:
 		return proto.ProductGroup_PRODUCT_GROUP_CHILDREN_BEDROOMS
-	case core.ProductGroupSpaceOrganizationStorage:
+	case daltymodel.ProductGroupSpaceOrganizationStorage:
 		return proto.ProductGroup_PRODUCT_GROUP_SPACE_ORGANIZATION_STORAGE
-	case core.ProductGroupBathroomProducts:
+	case daltymodel.ProductGroupBathroomProducts:
 		return proto.ProductGroup_PRODUCT_GROUP_BATHROOM_PRODUCTS
-	case core.ProductGroupToys:
+	case daltymodel.ProductGroupToys:
 		return proto.ProductGroup_PRODUCT_GROUP_TOYS
-	case core.ProductGroupAccessories:
+	case daltymodel.ProductGroupAccessories:
 		return proto.ProductGroup_PRODUCT_GROUP_ACCESSORIES
-	case core.ProductGroupNewYear:
+	case daltymodel.ProductGroupNewYear:
 		return proto.ProductGroup_PRODUCT_GROUP_NEW_YEAR
-	case core.ProductGroupArmchairs:
+	case daltymodel.ProductGroupArmchairs:
 		return proto.ProductGroup_PRODUCT_GROUP_ARMCHAIRS
-	case core.ProductGroupMassageChairs:
+	case daltymodel.ProductGroupMassageChairs:
 		return proto.ProductGroup_PRODUCT_GROUP_MASSAGE_CHAIRS
-	case core.ProductGroupKafkaTest:
+	case daltymodel.ProductGroupKafkaTest:
 		return proto.ProductGroup_PRODUCT_GROUP_KAFKA_TEST
-	case core.ProductGroupCaseFurnitureAccessories:
+	case daltymodel.ProductGroupCaseFurnitureAccessories:
 		return proto.ProductGroup_PRODUCT_GROUP_CASE_FURNITURE_ACCESSORIES
 	default:
 		return proto.ProductGroup_PRODUCT_GROUP_UNSPECIFIED
 	}
-}
-
-func toError(err error) error {
-	if errors.Is(err, daltyerrors.ErrNotFound) {
-
-	}
-	return protoerr.InternalError(err)
 }

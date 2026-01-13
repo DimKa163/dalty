@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"github.com/DimKa163/dalty/pkg/daltyerrors"
+	"github.com/DimKa163/dalty/pkg/daltymodel"
 
 	"github.com/DimKa163/dalty/internal/db"
 	"github.com/DimKa163/dalty/internal/product/core"
@@ -89,7 +90,7 @@ func NewProductRepository(db db.QueryExecutor) *ProductRepository {
 	return &ProductRepository{db: db}
 }
 
-func (r *ProductRepository) GetByID(ctx context.Context, id guid.Guid) (*core.Product, error) {
+func (r *ProductRepository) GetByID(ctx context.Context, id string) (*core.Product, error) {
 	row := r.db.QueryRow(ctx, GetByIDStmt, id)
 	prd, err := mapProduct(row)
 	if err != nil {
@@ -140,9 +141,12 @@ func mapProduct(row pgx.Row) (*core.Product, error) {
 	var seriesID sql.NullString
 	var accountProviderID sql.NullString
 	var standardCategory sql.NullString
-	var countMa int
-	var pack core.ProductPack
-
+	var countMa int32
+	var volume float64
+	var length float64
+	var width float64
+	var height float64
+	var weight float64
 	if err := row.Scan(&productID,
 		&name,
 		&typeID,
@@ -157,11 +161,11 @@ func mapProduct(row pgx.Row) (*core.Product, error) {
 		&accountProviderID,
 		&standardCategory,
 		&countMa,
-		&pack.Volume,
-		&pack.Length,
-		&pack.Width,
-		&pack.Height,
-		&pack.Weight); err != nil {
+		&volume,
+		&length,
+		&width,
+		&height,
+		&weight); err != nil {
 		return nil, err
 	}
 	product.ID = productID
@@ -171,11 +175,15 @@ func mapProduct(row pgx.Row) (*core.Product, error) {
 	product.IsService = isService
 	product.IntegrationID = integrationID
 	product.CountMa = countMa
-	product.ProductPack = pack
-	product.Type = core.ProductType(typeID)
-	product.ProductionType = core.ProductionType(typeProductionID)
+	product.Volume = volume
+	product.Length = length
+	product.Width = width
+	product.Height = height
+	product.Weight = weight
+	product.Type = daltymodel.ProductType(typeID)
+	product.ProductionType = daltymodel.ProductionType(typeProductionID)
 	if productGroupFlagID.Valid {
-		product.Group = core.ProductGroup(productGroupFlagID.String)
+		product.Group = daltymodel.ProductGroup(productGroupFlagID.String)
 	}
 	if categoryID.Valid {
 		product.CategoryID = categoryID.String

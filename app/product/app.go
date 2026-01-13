@@ -21,12 +21,13 @@ import (
 )
 
 type ServiceContainer struct {
-	PgPool            *pgxpool.Pool
-	ProductRepository core.ProductRepository
-	GrpcServer        *grpc.Server
-	ProductService    *usecase.ProductService
-	binders           []proto.Binder
-	ProductServer     proto.Binder
+	PgPool             *pgxpool.Pool
+	ProductRepository  core.ProductRepository
+	RelationRepository core.RelationRepository
+	GrpcServer         *grpc.Server
+	ProductService     *usecase.ProductService
+	binders            []proto.Binder
+	ProductServer      proto.Binder
 }
 
 func (s *ServiceContainer) GetBinders() []proto.Binder {
@@ -61,7 +62,9 @@ func (s *Server) AddServices() error {
 	}
 	s.ProductRepository = addProductRepository(s.PgPool)
 	s.ProductService = addProductService(s.ProductRepository)
-	s.binders = append(s.binders, server.NewProductServer(s.ProductService))
+	s.RelationRepository = addRelationRepository(s.PgPool)
+	s.binders = append(s.binders, server.NewProductServer(s.ProductService),
+		server.NewSpecificationServer(usecase.NewSpecificationService(s.ProductRepository, s.RelationRepository)))
 	s.ServerImpl = proto.NewGRPCServer[*ServiceContainer](listener, addGrpcServer(), s.ServiceContainer)
 	return nil
 }
@@ -109,6 +112,10 @@ func addPgPool(database string) (*pgxpool.Pool, error) {
 }
 func addProductRepository(pool *pgxpool.Pool) core.ProductRepository {
 	return persistence.NewProductRepository(pool)
+}
+
+func addRelationRepository(pool *pgxpool.Pool) core.RelationRepository {
+	return persistence.NewRelationRepository(pool)
 }
 
 func addProductService(productService core.ProductRepository) *usecase.ProductService {

@@ -6,7 +6,7 @@ var ErrNotFound = errors.New("not found")
 
 type StorageError struct {
 	Message string
-	Value   any
+	Value   []any
 	Err     error
 }
 
@@ -22,7 +22,7 @@ func (e *StorageError) Is(target error) bool {
 	return errors.Is(e.Unwrap(), target)
 }
 
-func NewNotFoundError(err error, message string, value any) error {
+func NewNotFoundError(err error, message string, value ...any) error {
 	return &StorageError{
 		Message: message,
 		Value:   value,

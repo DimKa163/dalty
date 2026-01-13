@@ -1,10 +1,35 @@
-package core
+package daltymodel
 
-import (
-	"context"
-	"github.com/DimKa163/dalty/pkg/daltymodel"
+import "github.com/beevik/guid"
 
-	"github.com/beevik/guid"
+type (
+	PickupStrategy int
+	Line           struct {
+		Product  *Product       `json:"product"`
+		Quantity int32          `json:"quantity"`
+		Strategy PickupStrategy `json:"strategy"`
+	}
+	SpecificationType int
+	Specification     struct {
+		Product       *Line             `json:"product"`
+		Type          SpecificationType `json:"type"`
+		Strategy      PickupStrategy    `json:"strategy"`
+		ChildProducts []*Line           `json:"child_products"`
+	}
+	SpecResponse struct {
+		Specifications []*Specification `json:"specifications"`
+	}
+)
+
+const (
+	SpecificationTypeDefault SpecificationType = iota
+	SpecificationTypeDirect
+	SpecificationTypeReverse
+)
+
+const (
+	PickupStrategyNearest PickupStrategy = iota
+	PickupStrategyFarthest
 )
 
 type ProductType string
@@ -113,39 +138,58 @@ const (
 )
 
 type Product struct {
-	ID                  guid.Guid                 `json:"id"`
-	Name                string                    `json:"name"`
-	Type                daltymodel.ProductType    `json:"type"`
-	Fnrec               string                    `json:"fnrec"`
-	IsArchive           bool                      `json:"is_archive"`
-	IntegrationID       string                    `json:"integration_id"`
-	IsService           bool                      `json:"is_service"`
-	ProductionType      daltymodel.ProductionType `json:"production_type"`
-	Group               daltymodel.ProductGroup   `json:"group"`
-	SeriesID            string                    `json:"series_id"`
-	CategoryID          string                    `json:"category_id"`
-	AccountProviderId   string                    `json:"account_provider_id"`
-	NonStandardCategory string                    `json:"non_standard_category"`
-	CountMa             int32                     `json:"count_ma"`
-	Volume              float64                   `json:"volume"`
-	Length              float64                   `json:"length"`
-	Width               float64                   `json:"width"`
-	Height              float64                   `json:"height"`
-	Weight              float64                   `json:"weight"`
+	ID                  guid.Guid      `json:"id"`
+	Name                string         `json:"name"`
+	Type                ProductType    `json:"type"`
+	Fnrec               string         `json:"fnrec"`
+	IsArchive           bool           `json:"is_archive"`
+	IntegrationID       string         `json:"integration_id"`
+	IsService           bool           `json:"is_service"`
+	ProductionType      ProductionType `json:"production_type"`
+	Group               ProductGroup   `json:"group"`
+	SeriesID            string         `json:"series_id"`
+	CategoryID          string         `json:"category_id"`
+	AccountProviderId   string         `json:"account_provider_id"`
+	NonStandardCategory string         `json:"non_standard_category"`
+	CountMa             int32          `json:"count_ma"`
+	Volume              float64        `json:"volume"`
+	Length              float64        `json:"length"`
+	Width               float64        `json:"width"`
+	Height              float64        `json:"height"`
+	Weight              float64        `json:"weight"`
 }
 
-type ProductPack struct {
-	Volume float64 `json:"volume"`
-	Length float64 `json:"length"`
-	Width  float64 `json:"width"`
-	Height float64 `json:"height"`
-	Weight float64 `json:"weight"`
+func NewLine(product *Product, quantity int32, strategy PickupStrategy) *Line {
+	return &Line{
+		Product:  product,
+		Quantity: quantity,
+		Strategy: strategy,
+	}
 }
 
-type ProductRepository interface {
-	GetByID(ctx context.Context, id string) (*Product, error)
+func NewDefaultSpecification(line *Line, strategy PickupStrategy) *Specification {
+	return &Specification{
+		Product:       line,
+		Type:          SpecificationTypeDefault,
+		Strategy:      strategy,
+		ChildProducts: make([]*Line, 0),
+	}
+}
 
-	GetByFnrec(ctx context.Context, fnrec string) (*Product, error)
+func NewDirectSpecification(line *Line, strategy PickupStrategy, subProducts []*Line) *Specification {
+	return &Specification{
+		Product:       line,
+		Type:          SpecificationTypeDirect,
+		Strategy:      strategy,
+		ChildProducts: subProducts,
+	}
+}
 
-	GetByIntegrationID(ctx context.Context, integrationID string) (*Product, error)
+func NewReverseSpecification(line *Line, strategy PickupStrategy, subProducts []*Line) *Specification {
+	return &Specification{
+		Product:       line,
+		Type:          SpecificationTypeReverse,
+		Strategy:      strategy,
+		ChildProducts: subProducts,
+	}
 }
