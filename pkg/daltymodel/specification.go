@@ -5,6 +5,7 @@ import "github.com/beevik/guid"
 type (
 	PickupStrategy int
 	Line           struct {
+		ID       string         `json:"id"`
 		Product  *Product       `json:"product"`
 		Quantity int32          `json:"quantity"`
 		Strategy PickupStrategy `json:"strategy"`
@@ -159,8 +160,9 @@ type Product struct {
 	Weight              float64        `json:"weight"`
 }
 
-func NewLine(product *Product, quantity int32, strategy PickupStrategy) *Line {
+func NewLine(id string, product *Product, quantity int32, strategy PickupStrategy) *Line {
 	return &Line{
+		ID:       id,
 		Product:  product,
 		Quantity: quantity,
 		Strategy: strategy,

@@ -4,7 +4,6 @@ import (
 	"context"
 	"github.com/DimKa163/dalty/internal/product/core"
 	"github.com/DimKa163/dalty/internal/product/mocks"
-	"github.com/DimKa163/dalty/pkg/daltyerrors"
 	"github.com/DimKa163/dalty/pkg/daltymodel"
 	"github.com/beevik/guid"
 	"github.com/golang/mock/gomock"
@@ -54,9 +53,11 @@ func TestExecuteDirectSpecification(t *testing.T) {
 		},
 	}
 	req := &SpecRequest{
-		Specs: make([]*Spec, 1),
+		Specs: make(map[string]*Spec),
 	}
-	req.Specs[0] = &Spec{
+	specID := guid.NewString()
+	req.Specs[specID] = &Spec{
+		ID:            specID,
 		IntegrationID: product.IntegrationID,
 	}
 	mockProductRepository.EXPECT().GetByIntegrationID(ctx, product.IntegrationID).Return(product, nil)
@@ -67,10 +68,27 @@ func TestExecuteDirectSpecification(t *testing.T) {
 
 	sut := NewSpecificationService(mockProductRepository, mockRelateRepository)
 
-	r, err := sut.Execute(ctx, req)
+	specs, err := sut.Execute(ctx, req)
 
 	assert.NoError(t, err)
-	assert.NotEmpty(t, r, "")
+	assert.NotEmpty(t, specs, "")
+
+	for _, spec := range specs {
+		assert.Equal(t, daltymodel.PickupStrategyNearest, spec.Strategy)
+		assert.Equal(t, daltymodel.SpecificationTypeDirect, spec.Type)
+		for _, l := range spec.ChildProducts {
+			switch l.Product.Group {
+			case daltymodel.ProductGroupChildrenBedBases:
+				assert.Equal(t, daltymodel.PickupStrategyFarthest, l.Strategy)
+			case daltymodel.ProductGroupSlattedBases:
+				assert.Equal(t, daltymodel.PickupStrategyFarthest, l.Strategy)
+			case daltymodel.ProductGroupBedBasesWithStorage:
+				assert.Equal(t, daltymodel.PickupStrategyFarthest, l.Strategy)
+			default:
+				assert.Equal(t, daltymodel.PickupStrategyNearest, l.Strategy)
+			}
+		}
+	}
 }
 
 func TestExecuteReverseSpecification(t *testing.T) {
@@ -101,14 +119,20 @@ func TestExecuteReverseSpecification(t *testing.T) {
 		productB.ID: make([]*core.Relation, 0),
 	}
 	req := &SpecRequest{
-		Specs: make([]*Spec, 2),
+		Specs: make(map[string]*Spec),
 	}
-	req.Specs[0] = &Spec{
+	specID1 := guid.NewString()
+	specID2 := guid.NewString()
+	req.Specs[specID1] = &Spec{
+		ID:            specID1,
 		IntegrationID: productA.IntegrationID,
+		RelateToID:    specID2,
 		Quantity:      1,
 	}
-	req.Specs[1] = &Spec{
+	req.Specs[specID2] = &Spec{
+		ID:            specID2,
 		IntegrationID: productB.IntegrationID,
+		RelateToID:    specID1,
 		Quantity:      1,
 	}
 	mockProductRepository.EXPECT().GetByIntegrationID(ctx, productA.IntegrationID).Return(productA, nil)
@@ -117,26 +141,30 @@ func TestExecuteReverseSpecification(t *testing.T) {
 	for i, r := range relation {
 		mockRelateRepository.EXPECT().GetByLeftID(ctx, i).Return(r, nil)
 	}
-	left := *guid.New()
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productA.ID, productB.ID).Return(&core.Relation{
-		ID:      *guid.New(),
-		LeftID:  left,
-		RightID: productA.ID,
-		Amount:  1,
-	}, &core.Relation{
-		ID:      *guid.New(),
-		LeftID:  left,
-		RightID: productB.ID,
-		Amount:  1,
-	}, nil)
 
 	sut := NewSpecificationService(mockProductRepository, mockRelateRepository)
 
-	r, err := sut.Execute(ctx, req)
+	specs, err := sut.Execute(ctx, req)
 
 	assert.NoError(t, err)
-	assert.NotEmpty(t, r, "")
-	assert.Equal(t, 1, len(r))
+	assert.NotEmpty(t, specs, "")
+	assert.Equal(t, 1, len(specs))
+	for _, spec := range specs {
+		assert.Equal(t, daltymodel.PickupStrategyNearest, spec.Strategy)
+		assert.Equal(t, daltymodel.SpecificationTypeReverse, spec.Type)
+		for _, l := range spec.ChildProducts {
+			switch l.Product.Group {
+			case daltymodel.ProductGroupChildrenBedBases:
+				assert.Equal(t, daltymodel.PickupStrategyFarthest, l.Strategy)
+			case daltymodel.ProductGroupSlattedBases:
+				assert.Equal(t, daltymodel.PickupStrategyFarthest, l.Strategy)
+			case daltymodel.ProductGroupBedBasesWithStorage:
+				assert.Equal(t, daltymodel.PickupStrategyFarthest, l.Strategy)
+			default:
+				assert.Equal(t, daltymodel.PickupStrategyNearest, l.Strategy)
+			}
+		}
+	}
 }
 
 func TestExecuteDefaultSpecification(t *testing.T) {
@@ -167,13 +195,16 @@ func TestExecuteDefaultSpecification(t *testing.T) {
 		productB.ID: make([]*core.Relation, 0),
 	}
 	req := &SpecRequest{
-		Specs: make([]*Spec, 2),
+		Specs: make(map[string]*Spec, 2),
 	}
-	req.Specs[0] = &Spec{
+	specID1 := guid.NewString()
+	specID2 := guid.NewString()
+
+	req.Specs[specID1] = &Spec{
 		IntegrationID: productA.IntegrationID,
 		Quantity:      1,
 	}
-	req.Specs[1] = &Spec{
+	req.Specs[specID2] = &Spec{
 		IntegrationID: productB.IntegrationID,
 		Quantity:      1,
 	}
@@ -183,15 +214,21 @@ func TestExecuteDefaultSpecification(t *testing.T) {
 	for i, r := range relation {
 		mockRelateRepository.EXPECT().GetByLeftID(ctx, i).Return(r, nil)
 	}
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productA.ID, productB.ID).Return(nil, nil, daltyerrors.ErrNotFound).Times(1)
 
 	sut := NewSpecificationService(mockProductRepository, mockRelateRepository)
 
-	r, err := sut.Execute(ctx, req)
+	specs, err := sut.Execute(ctx, req)
 
 	assert.NoError(t, err)
-	assert.NotEmpty(t, r, "")
-	assert.Equal(t, 2, len(r))
+	assert.NotEmpty(t, specs, "")
+	assert.Equal(t, 2, len(specs))
+
+	for _, spec := range specs {
+		assert.Equal(t, daltymodel.PickupStrategyNearest, spec.Strategy)
+		assert.Equal(t, daltymodel.SpecificationTypeDefault, spec.Type)
+		assert.Equal(t, daltymodel.PickupStrategyNearest, spec.Product.Strategy)
+		assert.Empty(t, spec.ChildProducts)
+	}
 }
 
 func TestExecuteCombineSpecification(t *testing.T) {
@@ -292,33 +329,44 @@ func TestExecuteCombineSpecification(t *testing.T) {
 		productG.ID: make([]*core.Relation, 0),
 	}
 	req := &SpecRequest{
-		Specs: make([]*Spec, 7),
+		Specs: make(map[string]*Spec),
 	}
-	req.Specs[0] = &Spec{
+	specID1 := guid.NewString()
+	specID2 := guid.NewString()
+	specID3 := guid.NewString()
+	specID4 := guid.NewString()
+	specID5 := guid.NewString()
+	specID6 := guid.NewString()
+	specID7 := guid.NewString()
+	req.Specs[specID1] = &Spec{
 		IntegrationID: productA.IntegrationID,
 		Quantity:      1,
 	}
-	req.Specs[1] = &Spec{
+	req.Specs[specID2] = &Spec{
 		IntegrationID: productB.IntegrationID,
 		Quantity:      1,
+		RelateToID:    specID3,
 	}
-	req.Specs[2] = &Spec{
+	req.Specs[specID3] = &Spec{
 		IntegrationID: productC.IntegrationID,
 		Quantity:      1,
+		RelateToID:    specID2,
 	}
-	req.Specs[3] = &Spec{
+	req.Specs[specID4] = &Spec{
 		IntegrationID: productD.IntegrationID,
 		Quantity:      1,
+		RelateToID:    specID5,
 	}
-	req.Specs[4] = &Spec{
+	req.Specs[specID5] = &Spec{
 		IntegrationID: productE.IntegrationID,
 		Quantity:      3,
+		RelateToID:    specID4,
 	}
-	req.Specs[5] = &Spec{
+	req.Specs[specID6] = &Spec{
 		IntegrationID: productF.IntegrationID,
 		Quantity:      1,
 	}
-	req.Specs[6] = &Spec{
+	req.Specs[specID7] = &Spec{
 		IntegrationID: productG.IntegrationID,
 		Quantity:      1,
 	}
@@ -332,75 +380,23 @@ func TestExecuteCombineSpecification(t *testing.T) {
 	for i, r := range relation {
 		mockRelateRepository.EXPECT().GetByLeftID(ctx, i).Return(r, nil)
 	}
-	left := &core.Product{
-		ID:   *guid.New(),
-		Name: "Head BC",
-	}
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productB.ID, productC.ID).Return(&core.Relation{
-		ID:      *guid.New(),
-		LeftID:  left.ID,
-		Left:    left,
-		RightID: productB.ID,
-		Amount:  1,
-	}, &core.Relation{
-		ID:      *guid.New(),
-		LeftID:  left.ID,
-		Left:    left,
-		RightID: productC.ID,
-		Amount:  1,
-	}, nil)
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productB.ID, productD.ID).Return(nil, nil, daltyerrors.ErrNotFound).AnyTimes()
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productB.ID, productE.ID).Return(nil, nil, daltyerrors.ErrNotFound).AnyTimes()
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productB.ID, productF.ID).Return(nil, nil, daltyerrors.ErrNotFound).AnyTimes()
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productB.ID, productG.ID).Return(nil, nil, daltyerrors.ErrNotFound).AnyTimes()
 
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productC.ID, productD.ID).Return(nil, nil, daltyerrors.ErrNotFound).AnyTimes()
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productC.ID, productE.ID).Return(nil, nil, daltyerrors.ErrNotFound).AnyTimes()
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productC.ID, productF.ID).Return(nil, nil, daltyerrors.ErrNotFound).AnyTimes()
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productC.ID, productG.ID).Return(nil, nil, daltyerrors.ErrNotFound).AnyTimes()
-
-	left = &core.Product{
-		ID:   *guid.New(),
-		Name: "Head DE",
-	}
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productD.ID, productE.ID).Return(&core.Relation{
-		ID:      *guid.New(),
-		LeftID:  left.ID,
-		Left:    left,
-		RightID: productD.ID,
-		Amount:  1,
-	}, &core.Relation{
-		ID:      *guid.New(),
-		LeftID:  left.ID,
-		Left:    left,
-		RightID: productE.ID,
-		Amount:  2,
-	}, nil)
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productD.ID, productF.ID).Return(nil, nil, daltyerrors.ErrNotFound).AnyTimes()
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productD.ID, productG.ID).Return(nil, nil, daltyerrors.ErrNotFound).AnyTimes()
-
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productE.ID, productF.ID).Return(nil, nil, daltyerrors.ErrNotFound).AnyTimes()
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productE.ID, productG.ID).Return(nil, nil, daltyerrors.ErrNotFound).AnyTimes()
-
-	mockRelateRepository.EXPECT().GetByRightID(ctx, productF.ID, productG.ID).Return(nil, nil, daltyerrors.ErrNotFound).AnyTimes()
 	sut := NewSpecificationService(mockProductRepository, mockRelateRepository)
 
-	r, err := sut.Execute(ctx, req)
+	specs, err := sut.Execute(ctx, req)
 
 	assert.NoError(t, err)
-	assert.NotEmpty(t, r, "")
-	assert.Equal(t, 6, len(r))
+	assert.NotEmpty(t, specs, "")
+	assert.Equal(t, 5, len(specs))
 
-	assert.Equal(t, daltymodel.SpecificationTypeDirect, r[0].Type)
-	assert.Equal(t, 2, len(r[0].ChildProducts))
-	assert.Equal(t, daltymodel.SpecificationTypeReverse, r[1].Type)
-	assert.Equal(t, 2, len(r[1].ChildProducts))
-	assert.Equal(t, daltymodel.SpecificationTypeReverse, r[2].Type)
-	assert.Equal(t, 2, len(r[2].ChildProducts))
-	assert.Equal(t, daltymodel.SpecificationTypeDefault, r[3].Type)
-	assert.Equal(t, 0, len(r[3].ChildProducts))
-	assert.Equal(t, daltymodel.SpecificationTypeDefault, r[4].Type)
-	assert.Equal(t, 0, len(r[4].ChildProducts))
-	assert.Equal(t, daltymodel.SpecificationTypeDefault, r[5].Type)
-	assert.Equal(t, 0, len(r[5].ChildProducts))
+	assert.Equal(t, daltymodel.SpecificationTypeDirect, specs[0].Type)
+	assert.Equal(t, 2, len(specs[0].ChildProducts))
+	assert.Equal(t, daltymodel.SpecificationTypeReverse, specs[1].Type)
+	assert.Equal(t, 2, len(specs[1].ChildProducts))
+	assert.Equal(t, daltymodel.SpecificationTypeReverse, specs[2].Type)
+	assert.Equal(t, 2, len(specs[2].ChildProducts))
+	assert.Equal(t, daltymodel.SpecificationTypeDefault, specs[3].Type)
+	assert.Equal(t, 0, len(specs[3].ChildProducts))
+	assert.Equal(t, daltymodel.SpecificationTypeDefault, specs[4].Type)
+	assert.Equal(t, 0, len(specs[4].ChildProducts))
 }
