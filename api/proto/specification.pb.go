@@ -21,6 +21,312 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type ProductType int32
+
+const (
+	ProductType_PRODUCT_TYPE_UNKNOWN ProductType = 0
+)
+
+// Enum value maps for ProductType.
+var (
+	ProductType_name = map[int32]string{
+		0: "PRODUCT_TYPE_UNKNOWN",
+	}
+	ProductType_value = map[string]int32{
+		"PRODUCT_TYPE_UNKNOWN": 0,
+	}
+)
+
+func (x ProductType) Enum() *ProductType {
+	p := new(ProductType)
+	*p = x
+	return p
+}
+
+func (x ProductType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ProductType) Descriptor() protoreflect.EnumDescriptor {
+	return file_api_specification_proto_enumTypes[0].Descriptor()
+}
+
+func (ProductType) Type() protoreflect.EnumType {
+	return &file_api_specification_proto_enumTypes[0]
+}
+
+func (x ProductType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+type ProductionType int32
+
+const (
+	ProductionType_PRODUCTION_TYPE_UNKNOWN    ProductionType = 0
+	ProductionType_PRODUCTION_TYPE_PRODUCING  ProductionType = 1
+	ProductionType_PRODUCTION_TYPE_PURCHASING ProductionType = 2
+)
+
+// Enum value maps for ProductionType.
+var (
+	ProductionType_name = map[int32]string{
+		0: "PRODUCTION_TYPE_UNKNOWN",
+		1: "PRODUCTION_TYPE_PRODUCING",
+		2: "PRODUCTION_TYPE_PURCHASING",
+	}
+	ProductionType_value = map[string]int32{
+		"PRODUCTION_TYPE_UNKNOWN":    0,
+		"PRODUCTION_TYPE_PRODUCING":  1,
+		"PRODUCTION_TYPE_PURCHASING": 2,
+	}
+)
+
+func (x ProductionType) Enum() *ProductionType {
+	p := new(ProductionType)
+	*p = x
+	return p
+}
+
+func (x ProductionType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ProductionType) Descriptor() protoreflect.EnumDescriptor {
+	return file_api_specification_proto_enumTypes[1].Descriptor()
+}
+
+func (ProductionType) Type() protoreflect.EnumType {
+	return &file_api_specification_proto_enumTypes[1]
+}
+
+func (x ProductionType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+type ProductGroup int32
+
+const (
+	ProductGroup_PRODUCT_GROUP_UNSPECIFIED                   ProductGroup = 0  // Unknown / "Unknown"
+	ProductGroup_PRODUCT_GROUP_KITCHENS                      ProductGroup = 1  // 14b85d2e-da37-4a50-8244-0616a0b31794
+	ProductGroup_PRODUCT_GROUP_CASE_FURNITURE                ProductGroup = 2  // 21644026-d9ca-4da2-b91e-1adb2507a824
+	ProductGroup_PRODUCT_GROUP_BEDDING_SETS                  ProductGroup = 3  // 6d31ec4d-33a5-48f0-b9a2-3666a9fab68b
+	ProductGroup_PRODUCT_GROUP_SOFAS                         ProductGroup = 4  // f09f1c26-12f2-4d50-8c94-3f347b2970a2
+	ProductGroup_PRODUCT_GROUP_COVERS                        ProductGroup = 5  // c8a49a04-07c6-4538-9054-478abcca71e5
+	ProductGroup_PRODUCT_GROUP_BLANKETS                      ProductGroup = 6  // 66d86f8e-6812-4182-82cc-4792937e299a
+	ProductGroup_PRODUCT_GROUP_BED_BASES_WITH_STORAGE        ProductGroup = 7  // 2743d9f1-1244-440f-addb-653efe23492c
+	ProductGroup_PRODUCT_GROUP_SOFA_COMPONENTS               ProductGroup = 8  // 1362ba98-6ea2-45a4-9134-67813a17d2a5
+	ProductGroup_PRODUCT_GROUP_ERGOMOTION                    ProductGroup = 9  // 5471ed6b-c477-4853-a718-6b6bdfacb5ad
+	ProductGroup_PRODUCT_GROUP_NON_PRODUCTS                  ProductGroup = 10 // 7c6ad459-836a-4796-87bd-77f5dab8cac1
+	ProductGroup_PRODUCT_GROUP_SMALL_FURNITURE               ProductGroup = 11 // 260d757a-bc45-4e95-9225-96cdf0cfe92f
+	ProductGroup_PRODUCT_GROUP_MATTRESSES                    ProductGroup = 12 // 81025548-4083-40bb-a0e3-a22652c500b5
+	ProductGroup_PRODUCT_GROUP_SLATTED_BASES                 ProductGroup = 13 // 66f0375b-9789-49e1-81f9-a824d649e3c8
+	ProductGroup_PRODUCT_GROUP_MATTRESS_TOPPERS              ProductGroup = 14 // 8ac5ad9c-1772-4c37-86be-ab7c35c64761
+	ProductGroup_PRODUCT_GROUP_PILLOWS                       ProductGroup = 15 // 868b44a7-40a3-4152-bc75-b41e597d1d98
+	ProductGroup_PRODUCT_GROUP_BEDS                          ProductGroup = 16 // c7a26159-5856-49df-aed2-d053f672ae11
+	ProductGroup_PRODUCT_GROUP_BED_BASES                     ProductGroup = 17 // bd9c804c-a698-4075-b8bf-dcc197e33f0a
+	ProductGroup_PRODUCT_GROUP_MISCELLANEOUS                 ProductGroup = 18 // 117d995d-9ae7-487f-99fe-eb0c3fe5d460
+	ProductGroup_PRODUCT_GROUP_CASE_FURNITURE_ACCESSORIES    ProductGroup = 19 // c3dae860-b36c-4133-8407-8f7e4280f65d
+	ProductGroup_PRODUCT_GROUP_MURPHY_BEDS                   ProductGroup = 20 // 37d0e4b6-54ac-47ca-9a9a-83389118fb0d
+	ProductGroup_PRODUCT_GROUP_WARDROBES                     ProductGroup = 21 // d717a93d-ab66-4e57-95c3-98c9b7a8c8df
+	ProductGroup_PRODUCT_GROUP_BED_ACCESSORIES               ProductGroup = 22 // 6d4aee05-19a2-4f8f-9d0b-2a6b7c41e189
+	ProductGroup_PRODUCT_GROUP_MURPHY_BED_ACCESSORIES        ProductGroup = 23 // a286d6cf-31e7-494a-b17c-7d1d9a87d6d1
+	ProductGroup_PRODUCT_GROUP_SMALL_FURNITURE_ACCESSORIES   ProductGroup = 24 // 51c5e588-ef43-496d-80b5-5d5832619cae
+	ProductGroup_PRODUCT_GROUP_WARDROBE_ACCESSORIES          ProductGroup = 25 // 5ee02ed2-01a0-43c8-bb97-7675f01fbc64
+	ProductGroup_PRODUCT_GROUP_INTERIOR_DECORATION           ProductGroup = 26 // ecb374a7-3eaf-4e55-a381-2ce38ee64c02
+	ProductGroup_PRODUCT_GROUP_TEXTILES                      ProductGroup = 27 // 6dc4e692-4f2a-4aed-bb91-d3aa14cf8b5b
+	ProductGroup_PRODUCT_GROUP_SLEEP_THERAPY                 ProductGroup = 28 // a41f277e-378c-4b7e-a16f-fa08a01a40cf
+	ProductGroup_PRODUCT_GROUP_ELECTRONICS                   ProductGroup = 29 // accfdbbb-628f-4611-bda2-9f912c6f26bd
+	ProductGroup_PRODUCT_GROUP_CLOTHING                      ProductGroup = 30 // de5b8449-a610-427c-a345-f24664789a9d
+	ProductGroup_PRODUCT_GROUP_ORTHOPEDICS                   ProductGroup = 31 // e9b7cd10-5145-4e28-8491-269adb048c6a
+	ProductGroup_PRODUCT_GROUP_COFFEE_TABLES                 ProductGroup = 32 // 671afa27-9707-4cc2-9719-21be9b8281fb
+	ProductGroup_PRODUCT_GROUP_KING_KOIL                     ProductGroup = 33 // ef530893-fcb2-420d-85a1-3ea798495db9
+	ProductGroup_PRODUCT_GROUP_ERGOMOTION_ACCESSORIES        ProductGroup = 34 // 37d04227-ddb1-4e79-91e6-e781b769689c
+	ProductGroup_PRODUCT_GROUP_CHILDREN_BED_BASES            ProductGroup = 35 // c1073c8b-866e-455f-8170-0114466de42f
+	ProductGroup_PRODUCT_GROUP_PILLOW_COVERS                 ProductGroup = 36 // 83b31fe3-03b9-499a-8cb3-ddd60188516e
+	ProductGroup_PRODUCT_GROUP_TABLEWARE                     ProductGroup = 37 // f0383727-77da-410b-bf57-d62e850d87f2
+	ProductGroup_PRODUCT_GROUP_SETS                          ProductGroup = 38 // 729ff321-96e4-4bec-9e7e-eec9573ae58d
+	ProductGroup_PRODUCT_GROUP_HOME_OFFICE                   ProductGroup = 39 // 2aefbe7a-0c26-4e0c-84ae-9d3098528560
+	ProductGroup_PRODUCT_GROUP_CHILDREN_BEDROOMS             ProductGroup = 40 // 08537964-33d6-454e-b422-247896afc313
+	ProductGroup_PRODUCT_GROUP_SPACE_ORGANIZATION_STORAGE    ProductGroup = 41 // 9bc21671-bf65-4570-bdaf-344af5c22157
+	ProductGroup_PRODUCT_GROUP_BATHROOM_PRODUCTS             ProductGroup = 42 // d570fea1-a978-4915-8de0-d4aa0aa1ac79
+	ProductGroup_PRODUCT_GROUP_TOYS                          ProductGroup = 43 // 64f47b87-5359-473d-946c-a540287fce78
+	ProductGroup_PRODUCT_GROUP_ACCESSORIES                   ProductGroup = 44 // 856b85f1-2639-440f-b904-af0c579943d1
+	ProductGroup_PRODUCT_GROUP_NEW_YEAR                      ProductGroup = 45 // 926f2f98-4de7-4c80-856d-57bd6c04847d
+	ProductGroup_PRODUCT_GROUP_ARMCHAIRS                     ProductGroup = 46 // fadf4ffa-55f9-4674-b254-ec6fafd67be4
+	ProductGroup_PRODUCT_GROUP_MASSAGE_CHAIRS                ProductGroup = 47 // d390de83-2a44-417a-873b-485ecce030ca
+	ProductGroup_PRODUCT_GROUP_LIVING_ROOMS                  ProductGroup = 48 // f8a304ef-212d-419e-82ed-61292bb0db31
+	ProductGroup_PRODUCT_GROUP_LIGHTING                      ProductGroup = 49 // 9f611676-2fd6-4852-be00-a17796592612
+	ProductGroup_PRODUCT_GROUP_KAFKA_TEST                    ProductGroup = 50 // aec329db-d9e4-42db-af89-cb0ae05efc00
+	ProductGroup_PRODUCT_GROUP_DECOR                         ProductGroup = 51 // c8dd79ea-b42b-4cc5-ad74-1d7862c4d253
+	ProductGroup_PRODUCT_GROUP_SPACE_ORGANIZATION_UPPER      ProductGroup = 52 // e65c8693-421b-4e50-97b7-df79ae23789c
+	ProductGroup_PRODUCT_GROUP_HOME_CARE_UPPER               ProductGroup = 53 // 1c90ac25-9c16-48f7-bc8b-8a809e7c2705
+	ProductGroup_PRODUCT_GROUP_SPACE_ORGANIZATION            ProductGroup = 54 // bb2724ce-aa43-4c27-9e54-a2d3247d68cc
+	ProductGroup_PRODUCT_GROUP_HOME_CARE                     ProductGroup = 55 // 6a139e59-5578-4c66-8a30-8abf844ec40c
+	ProductGroup_PRODUCT_GROUP_HALLWAYS                      ProductGroup = 56 // 7c6ed323-06a6-431a-b549-616f4f43bdf5
+	ProductGroup_PRODUCT_GROUP_FURNITURE_PROTECTION_AND_CARE ProductGroup = 57 // 99bb0a71-37bd-496d-b261-a8ffd1adcb8b
+	ProductGroup_PRODUCT_GROUP_OUTDOOR_FURNITURE             ProductGroup = 58 // 4ce1132d-03d7-4cb4-84d7-325c5751aca7
+	ProductGroup_PRODUCT_GROUP_STORAGE                       ProductGroup = 59 // 2b360d0c-b5a4-4db8-b682-ead00d0c2c58
+	ProductGroup_PRODUCT_GROUP_INTERIOR                      ProductGroup = 60 // c1357f61-440c-4f1e-aeb4-15a26895e886
+	ProductGroup_PRODUCT_GROUP_SEASONAL_PRODUCTS             ProductGroup = 61 // 4d7ec861-a530-4c5a-b133-12d173fca3be
+	ProductGroup_PRODUCT_GROUP_FRAGRANCES                    ProductGroup = 62 // 189995ff-cb88-408a-9ea4-c82672f71b22
+)
+
+// Enum value maps for ProductGroup.
+var (
+	ProductGroup_name = map[int32]string{
+		0:  "PRODUCT_GROUP_UNSPECIFIED",
+		1:  "PRODUCT_GROUP_KITCHENS",
+		2:  "PRODUCT_GROUP_CASE_FURNITURE",
+		3:  "PRODUCT_GROUP_BEDDING_SETS",
+		4:  "PRODUCT_GROUP_SOFAS",
+		5:  "PRODUCT_GROUP_COVERS",
+		6:  "PRODUCT_GROUP_BLANKETS",
+		7:  "PRODUCT_GROUP_BED_BASES_WITH_STORAGE",
+		8:  "PRODUCT_GROUP_SOFA_COMPONENTS",
+		9:  "PRODUCT_GROUP_ERGOMOTION",
+		10: "PRODUCT_GROUP_NON_PRODUCTS",
+		11: "PRODUCT_GROUP_SMALL_FURNITURE",
+		12: "PRODUCT_GROUP_MATTRESSES",
+		13: "PRODUCT_GROUP_SLATTED_BASES",
+		14: "PRODUCT_GROUP_MATTRESS_TOPPERS",
+		15: "PRODUCT_GROUP_PILLOWS",
+		16: "PRODUCT_GROUP_BEDS",
+		17: "PRODUCT_GROUP_BED_BASES",
+		18: "PRODUCT_GROUP_MISCELLANEOUS",
+		19: "PRODUCT_GROUP_CASE_FURNITURE_ACCESSORIES",
+		20: "PRODUCT_GROUP_MURPHY_BEDS",
+		21: "PRODUCT_GROUP_WARDROBES",
+		22: "PRODUCT_GROUP_BED_ACCESSORIES",
+		23: "PRODUCT_GROUP_MURPHY_BED_ACCESSORIES",
+		24: "PRODUCT_GROUP_SMALL_FURNITURE_ACCESSORIES",
+		25: "PRODUCT_GROUP_WARDROBE_ACCESSORIES",
+		26: "PRODUCT_GROUP_INTERIOR_DECORATION",
+		27: "PRODUCT_GROUP_TEXTILES",
+		28: "PRODUCT_GROUP_SLEEP_THERAPY",
+		29: "PRODUCT_GROUP_ELECTRONICS",
+		30: "PRODUCT_GROUP_CLOTHING",
+		31: "PRODUCT_GROUP_ORTHOPEDICS",
+		32: "PRODUCT_GROUP_COFFEE_TABLES",
+		33: "PRODUCT_GROUP_KING_KOIL",
+		34: "PRODUCT_GROUP_ERGOMOTION_ACCESSORIES",
+		35: "PRODUCT_GROUP_CHILDREN_BED_BASES",
+		36: "PRODUCT_GROUP_PILLOW_COVERS",
+		37: "PRODUCT_GROUP_TABLEWARE",
+		38: "PRODUCT_GROUP_SETS",
+		39: "PRODUCT_GROUP_HOME_OFFICE",
+		40: "PRODUCT_GROUP_CHILDREN_BEDROOMS",
+		41: "PRODUCT_GROUP_SPACE_ORGANIZATION_STORAGE",
+		42: "PRODUCT_GROUP_BATHROOM_PRODUCTS",
+		43: "PRODUCT_GROUP_TOYS",
+		44: "PRODUCT_GROUP_ACCESSORIES",
+		45: "PRODUCT_GROUP_NEW_YEAR",
+		46: "PRODUCT_GROUP_ARMCHAIRS",
+		47: "PRODUCT_GROUP_MASSAGE_CHAIRS",
+		48: "PRODUCT_GROUP_LIVING_ROOMS",
+		49: "PRODUCT_GROUP_LIGHTING",
+		50: "PRODUCT_GROUP_KAFKA_TEST",
+		51: "PRODUCT_GROUP_DECOR",
+		52: "PRODUCT_GROUP_SPACE_ORGANIZATION_UPPER",
+		53: "PRODUCT_GROUP_HOME_CARE_UPPER",
+		54: "PRODUCT_GROUP_SPACE_ORGANIZATION",
+		55: "PRODUCT_GROUP_HOME_CARE",
+		56: "PRODUCT_GROUP_HALLWAYS",
+		57: "PRODUCT_GROUP_FURNITURE_PROTECTION_AND_CARE",
+		58: "PRODUCT_GROUP_OUTDOOR_FURNITURE",
+		59: "PRODUCT_GROUP_STORAGE",
+		60: "PRODUCT_GROUP_INTERIOR",
+		61: "PRODUCT_GROUP_SEASONAL_PRODUCTS",
+		62: "PRODUCT_GROUP_FRAGRANCES",
+	}
+	ProductGroup_value = map[string]int32{
+		"PRODUCT_GROUP_UNSPECIFIED":                   0,
+		"PRODUCT_GROUP_KITCHENS":                      1,
+		"PRODUCT_GROUP_CASE_FURNITURE":                2,
+		"PRODUCT_GROUP_BEDDING_SETS":                  3,
+		"PRODUCT_GROUP_SOFAS":                         4,
+		"PRODUCT_GROUP_COVERS":                        5,
+		"PRODUCT_GROUP_BLANKETS":                      6,
+		"PRODUCT_GROUP_BED_BASES_WITH_STORAGE":        7,
+		"PRODUCT_GROUP_SOFA_COMPONENTS":               8,
+		"PRODUCT_GROUP_ERGOMOTION":                    9,
+		"PRODUCT_GROUP_NON_PRODUCTS":                  10,
+		"PRODUCT_GROUP_SMALL_FURNITURE":               11,
+		"PRODUCT_GROUP_MATTRESSES":                    12,
+		"PRODUCT_GROUP_SLATTED_BASES":                 13,
+		"PRODUCT_GROUP_MATTRESS_TOPPERS":              14,
+		"PRODUCT_GROUP_PILLOWS":                       15,
+		"PRODUCT_GROUP_BEDS":                          16,
+		"PRODUCT_GROUP_BED_BASES":                     17,
+		"PRODUCT_GROUP_MISCELLANEOUS":                 18,
+		"PRODUCT_GROUP_CASE_FURNITURE_ACCESSORIES":    19,
+		"PRODUCT_GROUP_MURPHY_BEDS":                   20,
+		"PRODUCT_GROUP_WARDROBES":                     21,
+		"PRODUCT_GROUP_BED_ACCESSORIES":               22,
+		"PRODUCT_GROUP_MURPHY_BED_ACCESSORIES":        23,
+		"PRODUCT_GROUP_SMALL_FURNITURE_ACCESSORIES":   24,
+		"PRODUCT_GROUP_WARDROBE_ACCESSORIES":          25,
+		"PRODUCT_GROUP_INTERIOR_DECORATION":           26,
+		"PRODUCT_GROUP_TEXTILES":                      27,
+		"PRODUCT_GROUP_SLEEP_THERAPY":                 28,
+		"PRODUCT_GROUP_ELECTRONICS":                   29,
+		"PRODUCT_GROUP_CLOTHING":                      30,
+		"PRODUCT_GROUP_ORTHOPEDICS":                   31,
+		"PRODUCT_GROUP_COFFEE_TABLES":                 32,
+		"PRODUCT_GROUP_KING_KOIL":                     33,
+		"PRODUCT_GROUP_ERGOMOTION_ACCESSORIES":        34,
+		"PRODUCT_GROUP_CHILDREN_BED_BASES":            35,
+		"PRODUCT_GROUP_PILLOW_COVERS":                 36,
+		"PRODUCT_GROUP_TABLEWARE":                     37,
+		"PRODUCT_GROUP_SETS":                          38,
+		"PRODUCT_GROUP_HOME_OFFICE":                   39,
+		"PRODUCT_GROUP_CHILDREN_BEDROOMS":             40,
+		"PRODUCT_GROUP_SPACE_ORGANIZATION_STORAGE":    41,
+		"PRODUCT_GROUP_BATHROOM_PRODUCTS":             42,
+		"PRODUCT_GROUP_TOYS":                          43,
+		"PRODUCT_GROUP_ACCESSORIES":                   44,
+		"PRODUCT_GROUP_NEW_YEAR":                      45,
+		"PRODUCT_GROUP_ARMCHAIRS":                     46,
+		"PRODUCT_GROUP_MASSAGE_CHAIRS":                47,
+		"PRODUCT_GROUP_LIVING_ROOMS":                  48,
+		"PRODUCT_GROUP_LIGHTING":                      49,
+		"PRODUCT_GROUP_KAFKA_TEST":                    50,
+		"PRODUCT_GROUP_DECOR":                         51,
+		"PRODUCT_GROUP_SPACE_ORGANIZATION_UPPER":      52,
+		"PRODUCT_GROUP_HOME_CARE_UPPER":               53,
+		"PRODUCT_GROUP_SPACE_ORGANIZATION":            54,
+		"PRODUCT_GROUP_HOME_CARE":                     55,
+		"PRODUCT_GROUP_HALLWAYS":                      56,
+		"PRODUCT_GROUP_FURNITURE_PROTECTION_AND_CARE": 57,
+		"PRODUCT_GROUP_OUTDOOR_FURNITURE":             58,
+		"PRODUCT_GROUP_STORAGE":                       59,
+		"PRODUCT_GROUP_INTERIOR":                      60,
+		"PRODUCT_GROUP_SEASONAL_PRODUCTS":             61,
+		"PRODUCT_GROUP_FRAGRANCES":                    62,
+	}
+)
+
+func (x ProductGroup) Enum() *ProductGroup {
+	p := new(ProductGroup)
+	*p = x
+	return p
+}
+
+func (x ProductGroup) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ProductGroup) Descriptor() protoreflect.EnumDescriptor {
+	return file_api_specification_proto_enumTypes[2].Descriptor()
+}
+
+func (ProductGroup) Type() protoreflect.EnumType {
+	return &file_api_specification_proto_enumTypes[2]
+}
+
+func (x ProductGroup) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
 type SpecificationType int32
 
 const (
@@ -54,11 +360,11 @@ func (x SpecificationType) String() string {
 }
 
 func (SpecificationType) Descriptor() protoreflect.EnumDescriptor {
-	return file_api_specification_proto_enumTypes[0].Descriptor()
+	return file_api_specification_proto_enumTypes[3].Descriptor()
 }
 
 func (SpecificationType) Type() protoreflect.EnumType {
-	return &file_api_specification_proto_enumTypes[0]
+	return &file_api_specification_proto_enumTypes[3]
 }
 
 func (x SpecificationType) Number() protoreflect.EnumNumber {
@@ -95,22 +401,614 @@ func (x PickupStrategy) String() string {
 }
 
 func (PickupStrategy) Descriptor() protoreflect.EnumDescriptor {
-	return file_api_specification_proto_enumTypes[1].Descriptor()
+	return file_api_specification_proto_enumTypes[4].Descriptor()
 }
 
 func (PickupStrategy) Type() protoreflect.EnumType {
-	return &file_api_specification_proto_enumTypes[1]
+	return &file_api_specification_proto_enumTypes[4]
 }
 
 func (x PickupStrategy) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
+type Pack struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Volume      float64                `protobuf:"fixed64,1,opt,name=volume"`
+	xxx_hidden_Length      float64                `protobuf:"fixed64,2,opt,name=length"`
+	xxx_hidden_Width       float64                `protobuf:"fixed64,3,opt,name=width"`
+	xxx_hidden_Height      float64                `protobuf:"fixed64,4,opt,name=height"`
+	xxx_hidden_Weight      float64                `protobuf:"fixed64,5,opt,name=weight"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *Pack) Reset() {
+	*x = Pack{}
+	mi := &file_api_specification_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Pack) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Pack) ProtoMessage() {}
+
+func (x *Pack) ProtoReflect() protoreflect.Message {
+	mi := &file_api_specification_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *Pack) GetVolume() float64 {
+	if x != nil {
+		return x.xxx_hidden_Volume
+	}
+	return 0
+}
+
+func (x *Pack) GetLength() float64 {
+	if x != nil {
+		return x.xxx_hidden_Length
+	}
+	return 0
+}
+
+func (x *Pack) GetWidth() float64 {
+	if x != nil {
+		return x.xxx_hidden_Width
+	}
+	return 0
+}
+
+func (x *Pack) GetHeight() float64 {
+	if x != nil {
+		return x.xxx_hidden_Height
+	}
+	return 0
+}
+
+func (x *Pack) GetWeight() float64 {
+	if x != nil {
+		return x.xxx_hidden_Weight
+	}
+	return 0
+}
+
+func (x *Pack) SetVolume(v float64) {
+	x.xxx_hidden_Volume = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 5)
+}
+
+func (x *Pack) SetLength(v float64) {
+	x.xxx_hidden_Length = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 5)
+}
+
+func (x *Pack) SetWidth(v float64) {
+	x.xxx_hidden_Width = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 5)
+}
+
+func (x *Pack) SetHeight(v float64) {
+	x.xxx_hidden_Height = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 5)
+}
+
+func (x *Pack) SetWeight(v float64) {
+	x.xxx_hidden_Weight = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 5)
+}
+
+func (x *Pack) HasVolume() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *Pack) HasLength() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *Pack) HasWidth() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *Pack) HasHeight() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *Pack) HasWeight() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *Pack) ClearVolume() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Volume = 0
+}
+
+func (x *Pack) ClearLength() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Length = 0
+}
+
+func (x *Pack) ClearWidth() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Width = 0
+}
+
+func (x *Pack) ClearHeight() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Height = 0
+}
+
+func (x *Pack) ClearWeight() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_Weight = 0
+}
+
+type Pack_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	Volume *float64
+	Length *float64
+	Width  *float64
+	Height *float64
+	Weight *float64
+}
+
+func (b0 Pack_builder) Build() *Pack {
+	m0 := &Pack{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Volume != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 5)
+		x.xxx_hidden_Volume = *b.Volume
+	}
+	if b.Length != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 5)
+		x.xxx_hidden_Length = *b.Length
+	}
+	if b.Width != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 5)
+		x.xxx_hidden_Width = *b.Width
+	}
+	if b.Height != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 5)
+		x.xxx_hidden_Height = *b.Height
+	}
+	if b.Weight != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 5)
+		x.xxx_hidden_Weight = *b.Weight
+	}
+	return m0
+}
+
+type Product struct {
+	state                            protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Id                    *string                `protobuf:"bytes,1,opt,name=id"`
+	xxx_hidden_Name                  *string                `protobuf:"bytes,2,opt,name=name"`
+	xxx_hidden_ProductionType        ProductionType         `protobuf:"varint,3,opt,name=production_type,json=productionType,enum=products.ProductionType"`
+	xxx_hidden_Fnrec                 *string                `protobuf:"bytes,4,opt,name=fnrec"`
+	xxx_hidden_IsService             bool                   `protobuf:"varint,5,opt,name=is_service,json=isService"`
+	xxx_hidden_Group                 ProductGroup           `protobuf:"varint,6,opt,name=group,enum=products.ProductGroup"`
+	xxx_hidden_SeriesId              *string                `protobuf:"bytes,7,opt,name=series_id,json=seriesId"`
+	xxx_hidden_CategoryId            *string                `protobuf:"bytes,8,opt,name=category_id,json=categoryId"`
+	xxx_hidden_AccountProvider       *string                `protobuf:"bytes,9,opt,name=account_provider,json=accountProvider"`
+	xxx_hidden_NonStandardCategoryId *string                `protobuf:"bytes,10,opt,name=non_standard_category_id,json=nonStandardCategoryId"`
+	xxx_hidden_Pack                  *Pack                  `protobuf:"bytes,11,opt,name=pack"`
+	XXX_raceDetectHookData           protoimpl.RaceDetectHookData
+	XXX_presence                     [1]uint32
+	unknownFields                    protoimpl.UnknownFields
+	sizeCache                        protoimpl.SizeCache
+}
+
+func (x *Product) Reset() {
+	*x = Product{}
+	mi := &file_api_specification_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Product) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Product) ProtoMessage() {}
+
+func (x *Product) ProtoReflect() protoreflect.Message {
+	mi := &file_api_specification_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *Product) GetId() string {
+	if x != nil {
+		if x.xxx_hidden_Id != nil {
+			return *x.xxx_hidden_Id
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Product) GetName() string {
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Product) GetProductionType() ProductionType {
+	if x != nil {
+		if protoimpl.X.Present(&(x.XXX_presence[0]), 2) {
+			return x.xxx_hidden_ProductionType
+		}
+	}
+	return ProductionType_PRODUCTION_TYPE_UNKNOWN
+}
+
+func (x *Product) GetFnrec() string {
+	if x != nil {
+		if x.xxx_hidden_Fnrec != nil {
+			return *x.xxx_hidden_Fnrec
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Product) GetIsService() bool {
+	if x != nil {
+		return x.xxx_hidden_IsService
+	}
+	return false
+}
+
+func (x *Product) GetGroup() ProductGroup {
+	if x != nil {
+		if protoimpl.X.Present(&(x.XXX_presence[0]), 5) {
+			return x.xxx_hidden_Group
+		}
+	}
+	return ProductGroup_PRODUCT_GROUP_UNSPECIFIED
+}
+
+func (x *Product) GetSeriesId() string {
+	if x != nil {
+		if x.xxx_hidden_SeriesId != nil {
+			return *x.xxx_hidden_SeriesId
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Product) GetCategoryId() string {
+	if x != nil {
+		if x.xxx_hidden_CategoryId != nil {
+			return *x.xxx_hidden_CategoryId
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Product) GetAccountProvider() string {
+	if x != nil {
+		if x.xxx_hidden_AccountProvider != nil {
+			return *x.xxx_hidden_AccountProvider
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Product) GetNonStandardCategoryId() string {
+	if x != nil {
+		if x.xxx_hidden_NonStandardCategoryId != nil {
+			return *x.xxx_hidden_NonStandardCategoryId
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Product) GetPack() *Pack {
+	if x != nil {
+		return x.xxx_hidden_Pack
+	}
+	return nil
+}
+
+func (x *Product) SetId(v string) {
+	x.xxx_hidden_Id = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 11)
+}
+
+func (x *Product) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 11)
+}
+
+func (x *Product) SetProductionType(v ProductionType) {
+	x.xxx_hidden_ProductionType = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 11)
+}
+
+func (x *Product) SetFnrec(v string) {
+	x.xxx_hidden_Fnrec = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 11)
+}
+
+func (x *Product) SetIsService(v bool) {
+	x.xxx_hidden_IsService = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 11)
+}
+
+func (x *Product) SetGroup(v ProductGroup) {
+	x.xxx_hidden_Group = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 11)
+}
+
+func (x *Product) SetSeriesId(v string) {
+	x.xxx_hidden_SeriesId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 11)
+}
+
+func (x *Product) SetCategoryId(v string) {
+	x.xxx_hidden_CategoryId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 7, 11)
+}
+
+func (x *Product) SetAccountProvider(v string) {
+	x.xxx_hidden_AccountProvider = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 8, 11)
+}
+
+func (x *Product) SetNonStandardCategoryId(v string) {
+	x.xxx_hidden_NonStandardCategoryId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 9, 11)
+}
+
+func (x *Product) SetPack(v *Pack) {
+	x.xxx_hidden_Pack = v
+}
+
+func (x *Product) HasId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *Product) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *Product) HasProductionType() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *Product) HasFnrec() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *Product) HasIsService() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *Product) HasGroup() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
+}
+
+func (x *Product) HasSeriesId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 6)
+}
+
+func (x *Product) HasCategoryId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 7)
+}
+
+func (x *Product) HasAccountProvider() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 8)
+}
+
+func (x *Product) HasNonStandardCategoryId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 9)
+}
+
+func (x *Product) HasPack() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_Pack != nil
+}
+
+func (x *Product) ClearId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Id = nil
+}
+
+func (x *Product) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Name = nil
+}
+
+func (x *Product) ClearProductionType() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_ProductionType = ProductionType_PRODUCTION_TYPE_UNKNOWN
+}
+
+func (x *Product) ClearFnrec() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Fnrec = nil
+}
+
+func (x *Product) ClearIsService() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_IsService = false
+}
+
+func (x *Product) ClearGroup() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
+	x.xxx_hidden_Group = ProductGroup_PRODUCT_GROUP_UNSPECIFIED
+}
+
+func (x *Product) ClearSeriesId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 6)
+	x.xxx_hidden_SeriesId = nil
+}
+
+func (x *Product) ClearCategoryId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 7)
+	x.xxx_hidden_CategoryId = nil
+}
+
+func (x *Product) ClearAccountProvider() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 8)
+	x.xxx_hidden_AccountProvider = nil
+}
+
+func (x *Product) ClearNonStandardCategoryId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 9)
+	x.xxx_hidden_NonStandardCategoryId = nil
+}
+
+func (x *Product) ClearPack() {
+	x.xxx_hidden_Pack = nil
+}
+
+type Product_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	Id                    *string
+	Name                  *string
+	ProductionType        *ProductionType
+	Fnrec                 *string
+	IsService             *bool
+	Group                 *ProductGroup
+	SeriesId              *string
+	CategoryId            *string
+	AccountProvider       *string
+	NonStandardCategoryId *string
+	Pack                  *Pack
+}
+
+func (b0 Product_builder) Build() *Product {
+	m0 := &Product{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Id != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 11)
+		x.xxx_hidden_Id = b.Id
+	}
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 11)
+		x.xxx_hidden_Name = b.Name
+	}
+	if b.ProductionType != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 11)
+		x.xxx_hidden_ProductionType = *b.ProductionType
+	}
+	if b.Fnrec != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 11)
+		x.xxx_hidden_Fnrec = b.Fnrec
+	}
+	if b.IsService != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 11)
+		x.xxx_hidden_IsService = *b.IsService
+	}
+	if b.Group != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 11)
+		x.xxx_hidden_Group = *b.Group
+	}
+	if b.SeriesId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 11)
+		x.xxx_hidden_SeriesId = b.SeriesId
+	}
+	if b.CategoryId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 7, 11)
+		x.xxx_hidden_CategoryId = b.CategoryId
+	}
+	if b.AccountProvider != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 8, 11)
+		x.xxx_hidden_AccountProvider = b.AccountProvider
+	}
+	if b.NonStandardCategoryId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 9, 11)
+		x.xxx_hidden_NonStandardCategoryId = b.NonStandardCategoryId
+	}
+	x.xxx_hidden_Pack = b.Pack
+	return m0
+}
+
 type SpecificationLine struct {
 	state                  protoimpl.MessageState `protogen:"opaque.v1"`
-	xxx_hidden_Fnrec       *string                `protobuf:"bytes,1,opt,name=fnrec"`
-	xxx_hidden_Integration *string                `protobuf:"bytes,2,opt,name=integration"`
-	xxx_hidden_Quantity    int32                  `protobuf:"varint,3,opt,name=quantity"`
+	xxx_hidden_Id          *string                `protobuf:"bytes,1,opt,name=id"`
+	xxx_hidden_Fnrec       *string                `protobuf:"bytes,2,opt,name=fnrec"`
+	xxx_hidden_Integration *string                `protobuf:"bytes,3,opt,name=integration"`
+	xxx_hidden_Quantity    int32                  `protobuf:"varint,4,opt,name=quantity"`
+	xxx_hidden_RelateToId  *string                `protobuf:"bytes,5,opt,name=relate_to_id,json=relateToId"`
 	XXX_raceDetectHookData protoimpl.RaceDetectHookData
 	XXX_presence           [1]uint32
 	unknownFields          protoimpl.UnknownFields
@@ -119,7 +1017,7 @@ type SpecificationLine struct {
 
 func (x *SpecificationLine) Reset() {
 	*x = SpecificationLine{}
-	mi := &file_api_specification_proto_msgTypes[0]
+	mi := &file_api_specification_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -131,7 +1029,7 @@ func (x *SpecificationLine) String() string {
 func (*SpecificationLine) ProtoMessage() {}
 
 func (x *SpecificationLine) ProtoReflect() protoreflect.Message {
-	mi := &file_api_specification_proto_msgTypes[0]
+	mi := &file_api_specification_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -140,6 +1038,16 @@ func (x *SpecificationLine) ProtoReflect() protoreflect.Message {
 		return ms
 	}
 	return mi.MessageOf(x)
+}
+
+func (x *SpecificationLine) GetId() string {
+	if x != nil {
+		if x.xxx_hidden_Id != nil {
+			return *x.xxx_hidden_Id
+		}
+		return ""
+	}
+	return ""
 }
 
 func (x *SpecificationLine) GetFnrec() string {
@@ -169,80 +1077,134 @@ func (x *SpecificationLine) GetQuantity() int32 {
 	return 0
 }
 
+func (x *SpecificationLine) GetRelateToId() string {
+	if x != nil {
+		if x.xxx_hidden_RelateToId != nil {
+			return *x.xxx_hidden_RelateToId
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *SpecificationLine) SetId(v string) {
+	x.xxx_hidden_Id = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 5)
+}
+
 func (x *SpecificationLine) SetFnrec(v string) {
 	x.xxx_hidden_Fnrec = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 3)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 5)
 }
 
 func (x *SpecificationLine) SetIntegration(v string) {
 	x.xxx_hidden_Integration = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 3)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 5)
 }
 
 func (x *SpecificationLine) SetQuantity(v int32) {
 	x.xxx_hidden_Quantity = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 3)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 5)
 }
 
-func (x *SpecificationLine) HasFnrec() bool {
+func (x *SpecificationLine) SetRelateToId(v string) {
+	x.xxx_hidden_RelateToId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 5)
+}
+
+func (x *SpecificationLine) HasId() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
 }
 
-func (x *SpecificationLine) HasIntegration() bool {
+func (x *SpecificationLine) HasFnrec() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
 }
 
-func (x *SpecificationLine) HasQuantity() bool {
+func (x *SpecificationLine) HasIntegration() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
 }
 
-func (x *SpecificationLine) ClearFnrec() {
+func (x *SpecificationLine) HasQuantity() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *SpecificationLine) HasRelateToId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *SpecificationLine) ClearId() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Id = nil
+}
+
+func (x *SpecificationLine) ClearFnrec() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
 	x.xxx_hidden_Fnrec = nil
 }
 
 func (x *SpecificationLine) ClearIntegration() {
-	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
 	x.xxx_hidden_Integration = nil
 }
 
 func (x *SpecificationLine) ClearQuantity() {
-	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
 	x.xxx_hidden_Quantity = 0
+}
+
+func (x *SpecificationLine) ClearRelateToId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_RelateToId = nil
 }
 
 type SpecificationLine_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
+	Id          *string
 	Fnrec       *string
 	Integration *string
 	Quantity    *int32
+	RelateToId  *string
 }
 
 func (b0 SpecificationLine_builder) Build() *SpecificationLine {
 	m0 := &SpecificationLine{}
 	b, x := &b0, m0
 	_, _ = b, x
+	if b.Id != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 5)
+		x.xxx_hidden_Id = b.Id
+	}
 	if b.Fnrec != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 3)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 5)
 		x.xxx_hidden_Fnrec = b.Fnrec
 	}
 	if b.Integration != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 3)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 5)
 		x.xxx_hidden_Integration = b.Integration
 	}
 	if b.Quantity != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 3)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 5)
 		x.xxx_hidden_Quantity = *b.Quantity
+	}
+	if b.RelateToId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 5)
+		x.xxx_hidden_RelateToId = b.RelateToId
 	}
 	return m0
 }
@@ -256,7 +1218,7 @@ type SpecificationRequest struct {
 
 func (x *SpecificationRequest) Reset() {
 	*x = SpecificationRequest{}
-	mi := &file_api_specification_proto_msgTypes[1]
+	mi := &file_api_specification_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -268,7 +1230,7 @@ func (x *SpecificationRequest) String() string {
 func (*SpecificationRequest) ProtoMessage() {}
 
 func (x *SpecificationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_specification_proto_msgTypes[1]
+	mi := &file_api_specification_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -308,9 +1270,10 @@ func (b0 SpecificationRequest_builder) Build() *SpecificationRequest {
 
 type Line struct {
 	state                  protoimpl.MessageState `protogen:"opaque.v1"`
-	xxx_hidden_Product     *Product               `protobuf:"bytes,1,opt,name=product"`
-	xxx_hidden_Quantity    int32                  `protobuf:"varint,2,opt,name=quantity"`
-	xxx_hidden_Strategy    PickupStrategy         `protobuf:"varint,3,opt,name=strategy,enum=products.PickupStrategy"`
+	xxx_hidden_Id          *string                `protobuf:"bytes,1,opt,name=id"`
+	xxx_hidden_Product     *Product               `protobuf:"bytes,2,opt,name=product"`
+	xxx_hidden_Quantity    int32                  `protobuf:"varint,3,opt,name=quantity"`
+	xxx_hidden_Strategy    PickupStrategy         `protobuf:"varint,4,opt,name=strategy,enum=products.PickupStrategy"`
 	XXX_raceDetectHookData protoimpl.RaceDetectHookData
 	XXX_presence           [1]uint32
 	unknownFields          protoimpl.UnknownFields
@@ -319,7 +1282,7 @@ type Line struct {
 
 func (x *Line) Reset() {
 	*x = Line{}
-	mi := &file_api_specification_proto_msgTypes[2]
+	mi := &file_api_specification_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -331,7 +1294,7 @@ func (x *Line) String() string {
 func (*Line) ProtoMessage() {}
 
 func (x *Line) ProtoReflect() protoreflect.Message {
-	mi := &file_api_specification_proto_msgTypes[2]
+	mi := &file_api_specification_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -340,6 +1303,16 @@ func (x *Line) ProtoReflect() protoreflect.Message {
 		return ms
 	}
 	return mi.MessageOf(x)
+}
+
+func (x *Line) GetId() string {
+	if x != nil {
+		if x.xxx_hidden_Id != nil {
+			return *x.xxx_hidden_Id
+		}
+		return ""
+	}
+	return ""
 }
 
 func (x *Line) GetProduct() *Product {
@@ -358,11 +1331,16 @@ func (x *Line) GetQuantity() int32 {
 
 func (x *Line) GetStrategy() PickupStrategy {
 	if x != nil {
-		if protoimpl.X.Present(&(x.XXX_presence[0]), 2) {
+		if protoimpl.X.Present(&(x.XXX_presence[0]), 3) {
 			return x.xxx_hidden_Strategy
 		}
 	}
 	return PickupStrategy_NEAREST
+}
+
+func (x *Line) SetId(v string) {
+	x.xxx_hidden_Id = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 4)
 }
 
 func (x *Line) SetProduct(v *Product) {
@@ -371,12 +1349,19 @@ func (x *Line) SetProduct(v *Product) {
 
 func (x *Line) SetQuantity(v int32) {
 	x.xxx_hidden_Quantity = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 3)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 4)
 }
 
 func (x *Line) SetStrategy(v PickupStrategy) {
 	x.xxx_hidden_Strategy = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 3)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 4)
+}
+
+func (x *Line) HasId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
 }
 
 func (x *Line) HasProduct() bool {
@@ -390,14 +1375,19 @@ func (x *Line) HasQuantity() bool {
 	if x == nil {
 		return false
 	}
-	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
 }
 
 func (x *Line) HasStrategy() bool {
 	if x == nil {
 		return false
 	}
-	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *Line) ClearId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Id = nil
 }
 
 func (x *Line) ClearProduct() {
@@ -405,18 +1395,19 @@ func (x *Line) ClearProduct() {
 }
 
 func (x *Line) ClearQuantity() {
-	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
 	x.xxx_hidden_Quantity = 0
 }
 
 func (x *Line) ClearStrategy() {
-	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
 	x.xxx_hidden_Strategy = PickupStrategy_NEAREST
 }
 
 type Line_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
+	Id       *string
 	Product  *Product
 	Quantity *int32
 	Strategy *PickupStrategy
@@ -426,13 +1417,17 @@ func (b0 Line_builder) Build() *Line {
 	m0 := &Line{}
 	b, x := &b0, m0
 	_, _ = b, x
+	if b.Id != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 4)
+		x.xxx_hidden_Id = b.Id
+	}
 	x.xxx_hidden_Product = b.Product
 	if b.Quantity != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 3)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 4)
 		x.xxx_hidden_Quantity = *b.Quantity
 	}
 	if b.Strategy != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 3)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 4)
 		x.xxx_hidden_Strategy = *b.Strategy
 	}
 	return m0
@@ -452,7 +1447,7 @@ type Specification struct {
 
 func (x *Specification) Reset() {
 	*x = Specification{}
-	mi := &file_api_specification_proto_msgTypes[3]
+	mi := &file_api_specification_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -464,7 +1459,7 @@ func (x *Specification) String() string {
 func (*Specification) ProtoMessage() {}
 
 func (x *Specification) ProtoReflect() protoreflect.Message {
-	mi := &file_api_specification_proto_msgTypes[3]
+	mi := &file_api_specification_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -597,7 +1592,7 @@ type SpecificationResponse struct {
 
 func (x *SpecificationResponse) Reset() {
 	*x = SpecificationResponse{}
-	mi := &file_api_specification_proto_msgTypes[4]
+	mi := &file_api_specification_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -609,7 +1604,7 @@ func (x *SpecificationResponse) String() string {
 func (*SpecificationResponse) ProtoMessage() {}
 
 func (x *SpecificationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_specification_proto_msgTypes[4]
+	mi := &file_api_specification_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -651,24 +1646,120 @@ var File_api_specification_proto protoreflect.FileDescriptor
 
 const file_api_specification_proto_rawDesc = "" +
 	"\n" +
-	"\x17api/specification.proto\x12\bproducts\x1a!google/protobuf/go_features.proto\x1a\x11api/product.proto\"g\n" +
-	"\x11SpecificationLine\x12\x14\n" +
-	"\x05fnrec\x18\x01 \x01(\tR\x05fnrec\x12 \n" +
-	"\vintegration\x18\x02 \x01(\tR\vintegration\x12\x1a\n" +
-	"\bquantity\x18\x03 \x01(\x05R\bquantity\"d\n" +
+	"\x17api/specification.proto\x12\bproducts\x1a!google/protobuf/go_features.proto\"|\n" +
+	"\x04Pack\x12\x16\n" +
+	"\x06volume\x18\x01 \x01(\x01R\x06volume\x12\x16\n" +
+	"\x06length\x18\x02 \x01(\x01R\x06length\x12\x14\n" +
+	"\x05width\x18\x03 \x01(\x01R\x05width\x12\x16\n" +
+	"\x06height\x18\x04 \x01(\x01R\x06height\x12\x16\n" +
+	"\x06weight\x18\x05 \x01(\x01R\x06weight\"\x99\x03\n" +
+	"\aProduct\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12A\n" +
+	"\x0fproduction_type\x18\x03 \x01(\x0e2\x18.products.ProductionTypeR\x0eproductionType\x12\x14\n" +
+	"\x05fnrec\x18\x04 \x01(\tR\x05fnrec\x12\x1d\n" +
+	"\n" +
+	"is_service\x18\x05 \x01(\bR\tisService\x12,\n" +
+	"\x05group\x18\x06 \x01(\x0e2\x16.products.ProductGroupR\x05group\x12\x1b\n" +
+	"\tseries_id\x18\a \x01(\tR\bseriesId\x12\x1f\n" +
+	"\vcategory_id\x18\b \x01(\tR\n" +
+	"categoryId\x12)\n" +
+	"\x10account_provider\x18\t \x01(\tR\x0faccountProvider\x127\n" +
+	"\x18non_standard_category_id\x18\n" +
+	" \x01(\tR\x15nonStandardCategoryId\x12\"\n" +
+	"\x04pack\x18\v \x01(\v2\x0e.products.PackR\x04pack\"\x99\x01\n" +
+	"\x11SpecificationLine\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x14\n" +
+	"\x05fnrec\x18\x02 \x01(\tR\x05fnrec\x12 \n" +
+	"\vintegration\x18\x03 \x01(\tR\vintegration\x12\x1a\n" +
+	"\bquantity\x18\x04 \x01(\x05R\bquantity\x12 \n" +
+	"\frelate_to_id\x18\x05 \x01(\tR\n" +
+	"relateToId\"d\n" +
 	"\x14SpecificationRequest\x12L\n" +
-	"\x13specification_lines\x18\x01 \x03(\v2\x1b.products.SpecificationLineR\x12specificationLines\"\x85\x01\n" +
-	"\x04Line\x12+\n" +
-	"\aproduct\x18\x01 \x01(\v2\x11.products.ProductR\aproduct\x12\x1a\n" +
-	"\bquantity\x18\x02 \x01(\x05R\bquantity\x124\n" +
-	"\bstrategy\x18\x03 \x01(\x0e2\x18.products.PickupStrategyR\bstrategy\"\xd5\x01\n" +
+	"\x13specification_lines\x18\x01 \x03(\v2\x1b.products.SpecificationLineR\x12specificationLines\"\x95\x01\n" +
+	"\x04Line\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12+\n" +
+	"\aproduct\x18\x02 \x01(\v2\x11.products.ProductR\aproduct\x12\x1a\n" +
+	"\bquantity\x18\x03 \x01(\x05R\bquantity\x124\n" +
+	"\bstrategy\x18\x04 \x01(\x0e2\x18.products.PickupStrategyR\bstrategy\"\xd5\x01\n" +
 	"\rSpecification\x12(\n" +
 	"\aproduct\x18\x01 \x01(\v2\x0e.products.LineR\aproduct\x12/\n" +
 	"\x04type\x18\x02 \x01(\x0e2\x1b.products.SpecificationTypeR\x04type\x123\n" +
 	"\rchild_product\x18\x03 \x03(\v2\x0e.products.LineR\fchildProduct\x124\n" +
 	"\bstrategy\x18\x04 \x01(\x0e2\x18.products.PickupStrategyR\bstrategy\"X\n" +
 	"\x15SpecificationResponse\x12?\n" +
-	"\x0especifications\x18\x01 \x03(\v2\x17.products.SpecificationR\x0especifications*U\n" +
+	"\x0especifications\x18\x01 \x03(\v2\x17.products.SpecificationR\x0especifications*'\n" +
+	"\vProductType\x12\x18\n" +
+	"\x14PRODUCT_TYPE_UNKNOWN\x10\x00*l\n" +
+	"\x0eProductionType\x12\x1b\n" +
+	"\x17PRODUCTION_TYPE_UNKNOWN\x10\x00\x12\x1d\n" +
+	"\x19PRODUCTION_TYPE_PRODUCING\x10\x01\x12\x1e\n" +
+	"\x1aPRODUCTION_TYPE_PURCHASING\x10\x02*\xa6\x10\n" +
+	"\fProductGroup\x12\x1d\n" +
+	"\x19PRODUCT_GROUP_UNSPECIFIED\x10\x00\x12\x1a\n" +
+	"\x16PRODUCT_GROUP_KITCHENS\x10\x01\x12 \n" +
+	"\x1cPRODUCT_GROUP_CASE_FURNITURE\x10\x02\x12\x1e\n" +
+	"\x1aPRODUCT_GROUP_BEDDING_SETS\x10\x03\x12\x17\n" +
+	"\x13PRODUCT_GROUP_SOFAS\x10\x04\x12\x18\n" +
+	"\x14PRODUCT_GROUP_COVERS\x10\x05\x12\x1a\n" +
+	"\x16PRODUCT_GROUP_BLANKETS\x10\x06\x12(\n" +
+	"$PRODUCT_GROUP_BED_BASES_WITH_STORAGE\x10\a\x12!\n" +
+	"\x1dPRODUCT_GROUP_SOFA_COMPONENTS\x10\b\x12\x1c\n" +
+	"\x18PRODUCT_GROUP_ERGOMOTION\x10\t\x12\x1e\n" +
+	"\x1aPRODUCT_GROUP_NON_PRODUCTS\x10\n" +
+	"\x12!\n" +
+	"\x1dPRODUCT_GROUP_SMALL_FURNITURE\x10\v\x12\x1c\n" +
+	"\x18PRODUCT_GROUP_MATTRESSES\x10\f\x12\x1f\n" +
+	"\x1bPRODUCT_GROUP_SLATTED_BASES\x10\r\x12\"\n" +
+	"\x1ePRODUCT_GROUP_MATTRESS_TOPPERS\x10\x0e\x12\x19\n" +
+	"\x15PRODUCT_GROUP_PILLOWS\x10\x0f\x12\x16\n" +
+	"\x12PRODUCT_GROUP_BEDS\x10\x10\x12\x1b\n" +
+	"\x17PRODUCT_GROUP_BED_BASES\x10\x11\x12\x1f\n" +
+	"\x1bPRODUCT_GROUP_MISCELLANEOUS\x10\x12\x12,\n" +
+	"(PRODUCT_GROUP_CASE_FURNITURE_ACCESSORIES\x10\x13\x12\x1d\n" +
+	"\x19PRODUCT_GROUP_MURPHY_BEDS\x10\x14\x12\x1b\n" +
+	"\x17PRODUCT_GROUP_WARDROBES\x10\x15\x12!\n" +
+	"\x1dPRODUCT_GROUP_BED_ACCESSORIES\x10\x16\x12(\n" +
+	"$PRODUCT_GROUP_MURPHY_BED_ACCESSORIES\x10\x17\x12-\n" +
+	")PRODUCT_GROUP_SMALL_FURNITURE_ACCESSORIES\x10\x18\x12&\n" +
+	"\"PRODUCT_GROUP_WARDROBE_ACCESSORIES\x10\x19\x12%\n" +
+	"!PRODUCT_GROUP_INTERIOR_DECORATION\x10\x1a\x12\x1a\n" +
+	"\x16PRODUCT_GROUP_TEXTILES\x10\x1b\x12\x1f\n" +
+	"\x1bPRODUCT_GROUP_SLEEP_THERAPY\x10\x1c\x12\x1d\n" +
+	"\x19PRODUCT_GROUP_ELECTRONICS\x10\x1d\x12\x1a\n" +
+	"\x16PRODUCT_GROUP_CLOTHING\x10\x1e\x12\x1d\n" +
+	"\x19PRODUCT_GROUP_ORTHOPEDICS\x10\x1f\x12\x1f\n" +
+	"\x1bPRODUCT_GROUP_COFFEE_TABLES\x10 \x12\x1b\n" +
+	"\x17PRODUCT_GROUP_KING_KOIL\x10!\x12(\n" +
+	"$PRODUCT_GROUP_ERGOMOTION_ACCESSORIES\x10\"\x12$\n" +
+	" PRODUCT_GROUP_CHILDREN_BED_BASES\x10#\x12\x1f\n" +
+	"\x1bPRODUCT_GROUP_PILLOW_COVERS\x10$\x12\x1b\n" +
+	"\x17PRODUCT_GROUP_TABLEWARE\x10%\x12\x16\n" +
+	"\x12PRODUCT_GROUP_SETS\x10&\x12\x1d\n" +
+	"\x19PRODUCT_GROUP_HOME_OFFICE\x10'\x12#\n" +
+	"\x1fPRODUCT_GROUP_CHILDREN_BEDROOMS\x10(\x12,\n" +
+	"(PRODUCT_GROUP_SPACE_ORGANIZATION_STORAGE\x10)\x12#\n" +
+	"\x1fPRODUCT_GROUP_BATHROOM_PRODUCTS\x10*\x12\x16\n" +
+	"\x12PRODUCT_GROUP_TOYS\x10+\x12\x1d\n" +
+	"\x19PRODUCT_GROUP_ACCESSORIES\x10,\x12\x1a\n" +
+	"\x16PRODUCT_GROUP_NEW_YEAR\x10-\x12\x1b\n" +
+	"\x17PRODUCT_GROUP_ARMCHAIRS\x10.\x12 \n" +
+	"\x1cPRODUCT_GROUP_MASSAGE_CHAIRS\x10/\x12\x1e\n" +
+	"\x1aPRODUCT_GROUP_LIVING_ROOMS\x100\x12\x1a\n" +
+	"\x16PRODUCT_GROUP_LIGHTING\x101\x12\x1c\n" +
+	"\x18PRODUCT_GROUP_KAFKA_TEST\x102\x12\x17\n" +
+	"\x13PRODUCT_GROUP_DECOR\x103\x12*\n" +
+	"&PRODUCT_GROUP_SPACE_ORGANIZATION_UPPER\x104\x12!\n" +
+	"\x1dPRODUCT_GROUP_HOME_CARE_UPPER\x105\x12$\n" +
+	" PRODUCT_GROUP_SPACE_ORGANIZATION\x106\x12\x1b\n" +
+	"\x17PRODUCT_GROUP_HOME_CARE\x107\x12\x1a\n" +
+	"\x16PRODUCT_GROUP_HALLWAYS\x108\x12/\n" +
+	"+PRODUCT_GROUP_FURNITURE_PROTECTION_AND_CARE\x109\x12#\n" +
+	"\x1fPRODUCT_GROUP_OUTDOOR_FURNITURE\x10:\x12\x19\n" +
+	"\x15PRODUCT_GROUP_STORAGE\x10;\x12\x1a\n" +
+	"\x16PRODUCT_GROUP_INTERIOR\x10<\x12#\n" +
+	"\x1fPRODUCT_GROUP_SEASONAL_PRODUCTS\x10=\x12\x1c\n" +
+	"\x18PRODUCT_GROUP_FRAGRANCES\x10>*U\n" +
 	"\x11SpecificationType\x12\v\n" +
 	"\aDEFAULT\x10\x00\x12\x18\n" +
 	"\x14DIRECT_SPECIFICATION\x10\x01\x12\x19\n" +
@@ -679,34 +1770,41 @@ const file_api_specification_proto_rawDesc = "" +
 	"\x14SpecificationService\x12J\n" +
 	"\aExecute\x12\x1e.products.SpecificationRequest\x1a\x1f.products.SpecificationResponseB\x10Z\x06/proto\x92\x03\x05\xd2>\x02\x10\x03b\beditionsp\xe8\a"
 
-var file_api_specification_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_api_specification_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_api_specification_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
+var file_api_specification_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_api_specification_proto_goTypes = []any{
-	(SpecificationType)(0),        // 0: products.SpecificationType
-	(PickupStrategy)(0),           // 1: products.PickupStrategy
-	(*SpecificationLine)(nil),     // 2: products.SpecificationLine
-	(*SpecificationRequest)(nil),  // 3: products.SpecificationRequest
-	(*Line)(nil),                  // 4: products.Line
-	(*Specification)(nil),         // 5: products.Specification
-	(*SpecificationResponse)(nil), // 6: products.SpecificationResponse
-	(*Product)(nil),               // 7: products.Product
+	(ProductType)(0),              // 0: products.ProductType
+	(ProductionType)(0),           // 1: products.ProductionType
+	(ProductGroup)(0),             // 2: products.ProductGroup
+	(SpecificationType)(0),        // 3: products.SpecificationType
+	(PickupStrategy)(0),           // 4: products.PickupStrategy
+	(*Pack)(nil),                  // 5: products.Pack
+	(*Product)(nil),               // 6: products.Product
+	(*SpecificationLine)(nil),     // 7: products.SpecificationLine
+	(*SpecificationRequest)(nil),  // 8: products.SpecificationRequest
+	(*Line)(nil),                  // 9: products.Line
+	(*Specification)(nil),         // 10: products.Specification
+	(*SpecificationResponse)(nil), // 11: products.SpecificationResponse
 }
 var file_api_specification_proto_depIdxs = []int32{
-	2, // 0: products.SpecificationRequest.specification_lines:type_name -> products.SpecificationLine
-	7, // 1: products.Line.product:type_name -> products.Product
-	1, // 2: products.Line.strategy:type_name -> products.PickupStrategy
-	4, // 3: products.Specification.product:type_name -> products.Line
-	0, // 4: products.Specification.type:type_name -> products.SpecificationType
-	4, // 5: products.Specification.child_product:type_name -> products.Line
-	1, // 6: products.Specification.strategy:type_name -> products.PickupStrategy
-	5, // 7: products.SpecificationResponse.specifications:type_name -> products.Specification
-	3, // 8: products.SpecificationService.Execute:input_type -> products.SpecificationRequest
-	6, // 9: products.SpecificationService.Execute:output_type -> products.SpecificationResponse
-	9, // [9:10] is the sub-list for method output_type
-	8, // [8:9] is the sub-list for method input_type
-	8, // [8:8] is the sub-list for extension type_name
-	8, // [8:8] is the sub-list for extension extendee
-	0, // [0:8] is the sub-list for field type_name
+	1,  // 0: products.Product.production_type:type_name -> products.ProductionType
+	2,  // 1: products.Product.group:type_name -> products.ProductGroup
+	5,  // 2: products.Product.pack:type_name -> products.Pack
+	7,  // 3: products.SpecificationRequest.specification_lines:type_name -> products.SpecificationLine
+	6,  // 4: products.Line.product:type_name -> products.Product
+	4,  // 5: products.Line.strategy:type_name -> products.PickupStrategy
+	9,  // 6: products.Specification.product:type_name -> products.Line
+	3,  // 7: products.Specification.type:type_name -> products.SpecificationType
+	9,  // 8: products.Specification.child_product:type_name -> products.Line
+	4,  // 9: products.Specification.strategy:type_name -> products.PickupStrategy
+	10, // 10: products.SpecificationResponse.specifications:type_name -> products.Specification
+	8,  // 11: products.SpecificationService.Execute:input_type -> products.SpecificationRequest
+	11, // 12: products.SpecificationService.Execute:output_type -> products.SpecificationResponse
+	12, // [12:13] is the sub-list for method output_type
+	11, // [11:12] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_api_specification_proto_init() }
@@ -714,14 +1812,13 @@ func file_api_specification_proto_init() {
 	if File_api_specification_proto != nil {
 		return
 	}
-	file_api_product_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_specification_proto_rawDesc), len(file_api_specification_proto_rawDesc)),
-			NumEnums:      2,
-			NumMessages:   5,
+			NumEnums:      5,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
