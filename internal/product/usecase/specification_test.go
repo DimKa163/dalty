@@ -2,13 +2,14 @@ package usecase
 
 import (
 	"context"
+	"testing"
+
 	"github.com/DimKa163/dalty/internal/product/core"
 	"github.com/DimKa163/dalty/internal/product/mocks"
 	"github.com/DimKa163/dalty/pkg/daltymodel"
 	"github.com/beevik/guid"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestExecuteDirectSpecification(t *testing.T) {
@@ -22,7 +23,7 @@ func TestExecuteDirectSpecification(t *testing.T) {
 		ID:             *guid.New(),
 		Name:           "Test",
 		Group:          daltymodel.ProductGroupArmchairs,
-		ProductionType: core.ProductionTypeProducing,
+		ProductionType: daltymodel.ProductionTypeProducing,
 		IntegrationID:  "1",
 		Fnrec:          "1",
 	}
@@ -102,7 +103,7 @@ func TestExecuteReverseSpecification(t *testing.T) {
 		ID:             *guid.New(),
 		Name:           "Test A",
 		Group:          daltymodel.ProductGroupBeds,
-		ProductionType: core.ProductionTypeProducing,
+		ProductionType: daltymodel.ProductionTypeProducing,
 		IntegrationID:  "1",
 		Fnrec:          "1",
 	}
@@ -110,7 +111,7 @@ func TestExecuteReverseSpecification(t *testing.T) {
 		ID:             *guid.New(),
 		Name:           "Test B",
 		Group:          daltymodel.ProductGroupBedBases,
-		ProductionType: core.ProductionTypeProducing,
+		ProductionType: daltymodel.ProductionTypeProducing,
 		IntegrationID:  "2",
 		Fnrec:          "2",
 	}
@@ -178,7 +179,7 @@ func TestExecuteDefaultSpecification(t *testing.T) {
 		ID:             *guid.New(),
 		Name:           "Test A",
 		Group:          daltymodel.ProductGroupBeds,
-		ProductionType: core.ProductionTypeProducing,
+		ProductionType: daltymodel.ProductionTypeProducing,
 		IntegrationID:  "1",
 		Fnrec:          "1",
 	}
@@ -186,7 +187,7 @@ func TestExecuteDefaultSpecification(t *testing.T) {
 		ID:             *guid.New(),
 		Name:           "Test B",
 		Group:          daltymodel.ProductGroupBedBases,
-		ProductionType: core.ProductionTypeProducing,
+		ProductionType: daltymodel.ProductionTypeProducing,
 		IntegrationID:  "2",
 		Fnrec:          "2",
 	}
@@ -242,7 +243,7 @@ func TestExecuteCombineSpecification(t *testing.T) {
 		ID:             *guid.New(),
 		Name:           "Test A",
 		Group:          daltymodel.ProductGroupBeds,
-		ProductionType: core.ProductionTypeProducing,
+		ProductionType: daltymodel.ProductionTypeProducing,
 		IntegrationID:  "1",
 		Fnrec:          "1",
 	}
@@ -250,7 +251,7 @@ func TestExecuteCombineSpecification(t *testing.T) {
 		ID:             *guid.New(),
 		Name:           "Test B",
 		Group:          daltymodel.ProductGroupBeds,
-		ProductionType: core.ProductionTypeProducing,
+		ProductionType: daltymodel.ProductionTypeProducing,
 		IntegrationID:  "2",
 		Fnrec:          "2",
 	}
@@ -258,7 +259,7 @@ func TestExecuteCombineSpecification(t *testing.T) {
 		ID:             *guid.New(),
 		Name:           "Test C",
 		Group:          daltymodel.ProductGroupBedBases,
-		ProductionType: core.ProductionTypeProducing,
+		ProductionType: daltymodel.ProductionTypeProducing,
 		IntegrationID:  "3",
 		Fnrec:          "3",
 	}
@@ -266,7 +267,7 @@ func TestExecuteCombineSpecification(t *testing.T) {
 		ID:             *guid.New(),
 		Name:           "Test D",
 		Group:          daltymodel.ProductGroupBeds,
-		ProductionType: core.ProductionTypeProducing,
+		ProductionType: daltymodel.ProductionTypeProducing,
 		IntegrationID:  "4",
 		Fnrec:          "4",
 	}
@@ -274,7 +275,7 @@ func TestExecuteCombineSpecification(t *testing.T) {
 		ID:             *guid.New(),
 		Name:           "Test E",
 		Group:          daltymodel.ProductGroupSlattedBases,
-		ProductionType: core.ProductionTypeProducing,
+		ProductionType: daltymodel.ProductionTypeProducing,
 		IntegrationID:  "5",
 		Fnrec:          "5",
 	}
@@ -282,7 +283,7 @@ func TestExecuteCombineSpecification(t *testing.T) {
 		ID:             *guid.New(),
 		Name:           "Test F",
 		Group:          daltymodel.ProductGroupArmchairs,
-		ProductionType: core.ProductionTypeProducing,
+		ProductionType: daltymodel.ProductionTypeProducing,
 		IntegrationID:  "6",
 		Fnrec:          "6",
 	}
@@ -290,7 +291,7 @@ func TestExecuteCombineSpecification(t *testing.T) {
 		ID:             *guid.New(),
 		Name:           "Test G",
 		Group:          daltymodel.ProductGroupBedBases,
-		ProductionType: core.ProductionTypeProducing,
+		ProductionType: daltymodel.ProductionTypeProducing,
 		IntegrationID:  "7",
 		Fnrec:          "7",
 	}

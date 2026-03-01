@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+
 	"github.com/DimKa163/dalty/internal/product/core"
 	"github.com/DimKa163/dalty/pkg/daltyerrors"
 	"github.com/DimKa163/dalty/pkg/daltymodel"
@@ -11,7 +12,7 @@ import (
 
 type (
 	Spec struct {
-		ID            string
+		ID            string `json:"id"`
 		IntegrationID string `json:"integration_id"`
 		Fnrec         string `json:"fnrec"`
 		Quantity      int32  `json:"quantity"`
@@ -96,22 +97,6 @@ func (ss *SpecificationService) Execute(ctx context.Context, request *SpecReques
 	return specs, nil
 }
 
-func (ss *SpecificationService) getByLeft(ctx context.Context, spec *Spec) ([]*core.Relation, error) {
-	var fn func(context.Context, string) ([]*core.Relation, error)
-	var filterVal string
-	switch {
-	case spec.IntegrationID != "":
-		filterVal = spec.IntegrationID
-		fn = ss.relationRepository.GetByLeftIntegrationID
-	case spec.Fnrec != "":
-		filterVal = spec.Fnrec
-		fn = ss.relationRepository.GetByLeftFnrec
-	default:
-		return nil, fmt.Errorf("no ids provided")
-	}
-	return fn(ctx, filterVal)
-}
-
 func (ss *SpecificationService) getProductSpec(ctx context.Context, specs map[string]*Spec) (map[string]*ProductSpec, error) {
 	products := make(map[string]*ProductSpec)
 	errs := make([]*daltyerrors.StorageError, 0)
@@ -123,6 +108,7 @@ func (ss *SpecificationService) getProductSpec(ctx context.Context, specs map[st
 			if errors.As(err, &storageErr) {
 				errs = append(errs, storageErr)
 			}
+			continue
 		}
 		products[i] = &ProductSpec{ID: i, Product: prd, Quantity: spec.Quantity, RelateToID: spec.RelateToID}
 	}
@@ -135,7 +121,8 @@ func (ss *SpecificationService) getProductSpec(ctx context.Context, specs map[st
 			}
 		}
 		return nil, daltyerrors.New(
-			6,
+			daltyerrors.DaltyErrorCodeResourceNotFound,
+			"Некоторые продукты не найдены",
 			daltyErrs...,
 		)
 	}
@@ -162,18 +149,7 @@ func toDirectDaltySpecification(head *ProductSpec, products []*ProductSpec) *dal
 	h := toDaltyProduct(head.Product)
 	children := make([]*daltymodel.Line, len(products))
 	for i, product := range products {
-		children[i] = toDaltyLine(product.ID, toDaltyProduct(product.Product), product.Quantity, func(prd *daltymodel.Product) daltymodel.PickupStrategy {
-			switch product.Group {
-			case daltymodel.ProductGroupChildrenBedBases:
-				return daltymodel.PickupStrategyFarthest
-			case daltymodel.ProductGroupSlattedBases:
-				return daltymodel.PickupStrategyFarthest
-			case daltymodel.ProductGroupBedBasesWithStorage:
-				return daltymodel.PickupStrategyFarthest
-			default:
-				return daltymodel.PickupStrategyNearest
-			}
-		})
+		children[i] = toDaltyLine(product.ID, toDaltyProduct(product.Product), product.Quantity, determinatePickupStrategy)
 	}
 	return daltymodel.NewDirectSpecification(daltymodel.NewLine(
 		head.ID,
@@ -186,20 +162,24 @@ func toDirectDaltySpecification(head *ProductSpec, products []*ProductSpec) *dal
 func toReverseSpecification(products []*ProductSpec) *daltymodel.Specification {
 	children := make([]*daltymodel.Line, len(products))
 	for i, product := range products {
-		children[i] = toDaltyLine(product.ID, toDaltyProduct(product.Product), product.Quantity, func(prd *daltymodel.Product) daltymodel.PickupStrategy {
-			switch product.Group {
-			case daltymodel.ProductGroupChildrenBedBases:
-				return daltymodel.PickupStrategyFarthest
-			case daltymodel.ProductGroupSlattedBases:
-				return daltymodel.PickupStrategyFarthest
-			case daltymodel.ProductGroupBedBasesWithStorage:
-				return daltymodel.PickupStrategyFarthest
-			default:
-				return daltymodel.PickupStrategyNearest
-			}
-		})
+		children[i] = toDaltyLine(product.ID, toDaltyProduct(product.Product), product.Quantity, determinatePickupStrategy)
 	}
 	return daltymodel.NewReverseSpecification(nil, daltymodel.PickupStrategyNearest, children)
+}
+
+func determinatePickupStrategy(product *daltymodel.Product) daltymodel.PickupStrategy {
+	switch product.Group {
+	case daltymodel.ProductGroupBedBases:
+		return daltymodel.PickupStrategyFarthest
+	case daltymodel.ProductGroupChildrenBedBases:
+		return daltymodel.PickupStrategyFarthest
+	case daltymodel.ProductGroupSlattedBases:
+		return daltymodel.PickupStrategyFarthest
+	case daltymodel.ProductGroupBedBasesWithStorage:
+		return daltymodel.PickupStrategyFarthest
+	default:
+		return daltymodel.PickupStrategyNearest
+	}
 }
 
 func toDaltyLine(id string, product *daltymodel.Product, quantity int32, fn func(prd *daltymodel.Product) daltymodel.PickupStrategy) *daltymodel.Line {
@@ -214,7 +194,10 @@ func toDaltyProduct(product *core.Product) *daltymodel.Product {
 func validateSpecs(products map[string]*ProductSpec) error {
 	for _, product := range products {
 		if product.IsArchive {
-			return daltyerrors.New(5, &daltyerrors.EntityError{ID: product.Product.ID.String(), EntityName: "product"})
+			return daltyerrors.New(daltyerrors.DaltyErrorCodeOutOfStock, "Продукт находится в архиве", &daltyerrors.EntityError{ID: product.Product.ID.String(), EntityName: "product"})
+		}
+		if product.ProductionType == daltymodel.ProductionTypeUnknown {
+			return daltyerrors.New(daltyerrors.DaltyErrorCodeProductMissingProductionType, "У продукта не задан тип производства", &daltyerrors.EntityError{ID: product.Product.ID.String(), EntityName: "product"})
 		}
 	}
 	return nil

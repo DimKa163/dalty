@@ -75,3 +75,16 @@ func Handle(err *daltyerrors.DaltyError) error {
 	st, _ = st.WithDetails(&detail)
 	return st.Err()
 }
+
+func Flatten(status *status.Status) []*proto.ErrorDetail {
+	details := make([]*proto.ErrorDetail, 0, len(status.Details()))
+	for _, detail := range status.Details() {
+		errDetail, ok := detail.(*proto.ErrorDetail)
+		if !ok {
+			continue
+		}
+		details = append(details, errDetail)
+	}
+	return details
+
+}

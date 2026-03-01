@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+
 	"github.com/DimKa163/dalty/pkg/daltymodel"
 
 	"github.com/beevik/guid"
@@ -11,7 +12,7 @@ type ProductType string
 
 const (
 	ProductTypeSKU           ProductType = "7ad7cb12-e3be-4a24-ad60-2c15dff8152b"
-	ProductTypeMaterialAsset             = "e183d6ef-f33b-4dbe-b8cc-e0c176e4e78a"
+	ProductTypeMaterialAsset ProductType = "e183d6ef-f33b-4dbe-b8cc-e0c176e4e78a"
 )
 
 func (p ProductType) String() string {
@@ -29,8 +30,8 @@ type ProductionType string
 
 const (
 	ProductionTypeUnknown    ProductionType = "UNKNOWN"
-	ProductionTypeProducing                 = "f950f1c5-c871-4da0-b374-aa6eb1aa24d1"
-	ProductionTypePurchasing                = "2cb8891a-f707-4bdc-a492-aef60f03f451"
+	ProductionTypeProducing  ProductionType = "f950f1c5-c871-4da0-b374-aa6eb1aa24d1"
+	ProductionTypePurchasing ProductionType = "2cb8891a-f707-4bdc-a492-aef60f03f451"
 )
 
 func (p ProductionType) String() string {

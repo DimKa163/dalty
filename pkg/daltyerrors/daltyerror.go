@@ -11,80 +11,121 @@ const (
 	DaltyErrorTypeBusinessError                   = 9
 )
 
+type DaltyErrorCode int
+
+const (
+	DaltyErrorCodeUnknown                                              DaltyErrorCode = iota
+	DaltyErrorCodeRequiredFieldsMissing                                               = 1
+	DaltyErrorCodeDeliveryCoordinatesMissing                                          = 2
+	DaltyErrorCodePickupWarehouseMissing                                              = 3
+	DaltyErrorCodeUnsupportedDeliveryMethod                                           = 4
+	DaltyErrorCodeOutOfStock                                                          = 5
+	DaltyErrorCodeResourceNotFound                                                    = 6
+	DaltyErrorCodeDeliveryAddressNotSupported                                         = 7
+	DaltyErrorCodeInsufficientFreeStock                                               = 8
+	DaltyErrorCodeNoWarehouseForExpressDelivery                                       = 9
+	DaltyErrorCodeInsufficientStockForPickup                                          = 10
+	DaltyErrorCodeProductMissingProductionType                                        = 11
+	DaltyErrorCodeOrderExecutionPlaceDeterminationFailed                              = 31
+	DaltyErrorCodeMOLChainBuildingFailedNoCSCategory                                  = 32
+	DaltyErrorCodeMOLChainBuildingFailedMOLDetermination                              = 33
+	DaltyErrorCodeMOLChainBuildingFailedNearestWarehousesDetermination                = 35
+	DaltyErrorCodeProductionSiteSelectionFailed                                       = 41
+	DaltyErrorCodeProductionNormDeterminationFailed                                   = 42
+	DaltyErrorCodeStopListExitDateDeterminationFailed                                 = 43
+	DaltyErrorCodeDeprivationExitDateDeterminationFailed                              = 51
+	DaltyErrorCodeProcurementLeadTimeCalculationFailed                                = 52
+	DaltyErrorCodeDuplicateOrderItem                                                  = 53
+	DaltyErrorCodeLogisticsLegToOrderExecutionPlaceBuildingFailed                     = 61
+	DaltyErrorCodeLastMileCalculationFailed                                           = 71
+	DaltyErrorCodeLastMileApihipCalculationFailed                                     = 72
+)
+
 type EntityError struct {
 	ID         string
 	EntityName string
 }
 type DaltyError struct {
-	Code         int
+	Code         DaltyErrorCode
 	Type         DaltyErrorType
 	Message      string
 	Reason       string
 	EntityErrors []*EntityError
 }
 
-func New(code int, entityErrors ...*EntityError) *DaltyError {
+func New(code DaltyErrorCode, msg string, entityErrors ...*EntityError) *DaltyError {
+	if msg == "" {
+		msg = "Ошибка при обработке запроса"
+	}
 	switch code {
-	case 1:
+	case DaltyErrorCodeRequiredFieldsMissing:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Не заполнены обязательные поля топика (продукт, количество)",
+			Message:      msg,
+			Reason:       "Не заполнены обязательные поля топика (продукт, количество)",
 			Type:         DaltyErrorTypeInvalidRequest,
 			EntityErrors: entityErrors,
 		}
 
-	case 2:
+	case DaltyErrorCodeDeliveryCoordinatesMissing:
 		return &DaltyError{
 			Code:         code,
-			Message:      "В одной или нескольких доставках установлен способ исполнения «Доставка», но не заданы координаты доставки",
+			Message:      msg,
+			Reason:       "В одной или нескольких доставках установлен способ исполнения «Доставка», но не заданы координаты доставки",
 			Type:         DaltyErrorTypeInvalidRequest,
 			EntityErrors: entityErrors,
 		}
 
-	case 3:
+	case DaltyErrorCodePickupWarehouseMissing:
 		return &DaltyError{
 			Code:         code,
-			Message:      "В одной или нескольких доставках установлен способ исполнения «Самовывоз», но не выбран склад самовывоза",
+			Message:      msg,
+			Reason:       "В одной или нескольких доставках установлен способ исполнения «Самовывоз», но не выбран склад самовывоза",
 			Type:         DaltyErrorTypeInvalidRequest,
 			EntityErrors: entityErrors,
 		}
 
-	case 4:
+	case DaltyErrorCodeUnsupportedDeliveryMethod:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Указан неподдерживаемый сервисом способ доставки",
+			Message:      msg,
+			Reason:       "Указан неподдерживаемый сервисом способ доставки",
 			Type:         DaltyErrorTypeInvalidRequest,
 			EntityErrors: entityErrors,
 		}
 
-	case 5:
+	case DaltyErrorCodeOutOfStock:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Одну или несколько позиций заказа невозможно исполнить из-за неактуальности МЦ или нахождения ее в дефиците и отсутствия ее на свободных остатках",
+			Message:      msg,
+			Reason:       "Одну или несколько позиций заказа невозможно исполнить из-за неактуальности МЦ или нахождения ее в дефиците и отсутствия ее на свободных остатках",
 			Type:         DaltyErrorTypeBusinessError,
 			EntityErrors: entityErrors,
 		}
 
-	case 6:
+	case DaltyErrorCodeResourceNotFound:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Не найден указанный филиал или продукт или склад",
+			Message:      msg,
+			Reason:       "Не найден указанный филиал или продукт или склад",
 			Type:         DaltyErrorTypeResourceNotFound,
 			EntityErrors: entityErrors,
 		}
 
-	case 7:
+	case DaltyErrorCodeDeliveryAddressNotSupported:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Доставка по указанному адресу не производится",
+			Message:      msg,
+			Reason:       "Доставка по указанному адресу не производится",
 			Type:         DaltyErrorTypeBusinessError,
 			EntityErrors: entityErrors,
 		}
 
-	case 8:
+	case DaltyErrorCodeInsufficientFreeStock:
 		return &DaltyError{
 			Code:         code,
-			Message:      "В указаном месте обеспечения не хватает количества свободных остатков",
+			Message:      msg,
+			Reason:       "В указаном месте обеспечения не хватает количества свободных остатков",
 			Type:         DaltyErrorTypeInvalidRequest,
 			EntityErrors: entityErrors,
 		}
@@ -92,7 +133,8 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	case 9:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Не найден склад с остатками для экспресс-доставки",
+			Message:      msg,
+			Reason:       "Не найден склад с остатками для экспресс-доставки",
 			Type:         DaltyErrorTypeInvalidRequest,
 			EntityErrors: entityErrors,
 		}
@@ -100,7 +142,8 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	case 10:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Не хватает остатков для самовывоза",
+			Message:      msg,
+			Reason:       "Не хватает остатков для самовывоза",
 			Type:         DaltyErrorTypeInvalidRequest,
 			EntityErrors: entityErrors,
 		}
@@ -108,7 +151,8 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	case 11:
 		return &DaltyError{
 			Code:         code,
-			Message:      "У продукта не задан тип производства",
+			Message:      msg,
+			Reason:       "У продукта не задан тип производства",
 			Type:         DaltyErrorTypeBusinessError,
 			EntityErrors: entityErrors,
 		}
@@ -116,16 +160,16 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	case 52:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Для отсутствующей продукции невозможно провести расчет срока ее закупки",
+			Message:      msg,
+			Reason:       "Для отсутствующей продукции невозможно провести расчет срока ее закупки",
 			Type:         DaltyErrorTypeBusinessError,
-			Reason:       "Ошибка расчета закупки",
 			EntityErrors: entityErrors,
 		}
-
 	case 53:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Дубль позиции заказа",
+			Message:      msg,
+			Reason:       "Дубль позиции заказа",
 			Type:         DaltyErrorTypeInvalidRequest,
 			EntityErrors: entityErrors,
 		}
@@ -133,7 +177,7 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	case 31:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Ошибка определения места исполнения заказа",
+			Message:      msg,
 			Type:         DaltyErrorTypeWarning,
 			Reason:       "Ошибка построения цепочки МОЛов",
 			EntityErrors: entityErrors,
@@ -142,7 +186,7 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	case 32:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Ошибка построения цепочки МОЛ (нет категории МОЛ=\"ЦС\")",
+			Message:      msg,
 			Type:         DaltyErrorTypeWarning,
 			Reason:       "Ошибка построения цепочки МОЛов",
 			EntityErrors: entityErrors,
@@ -151,7 +195,7 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	case 33:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Ошибка определения МОЛ для сбора свободных остатков",
+			Message:      msg,
 			Type:         DaltyErrorTypeWarning,
 			Reason:       "Ошибка построения цепочки МОЛов",
 			EntityErrors: entityErrors,
@@ -160,7 +204,7 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	case 35:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Ошибка определения перечня ближайших складов обеспечения",
+			Message:      msg,
 			Type:         DaltyErrorTypeBusinessError,
 			Reason:       "Ошибка построения цепочки МОЛов",
 			EntityErrors: entityErrors,
@@ -169,7 +213,8 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	case 41:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Ошибка выбора производственной площадки",
+			Message:      msg,
+			Reason:       "Ошибка выбора производственной площадки",
 			Type:         DaltyErrorTypeWarning,
 			EntityErrors: entityErrors,
 		}
@@ -177,7 +222,8 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	case 42:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Ошибка определения нормы производства",
+			Message:      msg,
+			Reason:       "Ошибка определения нормы производства",
 			Type:         DaltyErrorTypeWarning,
 			EntityErrors: entityErrors,
 		}
@@ -185,7 +231,7 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	case 43:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Ошибка определения срока выхода из стоп-листа",
+			Message:      msg,
 			Type:         DaltyErrorTypeWarning,
 			Reason:       "Ошибка определения нормы производства",
 			EntityErrors: entityErrors,
@@ -194,7 +240,7 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	case 51:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Ошибка определения срока выхода из дефицита",
+			Message:      msg,
 			Type:         DaltyErrorTypeWarning,
 			Reason:       "Ошибка определения нормы закупки",
 			EntityErrors: entityErrors,
@@ -203,7 +249,7 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	case 61:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Ошибка построения логистического плеча к месту исполнения заказа",
+			Message:      msg,
 			Type:         DaltyErrorTypeWarning,
 			Reason:       "Ошибка вычисления магистральной перевозки",
 			EntityErrors: entityErrors,
@@ -212,7 +258,7 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	case 71:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Ошибка построения плеча с места обеспечения",
+			Message:      msg,
 			Type:         DaltyErrorTypeBusinessError,
 			Reason:       "Ошибка расчета последней мили",
 			EntityErrors: entityErrors,
@@ -221,7 +267,7 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	case 72:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Ошибка расчета срока последней мили Apihip",
+			Message:      msg,
 			Type:         DaltyErrorTypeBusinessError,
 			Reason:       "Ошибка расчета последней мили",
 			EntityErrors: entityErrors,
@@ -229,7 +275,8 @@ func New(code int, entityErrors ...*EntityError) *DaltyError {
 	default:
 		return &DaltyError{
 			Code:         code,
-			Message:      "Не обрабатываемая ошибка",
+			Message:      msg,
+			Reason:       "Не обрабатываемая ошибка",
 			Type:         DaltyErrorTypeWarning,
 			EntityErrors: entityErrors,
 		}
