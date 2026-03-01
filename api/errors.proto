@@ -19,6 +19,7 @@ message EntityError {
 message ErrorDetail {
   int32 code = 1;
   string message = 2;
-  repeated ValidationError validation_errors = 3;
-  repeated EntityError entity_errors = 4;
+  string reason = 3;
+  repeated ValidationError validation_errors = 4;
+  repeated EntityError entity_errors = 5;
 }

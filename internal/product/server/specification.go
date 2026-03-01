@@ -2,9 +2,13 @@ package server
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"github.com/DimKa163/dalty/pkg/daltyerrors"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+
 	"github.com/DimKa163/dalty/api/proto"
-	"github.com/DimKa163/dalty/internal/product/core"
 	"github.com/DimKa163/dalty/internal/product/usecase"
 	"github.com/DimKa163/dalty/pkg/daltyerrors/protoerr"
 	"github.com/DimKa163/dalty/pkg/daltymodel"
@@ -34,7 +38,11 @@ func (ss *SpecificationServer) Execute(ctx context.Context, in *proto.Specificat
 	}
 	res, err = ss.app.Execute(ctx, &specReq)
 	if err != nil {
-		return nil, err
+		var daltyErr *daltyerrors.DaltyError
+		if errors.As(err, &daltyErr) {
+			return nil, protoerr.Handle(daltyErr)
+		}
+		return nil, status.Error(codes.Internal, err.Error())
 	}
 	specs := make([]*proto.Specification, len(res))
 	for i, r := range res {
@@ -79,7 +87,9 @@ func toIn(in *proto.SpecificationRequest, request *usecase.SpecRequest) (err err
 
 func toSpecification(spec *daltymodel.Specification) *proto.Specification {
 	var specification proto.Specification
-	specification.SetProduct(toLine(spec.Product))
+	if spec.Product != nil {
+		specification.SetProduct(toLine(spec.Product))
+	}
 	specification.SetType(proto.SpecificationType(spec.Type))
 	specification.SetStrategy(proto.PickupStrategy(spec.Strategy))
 	childProducts := make([]*proto.Line, len(spec.ChildProducts))
@@ -123,9 +133,9 @@ func toProtoProductV2(in *daltymodel.Product) *proto.Product {
 
 func toProtoProductionType(in daltymodel.ProductionType) proto.ProductionType {
 	switch in {
-	case core.ProductionTypeProducing:
+	case daltymodel.ProductionTypeProducing:
 		return proto.ProductionType_PRODUCTION_TYPE_PRODUCING
-	case core.ProductionTypePurchasing:
+	case daltymodel.ProductionTypePurchasing:
 		return proto.ProductionType_PRODUCTION_TYPE_PURCHASING
 	default:
 		return proto.ProductionType_PRODUCTION_TYPE_UNKNOWN

@@ -228,8 +228,9 @@ type ErrorDetail struct {
 	state                       protoimpl.MessageState `protogen:"opaque.v1"`
 	xxx_hidden_Code             int32                  `protobuf:"varint,1,opt,name=code"`
 	xxx_hidden_Message          *string                `protobuf:"bytes,2,opt,name=message"`
-	xxx_hidden_ValidationErrors *[]*ValidationError    `protobuf:"bytes,3,rep,name=validation_errors,json=validationErrors"`
-	xxx_hidden_EntityErrors     *[]*EntityError        `protobuf:"bytes,4,rep,name=entity_errors,json=entityErrors"`
+	xxx_hidden_Reason           *string                `protobuf:"bytes,3,opt,name=reason"`
+	xxx_hidden_ValidationErrors *[]*ValidationError    `protobuf:"bytes,4,rep,name=validation_errors,json=validationErrors"`
+	xxx_hidden_EntityErrors     *[]*EntityError        `protobuf:"bytes,5,rep,name=entity_errors,json=entityErrors"`
 	XXX_raceDetectHookData      protoimpl.RaceDetectHookData
 	XXX_presence                [1]uint32
 	unknownFields               protoimpl.UnknownFields
@@ -278,6 +279,16 @@ func (x *ErrorDetail) GetMessage() string {
 	return ""
 }
 
+func (x *ErrorDetail) GetReason() string {
+	if x != nil {
+		if x.xxx_hidden_Reason != nil {
+			return *x.xxx_hidden_Reason
+		}
+		return ""
+	}
+	return ""
+}
+
 func (x *ErrorDetail) GetValidationErrors() []*ValidationError {
 	if x != nil {
 		if x.xxx_hidden_ValidationErrors != nil {
@@ -298,12 +309,17 @@ func (x *ErrorDetail) GetEntityErrors() []*EntityError {
 
 func (x *ErrorDetail) SetCode(v int32) {
 	x.xxx_hidden_Code = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 4)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 5)
 }
 
 func (x *ErrorDetail) SetMessage(v string) {
 	x.xxx_hidden_Message = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 4)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 5)
+}
+
+func (x *ErrorDetail) SetReason(v string) {
+	x.xxx_hidden_Reason = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 5)
 }
 
 func (x *ErrorDetail) SetValidationErrors(v []*ValidationError) {
@@ -328,6 +344,13 @@ func (x *ErrorDetail) HasMessage() bool {
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
 }
 
+func (x *ErrorDetail) HasReason() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
 func (x *ErrorDetail) ClearCode() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
 	x.xxx_hidden_Code = 0
@@ -338,11 +361,17 @@ func (x *ErrorDetail) ClearMessage() {
 	x.xxx_hidden_Message = nil
 }
 
+func (x *ErrorDetail) ClearReason() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Reason = nil
+}
+
 type ErrorDetail_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
 	Code             *int32
 	Message          *string
+	Reason           *string
 	ValidationErrors []*ValidationError
 	EntityErrors     []*EntityError
 }
@@ -352,12 +381,16 @@ func (b0 ErrorDetail_builder) Build() *ErrorDetail {
 	b, x := &b0, m0
 	_, _ = b, x
 	if b.Code != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 4)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 5)
 		x.xxx_hidden_Code = *b.Code
 	}
 	if b.Message != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 4)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 5)
 		x.xxx_hidden_Message = b.Message
+	}
+	if b.Reason != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 5)
+		x.xxx_hidden_Reason = b.Reason
 	}
 	x.xxx_hidden_ValidationErrors = &b.ValidationErrors
 	x.xxx_hidden_EntityErrors = &b.EntityErrors
@@ -375,12 +408,13 @@ const file_api_errors_proto_rawDesc = "" +
 	"\vEntityError\x12\x1f\n" +
 	"\ventity_name\x18\x01 \x01(\tR\n" +
 	"entityName\x12\x0e\n" +
-	"\x02id\x18\x02 \x01(\tR\x02id\"\xbb\x01\n" +
+	"\x02id\x18\x02 \x01(\tR\x02id\"\xd3\x01\n" +
 	"\vErrorDetail\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage\x12D\n" +
-	"\x11validation_errors\x18\x03 \x03(\v2\x17.errors.ValidationErrorR\x10validationErrors\x128\n" +
-	"\rentity_errors\x18\x04 \x03(\v2\x13.errors.EntityErrorR\fentityErrorsB\x10Z\x06/proto\x92\x03\x05\xd2>\x02\x10\x03b\beditionsp\xe8\a"
+	"\amessage\x18\x02 \x01(\tR\amessage\x12\x16\n" +
+	"\x06reason\x18\x03 \x01(\tR\x06reason\x12D\n" +
+	"\x11validation_errors\x18\x04 \x03(\v2\x17.errors.ValidationErrorR\x10validationErrors\x128\n" +
+	"\rentity_errors\x18\x05 \x03(\v2\x13.errors.EntityErrorR\fentityErrorsB\x10Z\x06/proto\x92\x03\x05\xd2>\x02\x10\x03b\beditionsp\xe8\a"
 
 var file_api_errors_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_api_errors_proto_goTypes = []any{

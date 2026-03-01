@@ -174,7 +174,7 @@ func NewDefaultSpecification(line *Line, strategy PickupStrategy) *Specification
 		Product:       line,
 		Type:          SpecificationTypeDefault,
 		Strategy:      strategy,
-		ChildProducts: make([]*Line, 0),
+		ChildProducts: []*Line{line},
 	}
 }
 
