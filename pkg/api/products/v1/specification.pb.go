@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        v6.33.0
-// source: api/specification.proto
+// source: api/products/v1/specification.proto
 
-package proto
+package productsv1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -48,11 +48,11 @@ func (x ProductType) String() string {
 }
 
 func (ProductType) Descriptor() protoreflect.EnumDescriptor {
-	return file_api_specification_proto_enumTypes[0].Descriptor()
+	return file_api_products_v1_specification_proto_enumTypes[0].Descriptor()
 }
 
 func (ProductType) Type() protoreflect.EnumType {
-	return &file_api_specification_proto_enumTypes[0]
+	return &file_api_products_v1_specification_proto_enumTypes[0]
 }
 
 func (x ProductType) Number() protoreflect.EnumNumber {
@@ -92,11 +92,11 @@ func (x ProductionType) String() string {
 }
 
 func (ProductionType) Descriptor() protoreflect.EnumDescriptor {
-	return file_api_specification_proto_enumTypes[1].Descriptor()
+	return file_api_products_v1_specification_proto_enumTypes[1].Descriptor()
 }
 
 func (ProductionType) Type() protoreflect.EnumType {
-	return &file_api_specification_proto_enumTypes[1]
+	return &file_api_products_v1_specification_proto_enumTypes[1]
 }
 
 func (x ProductionType) Number() protoreflect.EnumNumber {
@@ -316,11 +316,11 @@ func (x ProductGroup) String() string {
 }
 
 func (ProductGroup) Descriptor() protoreflect.EnumDescriptor {
-	return file_api_specification_proto_enumTypes[2].Descriptor()
+	return file_api_products_v1_specification_proto_enumTypes[2].Descriptor()
 }
 
 func (ProductGroup) Type() protoreflect.EnumType {
-	return &file_api_specification_proto_enumTypes[2]
+	return &file_api_products_v1_specification_proto_enumTypes[2]
 }
 
 func (x ProductGroup) Number() protoreflect.EnumNumber {
@@ -360,11 +360,11 @@ func (x SpecificationType) String() string {
 }
 
 func (SpecificationType) Descriptor() protoreflect.EnumDescriptor {
-	return file_api_specification_proto_enumTypes[3].Descriptor()
+	return file_api_products_v1_specification_proto_enumTypes[3].Descriptor()
 }
 
 func (SpecificationType) Type() protoreflect.EnumType {
-	return &file_api_specification_proto_enumTypes[3]
+	return &file_api_products_v1_specification_proto_enumTypes[3]
 }
 
 func (x SpecificationType) Number() protoreflect.EnumNumber {
@@ -401,11 +401,11 @@ func (x PickupStrategy) String() string {
 }
 
 func (PickupStrategy) Descriptor() protoreflect.EnumDescriptor {
-	return file_api_specification_proto_enumTypes[4].Descriptor()
+	return file_api_products_v1_specification_proto_enumTypes[4].Descriptor()
 }
 
 func (PickupStrategy) Type() protoreflect.EnumType {
-	return &file_api_specification_proto_enumTypes[4]
+	return &file_api_products_v1_specification_proto_enumTypes[4]
 }
 
 func (x PickupStrategy) Number() protoreflect.EnumNumber {
@@ -427,7 +427,7 @@ type Pack struct {
 
 func (x *Pack) Reset() {
 	*x = Pack{}
-	mi := &file_api_specification_proto_msgTypes[0]
+	mi := &file_api_products_v1_specification_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -439,7 +439,7 @@ func (x *Pack) String() string {
 func (*Pack) ProtoMessage() {}
 
 func (x *Pack) ProtoReflect() protoreflect.Message {
-	mi := &file_api_specification_proto_msgTypes[0]
+	mi := &file_api_products_v1_specification_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -628,7 +628,7 @@ type Product struct {
 
 func (x *Product) Reset() {
 	*x = Product{}
-	mi := &file_api_specification_proto_msgTypes[1]
+	mi := &file_api_products_v1_specification_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -640,7 +640,7 @@ func (x *Product) String() string {
 func (*Product) ProtoMessage() {}
 
 func (x *Product) ProtoReflect() protoreflect.Message {
-	mi := &file_api_specification_proto_msgTypes[1]
+	mi := &file_api_products_v1_specification_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1017,7 +1017,7 @@ type SpecificationLine struct {
 
 func (x *SpecificationLine) Reset() {
 	*x = SpecificationLine{}
-	mi := &file_api_specification_proto_msgTypes[2]
+	mi := &file_api_products_v1_specification_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1029,7 +1029,7 @@ func (x *SpecificationLine) String() string {
 func (*SpecificationLine) ProtoMessage() {}
 
 func (x *SpecificationLine) ProtoReflect() protoreflect.Message {
-	mi := &file_api_specification_proto_msgTypes[2]
+	mi := &file_api_products_v1_specification_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1218,7 +1218,7 @@ type SpecificationRequest struct {
 
 func (x *SpecificationRequest) Reset() {
 	*x = SpecificationRequest{}
-	mi := &file_api_specification_proto_msgTypes[3]
+	mi := &file_api_products_v1_specification_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1230,7 +1230,7 @@ func (x *SpecificationRequest) String() string {
 func (*SpecificationRequest) ProtoMessage() {}
 
 func (x *SpecificationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_specification_proto_msgTypes[3]
+	mi := &file_api_products_v1_specification_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1282,7 +1282,7 @@ type Line struct {
 
 func (x *Line) Reset() {
 	*x = Line{}
-	mi := &file_api_specification_proto_msgTypes[4]
+	mi := &file_api_products_v1_specification_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1294,7 +1294,7 @@ func (x *Line) String() string {
 func (*Line) ProtoMessage() {}
 
 func (x *Line) ProtoReflect() protoreflect.Message {
-	mi := &file_api_specification_proto_msgTypes[4]
+	mi := &file_api_products_v1_specification_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1447,7 +1447,7 @@ type Specification struct {
 
 func (x *Specification) Reset() {
 	*x = Specification{}
-	mi := &file_api_specification_proto_msgTypes[5]
+	mi := &file_api_products_v1_specification_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1459,7 +1459,7 @@ func (x *Specification) String() string {
 func (*Specification) ProtoMessage() {}
 
 func (x *Specification) ProtoReflect() protoreflect.Message {
-	mi := &file_api_specification_proto_msgTypes[5]
+	mi := &file_api_products_v1_specification_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1592,7 +1592,7 @@ type SpecificationResponse struct {
 
 func (x *SpecificationResponse) Reset() {
 	*x = SpecificationResponse{}
-	mi := &file_api_specification_proto_msgTypes[6]
+	mi := &file_api_products_v1_specification_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1604,7 +1604,7 @@ func (x *SpecificationResponse) String() string {
 func (*SpecificationResponse) ProtoMessage() {}
 
 func (x *SpecificationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_specification_proto_msgTypes[6]
+	mi := &file_api_products_v1_specification_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1642,11 +1642,11 @@ func (b0 SpecificationResponse_builder) Build() *SpecificationResponse {
 	return m0
 }
 
-var File_api_specification_proto protoreflect.FileDescriptor
+var File_api_products_v1_specification_proto protoreflect.FileDescriptor
 
-const file_api_specification_proto_rawDesc = "" +
+const file_api_products_v1_specification_proto_rawDesc = "" +
 	"\n" +
-	"\x17api/specification.proto\x12\bproducts\x1a!google/protobuf/go_features.proto\"|\n" +
+	"#api/products/v1/specification.proto\x12\bproducts\x1a!google/protobuf/go_features.proto\"|\n" +
 	"\x04Pack\x12\x16\n" +
 	"\x06volume\x18\x01 \x01(\x01R\x06volume\x12\x16\n" +
 	"\x06length\x18\x02 \x01(\x01R\x06length\x12\x14\n" +
@@ -1768,11 +1768,11 @@ const file_api_specification_proto_rawDesc = "" +
 	"\aNEAREST\x10\x00\x12\f\n" +
 	"\bFARTHEST\x10\x012b\n" +
 	"\x14SpecificationService\x12J\n" +
-	"\aExecute\x12\x1e.products.SpecificationRequest\x1a\x1f.products.SpecificationResponseB\x10Z\x06/proto\x92\x03\x05\xd2>\x02\x10\x03b\beditionsp\xe8\a"
+	"\aExecute\x12\x1e.products.SpecificationRequest\x1a\x1f.products.SpecificationResponseBBZ8github.com/DimKa163/dalty/pkg/api/products/v1;productsv1\x92\x03\x05\xd2>\x02\x10\x03b\beditionsp\xe8\a"
 
-var file_api_specification_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
-var file_api_specification_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_api_specification_proto_goTypes = []any{
+var file_api_products_v1_specification_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
+var file_api_products_v1_specification_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_api_products_v1_specification_proto_goTypes = []any{
 	(ProductType)(0),              // 0: products.ProductType
 	(ProductionType)(0),           // 1: products.ProductionType
 	(ProductGroup)(0),             // 2: products.ProductGroup
@@ -1786,7 +1786,7 @@ var file_api_specification_proto_goTypes = []any{
 	(*Specification)(nil),         // 10: products.Specification
 	(*SpecificationResponse)(nil), // 11: products.SpecificationResponse
 }
-var file_api_specification_proto_depIdxs = []int32{
+var file_api_products_v1_specification_proto_depIdxs = []int32{
 	1,  // 0: products.Product.production_type:type_name -> products.ProductionType
 	2,  // 1: products.Product.group:type_name -> products.ProductGroup
 	5,  // 2: products.Product.pack:type_name -> products.Pack
@@ -1807,27 +1807,27 @@ var file_api_specification_proto_depIdxs = []int32{
 	0,  // [0:11] is the sub-list for field type_name
 }
 
-func init() { file_api_specification_proto_init() }
-func file_api_specification_proto_init() {
-	if File_api_specification_proto != nil {
+func init() { file_api_products_v1_specification_proto_init() }
+func file_api_products_v1_specification_proto_init() {
+	if File_api_products_v1_specification_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_specification_proto_rawDesc), len(file_api_specification_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_products_v1_specification_proto_rawDesc), len(file_api_products_v1_specification_proto_rawDesc)),
 			NumEnums:      5,
 			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_api_specification_proto_goTypes,
-		DependencyIndexes: file_api_specification_proto_depIdxs,
-		EnumInfos:         file_api_specification_proto_enumTypes,
-		MessageInfos:      file_api_specification_proto_msgTypes,
+		GoTypes:           file_api_products_v1_specification_proto_goTypes,
+		DependencyIndexes: file_api_products_v1_specification_proto_depIdxs,
+		EnumInfos:         file_api_products_v1_specification_proto_enumTypes,
+		MessageInfos:      file_api_products_v1_specification_proto_msgTypes,
 	}.Build()
-	File_api_specification_proto = out.File
-	file_api_specification_proto_goTypes = nil
-	file_api_specification_proto_depIdxs = nil
+	File_api_products_v1_specification_proto = out.File
+	file_api_products_v1_specification_proto_goTypes = nil
+	file_api_products_v1_specification_proto_depIdxs = nil
 }

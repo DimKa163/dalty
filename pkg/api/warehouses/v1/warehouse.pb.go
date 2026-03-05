@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        v6.33.0
-// source: api/warehouse.proto
+// source: api/warehouses/v1/warehouse.proto
 
-package proto
+package warehousesv1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -123,11 +123,11 @@ func (x WarehouseType) String() string {
 }
 
 func (WarehouseType) Descriptor() protoreflect.EnumDescriptor {
-	return file_api_warehouse_proto_enumTypes[0].Descriptor()
+	return file_api_warehouses_v1_warehouse_proto_enumTypes[0].Descriptor()
 }
 
 func (WarehouseType) Type() protoreflect.EnumType {
-	return &file_api_warehouse_proto_enumTypes[0]
+	return &file_api_warehouses_v1_warehouse_proto_enumTypes[0]
 }
 
 func (x WarehouseType) Number() protoreflect.EnumNumber {
@@ -153,7 +153,7 @@ type Warehouse struct {
 
 func (x *Warehouse) Reset() {
 	*x = Warehouse{}
-	mi := &file_api_warehouse_proto_msgTypes[0]
+	mi := &file_api_warehouses_v1_warehouse_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -165,7 +165,7 @@ func (x *Warehouse) String() string {
 func (*Warehouse) ProtoMessage() {}
 
 func (x *Warehouse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_warehouse_proto_msgTypes[0]
+	mi := &file_api_warehouses_v1_warehouse_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -475,7 +475,7 @@ type Path struct {
 
 func (x *Path) Reset() {
 	*x = Path{}
-	mi := &file_api_warehouse_proto_msgTypes[1]
+	mi := &file_api_warehouses_v1_warehouse_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -487,7 +487,7 @@ func (x *Path) String() string {
 func (*Path) ProtoMessage() {}
 
 func (x *Path) ProtoReflect() protoreflect.Message {
-	mi := &file_api_warehouse_proto_msgTypes[1]
+	mi := &file_api_warehouses_v1_warehouse_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -537,7 +537,7 @@ type GetPath struct {
 
 func (x *GetPath) Reset() {
 	*x = GetPath{}
-	mi := &file_api_warehouse_proto_msgTypes[2]
+	mi := &file_api_warehouses_v1_warehouse_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -549,7 +549,7 @@ func (x *GetPath) String() string {
 func (*GetPath) ProtoMessage() {}
 
 func (x *GetPath) ProtoReflect() protoreflect.Message {
-	mi := &file_api_warehouse_proto_msgTypes[2]
+	mi := &file_api_warehouses_v1_warehouse_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -647,7 +647,7 @@ type DeliveryPathRequest struct {
 
 func (x *DeliveryPathRequest) Reset() {
 	*x = DeliveryPathRequest{}
-	mi := &file_api_warehouse_proto_msgTypes[3]
+	mi := &file_api_warehouses_v1_warehouse_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -659,7 +659,7 @@ func (x *DeliveryPathRequest) String() string {
 func (*DeliveryPathRequest) ProtoMessage() {}
 
 func (x *DeliveryPathRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_warehouse_proto_msgTypes[3]
+	mi := &file_api_warehouses_v1_warehouse_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -756,7 +756,7 @@ type DeliveryPath struct {
 
 func (x *DeliveryPath) Reset() {
 	*x = DeliveryPath{}
-	mi := &file_api_warehouse_proto_msgTypes[4]
+	mi := &file_api_warehouses_v1_warehouse_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -768,7 +768,7 @@ func (x *DeliveryPath) String() string {
 func (*DeliveryPath) ProtoMessage() {}
 
 func (x *DeliveryPath) ProtoReflect() protoreflect.Message {
-	mi := &file_api_warehouse_proto_msgTypes[4]
+	mi := &file_api_warehouses_v1_warehouse_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -875,7 +875,7 @@ type DeliveryPathResult struct {
 
 func (x *DeliveryPathResult) Reset() {
 	*x = DeliveryPathResult{}
-	mi := &file_api_warehouse_proto_msgTypes[5]
+	mi := &file_api_warehouses_v1_warehouse_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -887,7 +887,7 @@ func (x *DeliveryPathResult) String() string {
 func (*DeliveryPathResult) ProtoMessage() {}
 
 func (x *DeliveryPathResult) ProtoReflect() protoreflect.Message {
-	mi := &file_api_warehouse_proto_msgTypes[5]
+	mi := &file_api_warehouses_v1_warehouse_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -963,11 +963,11 @@ func (b0 DeliveryPathResult_builder) Build() *DeliveryPathResult {
 	return m0
 }
 
-var File_api_warehouse_proto protoreflect.FileDescriptor
+var File_api_warehouses_v1_warehouse_proto protoreflect.FileDescriptor
 
-const file_api_warehouse_proto_rawDesc = "" +
+const file_api_warehouses_v1_warehouse_proto_rawDesc = "" +
 	"\n" +
-	"\x13api/warehouse.proto\x12\n" +
+	"!api/warehouses/v1/warehouse.proto\x12\n" +
 	"warehouses\x1a!google/protobuf/go_features.proto\"\xb7\x02\n" +
 	"\tWarehouse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
@@ -1029,11 +1029,11 @@ const file_api_warehouse_proto_rawDesc = "" +
 	"\x19FREE_CENTRAL_INTERMEDIATE\x10\x192\x8f\x01\n" +
 	"\vPathService\x12,\n" +
 	"\x03Get\x12\x13.warehouses.GetPath\x1a\x10.warehouses.Path\x12R\n" +
-	"\x0fGetDeliveryPath\x12\x1f.warehouses.DeliveryPathRequest\x1a\x1e.warehouses.DeliveryPathResultB\x10Z\x06/proto\x92\x03\x05\xd2>\x02\x10\x03b\beditionsp\xe8\a"
+	"\x0fGetDeliveryPath\x12\x1f.warehouses.DeliveryPathRequest\x1a\x1e.warehouses.DeliveryPathResultBFZ<github.com/DimKa163/dalty/pkg/api/warehouses/v1;warehousesv1\x92\x03\x05\xd2>\x02\x10\x03b\beditionsp\xe8\a"
 
-var file_api_warehouse_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_api_warehouse_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_api_warehouse_proto_goTypes = []any{
+var file_api_warehouses_v1_warehouse_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_api_warehouses_v1_warehouse_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_api_warehouses_v1_warehouse_proto_goTypes = []any{
 	(WarehouseType)(0),          // 0: warehouses.WarehouseType
 	(*Warehouse)(nil),           // 1: warehouses.Warehouse
 	(*Path)(nil),                // 2: warehouses.Path
@@ -1042,7 +1042,7 @@ var file_api_warehouse_proto_goTypes = []any{
 	(*DeliveryPath)(nil),        // 5: warehouses.DeliveryPath
 	(*DeliveryPathResult)(nil),  // 6: warehouses.DeliveryPathResult
 }
-var file_api_warehouse_proto_depIdxs = []int32{
+var file_api_warehouses_v1_warehouse_proto_depIdxs = []int32{
 	0,  // 0: warehouses.Warehouse.type:type_name -> warehouses.WarehouseType
 	1,  // 1: warehouses.Path.nodes:type_name -> warehouses.Warehouse
 	1,  // 2: warehouses.DeliveryPathRequest.node:type_name -> warehouses.Warehouse
@@ -1063,27 +1063,27 @@ var file_api_warehouse_proto_depIdxs = []int32{
 	0,  // [0:9] is the sub-list for field type_name
 }
 
-func init() { file_api_warehouse_proto_init() }
-func file_api_warehouse_proto_init() {
-	if File_api_warehouse_proto != nil {
+func init() { file_api_warehouses_v1_warehouse_proto_init() }
+func file_api_warehouses_v1_warehouse_proto_init() {
+	if File_api_warehouses_v1_warehouse_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_warehouse_proto_rawDesc), len(file_api_warehouse_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_warehouses_v1_warehouse_proto_rawDesc), len(file_api_warehouses_v1_warehouse_proto_rawDesc)),
 			NumEnums:      1,
 			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_api_warehouse_proto_goTypes,
-		DependencyIndexes: file_api_warehouse_proto_depIdxs,
-		EnumInfos:         file_api_warehouse_proto_enumTypes,
-		MessageInfos:      file_api_warehouse_proto_msgTypes,
+		GoTypes:           file_api_warehouses_v1_warehouse_proto_goTypes,
+		DependencyIndexes: file_api_warehouses_v1_warehouse_proto_depIdxs,
+		EnumInfos:         file_api_warehouses_v1_warehouse_proto_enumTypes,
+		MessageInfos:      file_api_warehouses_v1_warehouse_proto_msgTypes,
 	}.Build()
-	File_api_warehouse_proto = out.File
-	file_api_warehouse_proto_goTypes = nil
-	file_api_warehouse_proto_depIdxs = nil
+	File_api_warehouses_v1_warehouse_proto = out.File
+	file_api_warehouses_v1_warehouse_proto_goTypes = nil
+	file_api_warehouses_v1_warehouse_proto_depIdxs = nil
 }

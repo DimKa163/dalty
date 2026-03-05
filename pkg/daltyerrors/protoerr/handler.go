@@ -1,7 +1,7 @@
 package protoerr
 
 import (
-	"github.com/DimKa163/dalty/api/proto"
+	"github.com/DimKa163/dalty/pkg/api/common/v1"
 	"github.com/DimKa163/dalty/pkg/daltyerrors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -18,12 +18,12 @@ type ValidationError struct {
 
 func InvalidArgument(message string, errs ...*ValidationError) error {
 	st := status.New(codes.InvalidArgument, message)
-	itemErrors := make([]*proto.ValidationError, len(errs))
-	var detail proto.ErrorDetail
+	itemErrors := make([]*commonv1.ValidationError, len(errs))
+	var detail commonv1.ErrorDetail
 	detail.SetCode(001)
 	detail.SetMessage(message)
 	for i, err := range errs {
-		var itemError proto.ValidationError
+		var itemError commonv1.ValidationError
 		itemError.SetMessage(err.Message)
 		itemError.SetMembers(err.Members)
 		itemErrors[i] = &itemError
@@ -43,7 +43,7 @@ type EntityError struct {
 
 func NotFound(message string, errs []*EntityError) error {
 	st := status.New(codes.NotFound, message)
-	var detail proto.ErrorDetail
+	var detail commonv1.ErrorDetail
 	detail.SetCode(001)
 	detail.SetMessage(message)
 	return st.Err()
@@ -61,14 +61,14 @@ func Handle(err *daltyerrors.DaltyError) error {
 	default:
 		st = status.New(codes.Internal, err.Error())
 	}
-	entErros := make([]*proto.EntityError, len(err.EntityErrors))
+	entErros := make([]*commonv1.EntityError, len(err.EntityErrors))
 	for i, entErr := range err.EntityErrors {
-		var itemError proto.EntityError
+		var itemError commonv1.EntityError
 		itemError.SetId(entErr.ID)
 		itemError.SetEntityName(entErr.EntityName)
 		entErros[i] = &itemError
 	}
-	var detail proto.ErrorDetail
+	var detail commonv1.ErrorDetail
 	detail.SetCode(int32(err.Code))
 	detail.SetMessage(err.Message)
 	detail.SetEntityErrors(entErros)
@@ -76,10 +76,10 @@ func Handle(err *daltyerrors.DaltyError) error {
 	return st.Err()
 }
 
-func Flatten(status *status.Status) []*proto.ErrorDetail {
-	details := make([]*proto.ErrorDetail, 0, len(status.Details()))
+func Flatten(status *status.Status) []*commonv1.ErrorDetail {
+	details := make([]*commonv1.ErrorDetail, 0, len(status.Details()))
 	for _, detail := range status.Details() {
-		errDetail, ok := detail.(*proto.ErrorDetail)
+		errDetail, ok := detail.(*commonv1.ErrorDetail)
 		if !ok {
 			continue
 		}

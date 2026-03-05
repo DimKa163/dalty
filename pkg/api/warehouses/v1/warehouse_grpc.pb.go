@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v6.33.0
-// source: api/warehouse.proto
+// source: api/warehouses/v1/warehouse.proto
 
-package proto
+package warehousesv1
 
 import (
 	context "context"
@@ -155,5 +155,5 @@ var PathService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "api/warehouse.proto",
+	Metadata: "api/warehouses/v1/warehouse.proto",
 }

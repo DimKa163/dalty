@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        v6.33.0
-// source: api/errors.proto
+// source: api/common/v1/errors.proto
 
-package proto
+package commonv1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -33,7 +33,7 @@ type ValidationError struct {
 
 func (x *ValidationError) Reset() {
 	*x = ValidationError{}
-	mi := &file_api_errors_proto_msgTypes[0]
+	mi := &file_api_common_v1_errors_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -45,7 +45,7 @@ func (x *ValidationError) String() string {
 func (*ValidationError) ProtoMessage() {}
 
 func (x *ValidationError) ProtoReflect() protoreflect.Message {
-	mi := &file_api_errors_proto_msgTypes[0]
+	mi := &file_api_common_v1_errors_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -125,7 +125,7 @@ type EntityError struct {
 
 func (x *EntityError) Reset() {
 	*x = EntityError{}
-	mi := &file_api_errors_proto_msgTypes[1]
+	mi := &file_api_common_v1_errors_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -137,7 +137,7 @@ func (x *EntityError) String() string {
 func (*EntityError) ProtoMessage() {}
 
 func (x *EntityError) ProtoReflect() protoreflect.Message {
-	mi := &file_api_errors_proto_msgTypes[1]
+	mi := &file_api_common_v1_errors_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -239,7 +239,7 @@ type ErrorDetail struct {
 
 func (x *ErrorDetail) Reset() {
 	*x = ErrorDetail{}
-	mi := &file_api_errors_proto_msgTypes[2]
+	mi := &file_api_common_v1_errors_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -251,7 +251,7 @@ func (x *ErrorDetail) String() string {
 func (*ErrorDetail) ProtoMessage() {}
 
 func (x *ErrorDetail) ProtoReflect() protoreflect.Message {
-	mi := &file_api_errors_proto_msgTypes[2]
+	mi := &file_api_common_v1_errors_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -397,11 +397,11 @@ func (b0 ErrorDetail_builder) Build() *ErrorDetail {
 	return m0
 }
 
-var File_api_errors_proto protoreflect.FileDescriptor
+var File_api_common_v1_errors_proto protoreflect.FileDescriptor
 
-const file_api_errors_proto_rawDesc = "" +
+const file_api_common_v1_errors_proto_rawDesc = "" +
 	"\n" +
-	"\x10api/errors.proto\x12\x06errors\x1a!google/protobuf/go_features.proto\"E\n" +
+	"\x1aapi/common/v1/errors.proto\x12\x06errors\x1a!google/protobuf/go_features.proto\"E\n" +
 	"\x0fValidationError\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage\x12\x18\n" +
 	"\amembers\x18\x02 \x03(\tR\amembers\">\n" +
@@ -414,15 +414,15 @@ const file_api_errors_proto_rawDesc = "" +
 	"\amessage\x18\x02 \x01(\tR\amessage\x12\x16\n" +
 	"\x06reason\x18\x03 \x01(\tR\x06reason\x12D\n" +
 	"\x11validation_errors\x18\x04 \x03(\v2\x17.errors.ValidationErrorR\x10validationErrors\x128\n" +
-	"\rentity_errors\x18\x05 \x03(\v2\x13.errors.EntityErrorR\fentityErrorsB\x10Z\x06/proto\x92\x03\x05\xd2>\x02\x10\x03b\beditionsp\xe8\a"
+	"\rentity_errors\x18\x05 \x03(\v2\x13.errors.EntityErrorR\fentityErrorsB>Z4github.com/DimKa163/dalty/pkg/api/common/v1;commonv1\x92\x03\x05\xd2>\x02\x10\x03b\beditionsp\xe8\a"
 
-var file_api_errors_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_api_errors_proto_goTypes = []any{
+var file_api_common_v1_errors_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_api_common_v1_errors_proto_goTypes = []any{
 	(*ValidationError)(nil), // 0: errors.ValidationError
 	(*EntityError)(nil),     // 1: errors.EntityError
 	(*ErrorDetail)(nil),     // 2: errors.ErrorDetail
 }
-var file_api_errors_proto_depIdxs = []int32{
+var file_api_common_v1_errors_proto_depIdxs = []int32{
 	0, // 0: errors.ErrorDetail.validation_errors:type_name -> errors.ValidationError
 	1, // 1: errors.ErrorDetail.entity_errors:type_name -> errors.EntityError
 	2, // [2:2] is the sub-list for method output_type
@@ -432,26 +432,26 @@ var file_api_errors_proto_depIdxs = []int32{
 	0, // [0:2] is the sub-list for field type_name
 }
 
-func init() { file_api_errors_proto_init() }
-func file_api_errors_proto_init() {
-	if File_api_errors_proto != nil {
+func init() { file_api_common_v1_errors_proto_init() }
+func file_api_common_v1_errors_proto_init() {
+	if File_api_common_v1_errors_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_errors_proto_rawDesc), len(file_api_errors_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_common_v1_errors_proto_rawDesc), len(file_api_common_v1_errors_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_api_errors_proto_goTypes,
-		DependencyIndexes: file_api_errors_proto_depIdxs,
-		MessageInfos:      file_api_errors_proto_msgTypes,
+		GoTypes:           file_api_common_v1_errors_proto_goTypes,
+		DependencyIndexes: file_api_common_v1_errors_proto_depIdxs,
+		MessageInfos:      file_api_common_v1_errors_proto_msgTypes,
 	}.Build()
-	File_api_errors_proto = out.File
-	file_api_errors_proto_goTypes = nil
-	file_api_errors_proto_depIdxs = nil
+	File_api_common_v1_errors_proto = out.File
+	file_api_common_v1_errors_proto_goTypes = nil
+	file_api_common_v1_errors_proto_depIdxs = nil
 }

@@ -1,7 +1,7 @@
 ﻿edition = "2023";
 package errors;
 
-option go_package = "/proto";
+option go_package ="github.com/DimKa163/dalty/pkg/api/common/v1;commonv1";
 import "google/protobuf/go_features.proto";
 option features.(pb.go).api_level = API_OPAQUE;
 

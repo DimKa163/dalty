@@ -2,10 +2,10 @@ package server
 
 import (
 	"context"
-
-	"github.com/DimKa163/dalty/api/proto"
 	"github.com/DimKa163/dalty/internal/warehouse/core"
 	"github.com/DimKa163/dalty/internal/warehouse/usecase"
+	"github.com/DimKa163/dalty/pkg/api/warehouses/v1"
+
 	"github.com/beevik/guid"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -14,7 +14,7 @@ import (
 
 type PathServer struct {
 	service *usecase.PathService
-	proto.PathServiceServer
+	warehousesv1.PathServiceServer
 }
 
 func NewPathServer(service *usecase.PathService) *PathServer {
@@ -23,10 +23,10 @@ func NewPathServer(service *usecase.PathService) *PathServer {
 	}
 }
 func (ps *PathServer) Bind(server *grpc.Server) {
-	proto.RegisterPathServiceServer(server, ps)
+	warehousesv1.RegisterPathServiceServer(server, ps)
 }
-func (ps *PathServer) Get(ctx context.Context, in *proto.GetPath) (*proto.Path, error) {
-	var protoPath proto.Path
+func (ps *PathServer) Get(ctx context.Context, in *warehousesv1.GetPath) (*warehousesv1.Path, error) {
+	var protoPath warehousesv1.Path
 	id, err := guid.ParseString(in.GetId())
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
@@ -41,7 +41,7 @@ func (ps *PathServer) Get(ctx context.Context, in *proto.GetPath) (*proto.Path, 
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	list := path.GetList()
-	nodes := make([]*proto.Warehouse, len(list))
+	nodes := make([]*warehousesv1.Warehouse, len(list))
 	for i, node := range list {
 		nodes[i] = mapNodeToProto(node)
 	}
@@ -49,8 +49,8 @@ func (ps *PathServer) Get(ctx context.Context, in *proto.GetPath) (*proto.Path, 
 	return &protoPath, nil
 }
 
-func mapNodeToProto(node *core.PathNode) *proto.Warehouse {
-	var nodeProto proto.Warehouse
+func mapNodeToProto(node *core.PathNode) *warehousesv1.Warehouse {
+	var nodeProto warehousesv1.Warehouse
 	nodeProto.SetId(node.ID)
 	it := node.Value.(*core.Warehouse)
 	nodeProto.SetName(it.Name)
@@ -70,59 +70,59 @@ func mapNodeToProto(node *core.PathNode) *proto.Warehouse {
 	return &nodeProto
 }
 
-func mapTypeToProto(n *core.Warehouse) proto.WarehouseType {
+func mapTypeToProto(n *core.Warehouse) warehousesv1.WarehouseType {
 	switch n.Type {
 	case core.NodeFree:
-		return proto.WarehouseType_FREE
+		return warehousesv1.WarehouseType_FREE
 	case core.NodeMain:
-		return proto.WarehouseType_MAIN
+		return warehousesv1.WarehouseType_MAIN
 	case core.NodeCenter:
-		return proto.WarehouseType_CENTRAL
+		return warehousesv1.WarehouseType_CENTRAL
 	case core.NodeMall:
-		return proto.WarehouseType_MALL
+		return warehousesv1.WarehouseType_MALL
 	case core.NodeTransit:
-		return proto.WarehouseType_TRANSIT
+		return warehousesv1.WarehouseType_TRANSIT
 	case core.NodeReservation:
-		return proto.WarehouseType_RESERVATION
+		return warehousesv1.WarehouseType_RESERVATION
 	case core.NodeLoses:
-		return proto.WarehouseType_LOSES
+		return warehousesv1.WarehouseType_LOSES
 	case core.NodeMarketing:
-		return proto.WarehouseType_MARKETING
+		return warehousesv1.WarehouseType_MARKETING
 	case core.NodeExposition:
-		return proto.WarehouseType_EXPOSITION
+		return warehousesv1.WarehouseType_EXPOSITION
 	case core.NodePartner:
-		return proto.WarehouseType_PARTNER
+		return warehousesv1.WarehouseType_PARTNER
 	case core.NodePartner2:
-		return proto.WarehouseType_PARTNER2
+		return warehousesv1.WarehouseType_PARTNER2
 	case core.NodeFree2:
-		return proto.WarehouseType_FREE2
+		return warehousesv1.WarehouseType_FREE2
 	case core.NodeProblem:
-		return proto.WarehouseType_PROBLEM
+		return warehousesv1.WarehouseType_PROBLEM
 	case core.NodeRefund:
-		return proto.WarehouseType_REFUND
+		return warehousesv1.WarehouseType_REFUND
 	case core.NodeProduction:
-		return proto.WarehouseType_PRODUCTION
+		return warehousesv1.WarehouseType_PRODUCTION
 	case core.NodeRecycling:
-		return proto.WarehouseType_RECYCLING
+		return warehousesv1.WarehouseType_RECYCLING
 	case core.NodeService:
-		return proto.WarehouseType_SERVICE
+		return warehousesv1.WarehouseType_SERVICE
 	case core.NodeMaterial:
-		return proto.WarehouseType_MATERIAL
+		return warehousesv1.WarehouseType_MATERIAL
 	case core.NodeMarkdown:
-		return proto.WarehouseType_MARKDOWN
+		return warehousesv1.WarehouseType_MARKDOWN
 	case core.NodeBuffer:
-		return proto.WarehouseType_BUFFER
+		return warehousesv1.WarehouseType_BUFFER
 	case core.NodeDiscount:
-		return proto.WarehouseType_DISCOUNT
+		return warehousesv1.WarehouseType_DISCOUNT
 	case core.NodeCentralMainIntermediate:
-		return proto.WarehouseType_CENTRAL_MAIN_INTERMEDIATE
+		return warehousesv1.WarehouseType_CENTRAL_MAIN_INTERMEDIATE
 	case core.NodeMainCentralIntermediate:
-		return proto.WarehouseType_MAIN_CENTRAL_INTERMEDIATE
+		return warehousesv1.WarehouseType_MAIN_CENTRAL_INTERMEDIATE
 	case core.NodeCentralFreeIntermediate:
-		return proto.WarehouseType_CENTRAL_FREE_INTERMEDIATE
+		return warehousesv1.WarehouseType_CENTRAL_FREE_INTERMEDIATE
 	case core.NodeFreeCentralIntermediate:
-		return proto.WarehouseType_FREE_CENTRAL_INTERMEDIATE
+		return warehousesv1.WarehouseType_FREE_CENTRAL_INTERMEDIATE
 	default:
-		return proto.WarehouseType_UNRECOGNIZED
+		return warehousesv1.WarehouseType_UNRECOGNIZED
 	}
 }

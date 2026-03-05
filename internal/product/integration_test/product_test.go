@@ -3,6 +3,7 @@ package integration_test
 import (
 	"context"
 	"fmt"
+	productsv1 "github.com/DimKa163/dalty/pkg/api/products/v1"
 	"github.com/DimKa163/dalty/pkg/daltyerrors"
 	"github.com/DimKa163/dalty/pkg/daltyerrors/protoerr"
 	"github.com/testcontainers/testcontainers-go/wait"
@@ -11,7 +12,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/DimKa163/dalty/api/proto"
 	"github.com/DimKa163/dalty/app/product"
 	"github.com/DimKa163/dalty/internal/product/persistence"
 	"github.com/DimKa163/dalty/pkg/daltymodel"
@@ -59,29 +59,29 @@ func TestDirectSpecification(t *testing.T) {
 	if err != nil {
 		t.Fatalf("fail configure client")
 	}
-	specClient := proto.NewSpecificationServiceClient(conn)
-	var req proto.SpecificationRequest
+	specClient := productsv1.NewSpecificationServiceClient(conn)
+	var req productsv1.SpecificationRequest
 	quantity := 2
-	var specLineReq proto.SpecificationLine
+	var specLineReq productsv1.SpecificationLine
 	specLineReq.SetId(guid.NewString())
 	specLineReq.SetIntegration(productIntegrationId)
 	specLineReq.SetQuantity(int32(quantity))
-	req.SetSpecificationLines([]*proto.SpecificationLine{&specLineReq})
+	req.SetSpecificationLines([]*productsv1.SpecificationLine{&specLineReq})
 	resp, err := specClient.Execute(ctx, &req)
 
 	assert.NoError(t, err, "")
 	assert.NotNil(t, resp)
 	assert.NotEmpty(t, resp.GetSpecifications())
 	for _, spec := range resp.GetSpecifications() {
-		assert.Equal(t, proto.SpecificationType_DIRECT_SPECIFICATION, spec.GetType())
-		assert.Equal(t, proto.PickupStrategy_NEAREST, spec.GetStrategy())
+		assert.Equal(t, productsv1.SpecificationType_DIRECT_SPECIFICATION, spec.GetType())
+		assert.Equal(t, productsv1.PickupStrategy_NEAREST, spec.GetStrategy())
 		assert.NotEmpty(t, spec.GetChildProduct())
 		for _, s := range spec.GetChildProduct() {
 			switch s.GetProduct().GetGroup() {
-			case proto.ProductGroup_PRODUCT_GROUP_BEDS:
-				assert.Equal(t, proto.PickupStrategy_NEAREST, s.GetStrategy())
-			case proto.ProductGroup_PRODUCT_GROUP_BED_BASES:
-				assert.Equal(t, proto.PickupStrategy_FARTHEST, s.GetStrategy(), "pickup strategy should be "+
+			case productsv1.ProductGroup_PRODUCT_GROUP_BEDS:
+				assert.Equal(t, productsv1.PickupStrategy_NEAREST, s.GetStrategy())
+			case productsv1.ProductGroup_PRODUCT_GROUP_BED_BASES:
+				assert.Equal(t, productsv1.PickupStrategy_FARTHEST, s.GetStrategy(), "pickup strategy should be "+
 					"farthest for bed bases in compound specification")
 				assert.Equal(t, int32(4), s.GetQuantity())
 			}
@@ -126,26 +126,26 @@ func TestReverseSpecification(t *testing.T) {
 	if err != nil {
 		t.Fatalf("fail configure client")
 	}
-	specClient := proto.NewSpecificationServiceClient(conn)
+	specClient := productsv1.NewSpecificationServiceClient(conn)
 
-	var req proto.SpecificationRequest
+	var req productsv1.SpecificationRequest
 	quantity := 2
 
 	line1 := guid.NewString()
 	line2 := guid.NewString()
 
-	var specLineReq1 proto.SpecificationLine
+	var specLineReq1 productsv1.SpecificationLine
 	specLineReq1.SetId(line1)
 	specLineReq1.SetIntegration(leftProductIntegrationId)
 	specLineReq1.SetQuantity(int32(quantity))
 	specLineReq1.SetRelateToId(line2)
 
-	var specLineReq2 proto.SpecificationLine
+	var specLineReq2 productsv1.SpecificationLine
 	specLineReq2.SetId(line2)
 	specLineReq2.SetIntegration(rightProductIntegrationId)
 	specLineReq2.SetQuantity(int32(quantity))
 	specLineReq2.SetRelateToId(line1)
-	req.SetSpecificationLines([]*proto.SpecificationLine{&specLineReq1, &specLineReq2})
+	req.SetSpecificationLines([]*productsv1.SpecificationLine{&specLineReq1, &specLineReq2})
 
 	resp, err := specClient.Execute(ctx, &req)
 
@@ -153,16 +153,16 @@ func TestReverseSpecification(t *testing.T) {
 	assert.NotNil(t, resp)
 	assert.NotEmpty(t, resp.GetSpecifications())
 	for _, spec := range resp.GetSpecifications() {
-		assert.Equal(t, proto.SpecificationType_REVERSE_SPECIFICATION, spec.GetType())
-		assert.Equal(t, proto.PickupStrategy_NEAREST, spec.GetStrategy())
+		assert.Equal(t, productsv1.SpecificationType_REVERSE_SPECIFICATION, spec.GetType())
+		assert.Equal(t, productsv1.PickupStrategy_NEAREST, spec.GetStrategy())
 		assert.NotEmpty(t, spec.GetChildProduct())
 		for _, s := range spec.GetChildProduct() {
 			assert.Equal(t, int32(2), s.GetQuantity())
 			switch s.GetProduct().GetGroup() {
-			case proto.ProductGroup_PRODUCT_GROUP_BEDS:
-				assert.Equal(t, proto.PickupStrategy_NEAREST, s.GetStrategy())
-			case proto.ProductGroup_PRODUCT_GROUP_BED_BASES:
-				assert.Equal(t, proto.PickupStrategy_FARTHEST, s.GetStrategy())
+			case productsv1.ProductGroup_PRODUCT_GROUP_BEDS:
+				assert.Equal(t, productsv1.PickupStrategy_NEAREST, s.GetStrategy())
+			case productsv1.ProductGroup_PRODUCT_GROUP_BED_BASES:
+				assert.Equal(t, productsv1.PickupStrategy_FARTHEST, s.GetStrategy())
 			}
 		}
 	}
@@ -205,24 +205,24 @@ func TestDefaultSpecification(t *testing.T) {
 	if err != nil {
 		t.Fatalf("fail configure client")
 	}
-	specClient := proto.NewSpecificationServiceClient(conn)
+	specClient := productsv1.NewSpecificationServiceClient(conn)
 
-	var req proto.SpecificationRequest
+	var req productsv1.SpecificationRequest
 	quantity := 2
 
 	line1 := guid.NewString()
 	line2 := guid.NewString()
 
-	var specLineReq1 proto.SpecificationLine
+	var specLineReq1 productsv1.SpecificationLine
 	specLineReq1.SetId(line1)
 	specLineReq1.SetIntegration(leftProductIntegrationId)
 	specLineReq1.SetQuantity(int32(quantity))
 
-	var specLineReq2 proto.SpecificationLine
+	var specLineReq2 productsv1.SpecificationLine
 	specLineReq2.SetId(line2)
 	specLineReq2.SetIntegration(rightProductIntegrationId)
 	specLineReq2.SetQuantity(int32(quantity))
-	req.SetSpecificationLines([]*proto.SpecificationLine{&specLineReq1, &specLineReq2})
+	req.SetSpecificationLines([]*productsv1.SpecificationLine{&specLineReq1, &specLineReq2})
 
 	resp, err := specClient.Execute(ctx, &req)
 
@@ -230,16 +230,16 @@ func TestDefaultSpecification(t *testing.T) {
 	assert.NotNil(t, resp)
 	assert.NotEmpty(t, resp.GetSpecifications())
 	for _, spec := range resp.GetSpecifications() {
-		assert.Equal(t, proto.SpecificationType_DEFAULT, spec.GetType())
-		assert.Equal(t, proto.PickupStrategy_NEAREST, spec.GetStrategy())
+		assert.Equal(t, productsv1.SpecificationType_DEFAULT, spec.GetType())
+		assert.Equal(t, productsv1.PickupStrategy_NEAREST, spec.GetStrategy())
 		assert.NotEmpty(t, spec.GetChildProduct())
 		for _, s := range spec.GetChildProduct() {
 			assert.Equal(t, int32(2), s.GetQuantity())
 			switch s.GetProduct().GetGroup() {
-			case proto.ProductGroup_PRODUCT_GROUP_BEDS:
-				assert.Equal(t, proto.PickupStrategy_NEAREST, s.GetStrategy())
-			case proto.ProductGroup_PRODUCT_GROUP_BED_BASES:
-				assert.Equal(t, proto.PickupStrategy_NEAREST, s.GetStrategy())
+			case productsv1.ProductGroup_PRODUCT_GROUP_BEDS:
+				assert.Equal(t, productsv1.PickupStrategy_NEAREST, s.GetStrategy())
+			case productsv1.ProductGroup_PRODUCT_GROUP_BED_BASES:
+				assert.Equal(t, productsv1.PickupStrategy_NEAREST, s.GetStrategy())
 			}
 		}
 	}
@@ -264,19 +264,19 @@ func TestArchiveSpecification(t *testing.T) {
 	if err != nil {
 		t.Fatalf("fail configure client")
 	}
-	specClient := proto.NewSpecificationServiceClient(conn)
+	specClient := productsv1.NewSpecificationServiceClient(conn)
 
-	var req proto.SpecificationRequest
+	var req productsv1.SpecificationRequest
 	quantity := 2
 
 	line1 := guid.NewString()
 
-	var specLineReq proto.SpecificationLine
+	var specLineReq productsv1.SpecificationLine
 	specLineReq.SetId(line1)
 	specLineReq.SetIntegration(integrationId)
 	specLineReq.SetQuantity(int32(quantity))
 
-	req.SetSpecificationLines([]*proto.SpecificationLine{&specLineReq})
+	req.SetSpecificationLines([]*productsv1.SpecificationLine{&specLineReq})
 
 	resp, err := specClient.Execute(ctx, &req)
 
@@ -310,19 +310,19 @@ func TestNotFoundSpecification(t *testing.T) {
 	if err != nil {
 		t.Fatalf("fail configure client")
 	}
-	specClient := proto.NewSpecificationServiceClient(conn)
+	specClient := productsv1.NewSpecificationServiceClient(conn)
 
-	var req proto.SpecificationRequest
+	var req productsv1.SpecificationRequest
 	quantity := 2
 
 	line1 := guid.NewString()
 
-	var specLineReq proto.SpecificationLine
+	var specLineReq productsv1.SpecificationLine
 	specLineReq.SetId(line1)
 	specLineReq.SetIntegration(integrationId)
 	specLineReq.SetQuantity(int32(quantity))
 
-	req.SetSpecificationLines([]*proto.SpecificationLine{&specLineReq})
+	req.SetSpecificationLines([]*productsv1.SpecificationLine{&specLineReq})
 
 	resp, err := specClient.Execute(ctx, &req)
 
