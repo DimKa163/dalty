@@ -73,7 +73,7 @@ func (s *Server) AddServices() error {
 func (s *Server) AddLogging() error {
 	return logging.InitializeLogging(&logging.LogConfiguration{
 		Builders: map[string]logging.CoreBuilder{
-			"file":    logging.NewFileBuilder("D:\\logs\\warehouse.log", zap.NewProductionEncoderConfig(), zapcore.InfoLevel),
+			"file":    logging.NewFileBuilder("D:\\logs\\warehouses.log", zap.NewProductionEncoderConfig(), zapcore.InfoLevel),
 			"console": logging.NewConsoleBuilder(zap.NewDevelopmentEncoderConfig(), zapcore.DebugLevel),
 		},
 	})

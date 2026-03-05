@@ -48,7 +48,7 @@ func (ps *PathService) GetPath(ctx context.Context, dest, defaultWh *guid.Guid) 
 
 func (ps *PathService) UpdateGraph(ctx context.Context) error {
 	logger := logging.Logger(ctx)
-	logger.Info("start to update warehouse graph")
+	logger.Info("start to update warehouses graph")
 	gr := graph2.NewGraph()
 	startTime := time.Now()
 	warehouses, err := ps.warehouseRepository.GetAll(ctx)
@@ -90,7 +90,7 @@ func (ps *PathService) UpdateGraph(ctx context.Context) error {
 	}
 	ps.graphContext.Update(gr)
 	elapsed := time.Since(startTime)
-	logger.Info("warehouse graph updated successfully", zap.Duration("elapsed", elapsed))
+	logger.Info("warehouses graph updated successfully", zap.Duration("elapsed", elapsed))
 	return nil
 }
 

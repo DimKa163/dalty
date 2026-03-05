@@ -1,9 +1,10 @@
 ﻿edition = "2023";
 package products;
 
-option go_package = "/proto";
+option go_package = "github.com/DimKa163/dalty/pkg/api/products/v1;productsv1";
 
 import "google/protobuf/go_features.proto";
+
 option features.(pb.go).api_level = API_OPAQUE;
 
 enum ProductType {
