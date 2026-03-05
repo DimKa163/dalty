@@ -3,8 +3,6 @@ package usecase
 import (
 	"context"
 	"errors"
-	"fmt"
-
 	"github.com/DimKa163/dalty/internal/product/core"
 	"github.com/DimKa163/dalty/pkg/daltyerrors"
 	"github.com/DimKa163/dalty/pkg/daltymodel"
@@ -76,7 +74,7 @@ func (ss *SpecificationService) Execute(ctx context.Context, request *SpecReques
 		}
 		right, ok := reverseSpecs[left.RelateToID]
 		if !ok {
-			return nil, fmt.Errorf("no specification found for product %q", left.ID)
+			continue
 		}
 		specs = append(specs, toReverseSpecification([]*ProductSpec{left, right}))
 		left.Quantity = 0
