@@ -2,6 +2,7 @@ package warehouse
 
 import (
 	"context"
+	"google.golang.org/grpc/reflection"
 	"net"
 	"os/signal"
 	"syscall"
@@ -58,7 +59,8 @@ func (s *Server) AddServices() error {
 	if err != nil {
 		return err
 	}
-	s.ServerImpl = proto.NewGRPCServer[*ServiceContainer](listener, addGrpcServer(), s.ServiceContainer)
+	s.GrpcServer = addGrpcServer()
+	s.ServerImpl = proto.NewGRPCServer[*ServiceContainer](listener, s.GrpcServer, s.ServiceContainer)
 	s.GraphContext = addGraphContext()
 	s.PgPool, err = addPgPool(s.Config.Database)
 	if err != nil {
@@ -91,6 +93,7 @@ func (s *Server) Run() error {
 		logger.Errorf("PathService.UpdateGraph err: %v", err)
 		return err
 	}
+	reflection.Register(s.GrpcServer)
 	s.addSyscallObserver(ctx)
 	return s.ListenAndServe()
 }

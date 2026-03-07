@@ -7,7 +7,7 @@ import "google/protobuf/go_features.proto";
 option features.(pb.go).api_level = API_OPAQUE;
 
 enum WarehouseType {
-  UNRECOGNIZED  = 0;
+  UNSPECIFIED  = 0;
   FREE = 1;
   MAIN = 2;
   CENTRAL = 3;

@@ -24,7 +24,7 @@ const (
 type WarehouseType int32
 
 const (
-	WarehouseType_UNRECOGNIZED              WarehouseType = 0
+	WarehouseType_UNSPECIFIED               WarehouseType = 0
 	WarehouseType_FREE                      WarehouseType = 1
 	WarehouseType_MAIN                      WarehouseType = 2
 	WarehouseType_CENTRAL                   WarehouseType = 3
@@ -55,7 +55,7 @@ const (
 // Enum value maps for WarehouseType.
 var (
 	WarehouseType_name = map[int32]string{
-		0:  "UNRECOGNIZED",
+		0:  "UNSPECIFIED",
 		1:  "FREE",
 		2:  "MAIN",
 		3:  "CENTRAL",
@@ -83,7 +83,7 @@ var (
 		25: "FREE_CENTRAL_INTERMEDIATE",
 	}
 	WarehouseType_value = map[string]int32{
-		"UNRECOGNIZED":              0,
+		"UNSPECIFIED":               0,
 		"FREE":                      1,
 		"MAIN":                      2,
 		"CENTRAL":                   3,
@@ -202,7 +202,7 @@ func (x *Warehouse) GetType() WarehouseType {
 			return x.xxx_hidden_Type
 		}
 	}
-	return WarehouseType_UNRECOGNIZED
+	return WarehouseType_UNSPECIFIED
 }
 
 func (x *Warehouse) GetTimeZone() string {
@@ -376,7 +376,7 @@ func (x *Warehouse) ClearName() {
 
 func (x *Warehouse) ClearType() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
-	x.xxx_hidden_Type = WarehouseType_UNRECOGNIZED
+	x.xxx_hidden_Type = WarehouseType_UNSPECIFIED
 }
 
 func (x *Warehouse) ClearTimeZone() {
@@ -994,9 +994,9 @@ const file_api_warehouses_v1_warehouse_proto_rawDesc = "" +
 	"\x04path\x18\x03 \x01(\v2\x10.warehouses.PathR\x04path\"m\n" +
 	"\x12DeliveryPathResult\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12=\n" +
-	"\rdelivery_path\x18\x02 \x01(\v2\x18.warehouses.DeliveryPathR\fdeliveryPath*\xb1\x03\n" +
-	"\rWarehouseType\x12\x10\n" +
-	"\fUNRECOGNIZED\x10\x00\x12\b\n" +
+	"\rdelivery_path\x18\x02 \x01(\v2\x18.warehouses.DeliveryPathR\fdeliveryPath*\xb0\x03\n" +
+	"\rWarehouseType\x12\x0f\n" +
+	"\vUNSPECIFIED\x10\x00\x12\b\n" +
 	"\x04FREE\x10\x01\x12\b\n" +
 	"\x04MAIN\x10\x02\x12\v\n" +
 	"\aCENTRAL\x10\x03\x12\b\n" +

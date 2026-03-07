@@ -3,6 +3,7 @@ package product
 import (
 	"context"
 	"github.com/DimKa163/dalty/internal/product/server/interceptor"
+	"google.golang.org/grpc/reflection"
 	"net"
 	"os/signal"
 	"syscall"
@@ -61,9 +62,10 @@ func (s *Server) AddServices() error {
 	}
 	s.ProductRepository = addProductRepository(s.PgPool)
 	s.RelationRepository = addRelationRepository(s.PgPool)
+	s.GrpcServer = addGrpcServer()
 	s.binders = append(s.binders,
 		server.NewSpecificationServer(usecase.NewSpecificationService(s.ProductRepository, s.RelationRepository)))
-	s.ServerImpl = proto.NewGRPCServer[*ServiceContainer](listener, addGrpcServer(), s.ServiceContainer)
+	s.ServerImpl = proto.NewGRPCServer[*ServiceContainer](listener, s.GrpcServer, s.ServiceContainer)
 	return nil
 }
 
@@ -83,6 +85,7 @@ func (s *Server) Map() {
 func (s *Server) Run() error {
 	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)
 	defer cancel()
+	reflection.Register(s.GrpcServer)
 	s.addSyscallObserver(ctx)
 	return s.ListenAndServe()
 }

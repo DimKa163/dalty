@@ -1,0 +1,33 @@
+﻿edition = "2023";
+package rests;
+
+option go_package = "github.com/DimKa163/dalty/pkg/api/rests/v1;restsv1";
+
+import "google/protobuf/go_features.proto";
+
+option features.(pb.go).api_level = API_OPAQUE;
+
+message RestRequest {
+  string filial_id = 1;
+  repeated string warehouse_ids = 2;
+  repeated string product_ids = 3;
+}
+
+message Rest {
+  string product_id = 1;
+  string warehouse_id = 2;
+  string filial_id = 3;
+  double quantity = 4;
+}
+
+message RestMap {
+  map<string, Rest> rests = 1;
+}
+
+message RestResponse {
+  map<string, RestMap> balance_map = 1;
+}
+
+service RestService {
+  rpc Get(RestRequest) returns(RestResponse);
+}
