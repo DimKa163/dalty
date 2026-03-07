@@ -41,88 +41,88 @@ func (ps *PathServer) Get(ctx context.Context, in *warehousesv1.GetPath) (*wareh
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	list := path.GetList()
-	nodes := make([]*warehousesv1.Warehouse, len(list))
-	for i, node := range list {
-		nodes[i] = mapNodeToProto(node)
+	WarehouseCategorys := make([]*warehousesv1.Warehouse, len(list))
+	for i, WarehouseCategory := range list {
+		WarehouseCategorys[i] = mapWarehouseCategoryToProto(WarehouseCategory)
 	}
-	protoPath.SetNodes(nodes)
+	protoPath.SetNodes(WarehouseCategorys)
 	return &protoPath, nil
 }
 
-func mapNodeToProto(node *core.PathNode) *warehousesv1.Warehouse {
-	var nodeProto warehousesv1.Warehouse
-	nodeProto.SetId(node.ID)
-	it := node.Value.(*core.Warehouse)
-	nodeProto.SetName(it.Name)
-	nodeProto.SetType(mapTypeToProto(it))
+func mapWarehouseCategoryToProto(WarehouseCategory *core.PathNode) *warehousesv1.Warehouse {
+	var WarehouseCategoryProto warehousesv1.Warehouse
+	WarehouseCategoryProto.SetId(WarehouseCategory.ID)
+	it := WarehouseCategory.Value.(*core.Warehouse)
+	WarehouseCategoryProto.SetName(it.Name)
+	WarehouseCategoryProto.SetType(mapTypeToProto(it))
 	if it.Info != nil {
 		if it.Info.TimeZone != nil {
-			nodeProto.SetTimeZone(it.Info.TimeZone.Code)
+			WarehouseCategoryProto.SetTimeZone(it.Info.TimeZone.Code)
 		}
-		nodeProto.SetDescriptorGroup(it.Info.DescriptorGroup)
+		WarehouseCategoryProto.SetDescriptorGroup(it.Info.DescriptorGroup)
 	}
 
-	nodeProto.SetLevel(int32(node.Level))
-	nodeProto.SetAvailableRest(it.AvailableForBalance)
-	nodeProto.SetAddress(it.Info.Address)
-	nodeProto.SetOnlyStockPickupAllowed(it.OnlyStockPickupAllowed)
+	WarehouseCategoryProto.SetLevel(int32(WarehouseCategory.Level))
+	WarehouseCategoryProto.SetAvailableRest(it.AvailableForBalance)
+	WarehouseCategoryProto.SetAddress(it.Info.Address)
+	WarehouseCategoryProto.SetOnlyStockPickupAllowed(it.OnlyStockPickupAllowed)
 
-	return &nodeProto
+	return &WarehouseCategoryProto
 }
 
 func mapTypeToProto(n *core.Warehouse) warehousesv1.WarehouseType {
 	switch n.Type {
-	case core.NodeFree:
+	case core.WarehouseCategoryFree:
 		return warehousesv1.WarehouseType_FREE
-	case core.NodeMain:
+	case core.WarehouseCategoryMain:
 		return warehousesv1.WarehouseType_MAIN
-	case core.NodeCenter:
+	case core.WarehouseCategoryCentral:
 		return warehousesv1.WarehouseType_CENTRAL
-	case core.NodeMall:
+	case core.WarehouseCategoryMall:
 		return warehousesv1.WarehouseType_MALL
-	case core.NodeTransit:
+	case core.WarehouseCategoryTransit:
 		return warehousesv1.WarehouseType_TRANSIT
-	case core.NodeReservation:
+	case core.WarehouseCategoryReservation:
 		return warehousesv1.WarehouseType_RESERVATION
-	case core.NodeLoses:
+	case core.WarehouseCategoryLoses:
 		return warehousesv1.WarehouseType_LOSES
-	case core.NodeMarketing:
+	case core.WarehouseCategoryMarketing:
 		return warehousesv1.WarehouseType_MARKETING
-	case core.NodeExposition:
+	case core.WarehouseCategoryExposition:
 		return warehousesv1.WarehouseType_EXPOSITION
-	case core.NodePartner:
+	case core.WarehouseCategoryPartner:
 		return warehousesv1.WarehouseType_PARTNER
-	case core.NodePartner2:
+	case core.WarehouseCategoryPartner2:
 		return warehousesv1.WarehouseType_PARTNER2
-	case core.NodeFree2:
+	case core.WarehouseCategoryFree2:
 		return warehousesv1.WarehouseType_FREE2
-	case core.NodeProblem:
+	case core.WarehouseCategoryProblem:
 		return warehousesv1.WarehouseType_PROBLEM
-	case core.NodeRefund:
+	case core.WarehouseCategoryRefund:
 		return warehousesv1.WarehouseType_REFUND
-	case core.NodeProduction:
+	case core.WarehouseCategoryProduction:
 		return warehousesv1.WarehouseType_PRODUCTION
-	case core.NodeRecycling:
+	case core.WarehouseCategoryRecycling:
 		return warehousesv1.WarehouseType_RECYCLING
-	case core.NodeService:
+	case core.WarehouseCategoryService:
 		return warehousesv1.WarehouseType_SERVICE
-	case core.NodeMaterial:
+	case core.WarehouseCategoryMaterial:
 		return warehousesv1.WarehouseType_MATERIAL
-	case core.NodeMarkdown:
+	case core.WarehouseCategoryMarkdown:
 		return warehousesv1.WarehouseType_MARKDOWN
-	case core.NodeBuffer:
+	case core.WarehouseCategoryBuffer:
 		return warehousesv1.WarehouseType_BUFFER
-	case core.NodeDiscount:
+	case core.WarehouseCategoryDiscount:
 		return warehousesv1.WarehouseType_DISCOUNT
-	case core.NodeCentralMainIntermediate:
+	case core.WarehouseCategoryCentralMainIntermediate:
 		return warehousesv1.WarehouseType_CENTRAL_MAIN_INTERMEDIATE
-	case core.NodeMainCentralIntermediate:
+	case core.WarehouseCategoryMainCentraIntermediate:
 		return warehousesv1.WarehouseType_MAIN_CENTRAL_INTERMEDIATE
-	case core.NodeCentralFreeIntermediate:
+	case core.WarehouseCategoryCentraFreeIntermediate:
 		return warehousesv1.WarehouseType_CENTRAL_FREE_INTERMEDIATE
-	case core.NodeFreeCentralIntermediate:
+	case core.WarehouseCategoryFreeCentraIntermediate:
 		return warehousesv1.WarehouseType_FREE_CENTRAL_INTERMEDIATE
 	default:
-		return warehousesv1.WarehouseType_UNRECOGNIZED
+		return warehousesv1.WarehouseType_UNSPECIFIED
 	}
 }

@@ -66,3 +66,14 @@ tasks:
           --go-grpc_out={{.PROTO_GEN_FILE}} \
           --go-grpc_opt=paths=source_relative \
           {{.PROTO_DIR}}/warehouses/v1/warehouse.proto
+
+  rests_proto_gen_v1:
+    desc: Generate rests schemas
+    cmds:
+      - |
+        protoc \
+          --go_out={{.PROTO_GEN_FILE}} \
+          --go_opt=paths=source_relative \
+          --go-grpc_out={{.PROTO_GEN_FILE}} \
+          --go-grpc_opt=paths=source_relative \
+          {{.PROTO_DIR}}/rests/v1/rests.proto
